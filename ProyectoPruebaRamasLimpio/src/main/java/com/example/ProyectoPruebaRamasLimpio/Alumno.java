@@ -12,4 +12,12 @@ public class Alumno {
 
     private String centroProcedenciaAlumno;
 
+	public String getCentroProcedenciaAlumno() {
+		return centroProcedenciaAlumno;
+	}
+
+	public void setCentroProcedenciaAlumno(String centroProcedenciaAlumno) {
+		this.centroProcedenciaAlumno = centroProcedenciaAlumno;
+	}
+
 }
