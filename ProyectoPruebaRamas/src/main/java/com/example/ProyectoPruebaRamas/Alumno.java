@@ -17,7 +17,7 @@ public class Alumno {
 	}
 
 	public void setGetApellido1Alumno(String getApellido1Alumno) {
-		this.getApellidolAlumno = getApellido1Alumno;
+		this.getApellido1Alumno = getApellido1Alumno;
 	}
 
     
