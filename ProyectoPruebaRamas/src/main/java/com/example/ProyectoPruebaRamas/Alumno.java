@@ -18,6 +18,14 @@ public class Alumno {
 
     private int getEdadAlumno;
 
+    public int getEdadAlumno() {
+        return getEdadAlumno;
+    }
+
+    public void setEdadAlumno(int edadAlumno) {
+        this.getEdadAlumno = edadAlumno;
+    }
+
     private String centroProcedenciaAlumno;
 
 	public String getCentroProcedenciaAlumno() {
