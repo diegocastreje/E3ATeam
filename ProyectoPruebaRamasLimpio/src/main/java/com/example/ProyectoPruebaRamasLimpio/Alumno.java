@@ -11,5 +11,5 @@ public class Alumno {
     private int getEdadAlumno;
 
     private String centroProcedenciaAlumno;
-    
+
 }
