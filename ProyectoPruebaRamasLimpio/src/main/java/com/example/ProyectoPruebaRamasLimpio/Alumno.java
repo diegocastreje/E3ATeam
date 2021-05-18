@@ -12,4 +12,11 @@ public class Alumno {
 
     private String centroProcedenciaAlumno;
 
+    public int getEdadAlumno() {
+        return getEdadAlumno;
+    }
+
+    public void setEdadAlumno(int edadAlumno) {
+        this.getEdadAlumno = edadAlumno;
+    }
 }
