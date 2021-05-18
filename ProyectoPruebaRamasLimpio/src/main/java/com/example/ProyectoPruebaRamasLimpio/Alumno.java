@@ -44,6 +44,14 @@ public class Alumno {
 	public void setGetApellido2Alumno(String getApellido2Alumno) {
 		this.getApellido2Alumno = getApellido2Alumno;
 	}
+  
+  	public String getCentroProcedenciaAlumno() {
+		return centroProcedenciaAlumno;
+	}
+
+	public void setCentroProcedenciaAlumno(String centroProcedenciaAlumno) {
+		this.centroProcedenciaAlumno = centroProcedenciaAlumno;
+	}
 
     
 }
