@@ -1,15 +1,7 @@
 package com.example.ProyectoPruebaRamasLimpio;
 
 public class Alumno {
-
-    public String getGetNombreAlumno() {
-        return getNombreAlumno;
-    }
-
-    public void setGetNombreAlumno(String getNombreAlumno) {
-        this.getNombreAlumno = getNombreAlumno;
-    }
-
+	
     private String getNombreAlumno;
 
     private String getApellido1Alumno;
@@ -20,14 +12,13 @@ public class Alumno {
 
     private String centroProcedenciaAlumno;
 
+	public String getGetNombreAlumno() {
+		return getNombreAlumno;
+	}
 
-    public int getEdadAlumno() {
-        return getEdadAlumno;
-    }
-
-    public void setEdadAlumno(int edadAlumno) {
-        this.getEdadAlumno = edadAlumno;
-    }
+	public void setGetNombreAlumno(String getNombreAlumno) {
+		this.getNombreAlumno = getNombreAlumno;
+	}
 
 	public String getGetApellido1Alumno() {
 		return getApellido1Alumno;
@@ -44,6 +35,14 @@ public class Alumno {
 	public void setGetApellido2Alumno(String getApellido2Alumno) {
 		this.getApellido2Alumno = getApellido2Alumno;
 	}
+
+	public int getEdadAlumno() {
+		return getEdadAlumno;
+	}
+
+	public void setEdadAlumno(int edadAlumno) {
+		this.getEdadAlumno = edadAlumno;
+	}
   
   	public String getCentroProcedenciaAlumno() {
 		return centroProcedenciaAlumno;
@@ -53,5 +52,4 @@ public class Alumno {
 		this.centroProcedenciaAlumno = centroProcedenciaAlumno;
 	}
 
-    
 }
