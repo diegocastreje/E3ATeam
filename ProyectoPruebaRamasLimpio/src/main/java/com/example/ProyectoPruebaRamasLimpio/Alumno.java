@@ -36,6 +36,14 @@ public class Alumno {
 	public void setGetApellido1Alumno(String getApellido1Alumno) {
 		this.getApellido1Alumno = getApellido1Alumno;
 	}
+  
+  	public String getGetApellido2Alumno() {
+		return getApellido2Alumno;
+	}
+
+	public void setGetApellido2Alumno(String getApellido2Alumno) {
+		this.getApellido2Alumno = getApellido2Alumno;
+	}
 
     
 }
