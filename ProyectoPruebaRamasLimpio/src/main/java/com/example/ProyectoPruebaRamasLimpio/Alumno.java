@@ -20,4 +20,13 @@ public class Alumno {
 
     private String centroProcedenciaAlumno;
 
+	public String getGetApellido1Alumno() {
+		return getApellido1Alumno;
+	}
+
+	public void setGetApellido1Alumno(String getApellido1Alumno) {
+		this.getApellido1Alumno = getApellido1Alumno;
+	}
+
+    
 }
