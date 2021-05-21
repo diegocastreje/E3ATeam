@@ -5,10 +5,11 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 @Entity
+@Table(name="payment_methods")
 public class PaymentMethod implements Serializable{
 
-	private static final long serialVersionUID = 1L;
 	@Id
 	private long payment_id;
 	@Column(nullable=false)
@@ -32,5 +33,5 @@ public class PaymentMethod implements Serializable{
 		this.description = description;
 	}
 	
-	
+	private static final long serialVersionUID = 1L;
 }
