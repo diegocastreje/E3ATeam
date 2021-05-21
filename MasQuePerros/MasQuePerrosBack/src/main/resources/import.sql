@@ -18,8 +18,8 @@ INSERT INTO items(name, description, amount, price, category) VALUES ('Collar','
 INSERT INTO items(name, description, amount, price, category) VALUES ('Correa','Correa negra 2m', 10, 15, 'Accesorios');
 
 
-INSERT INTO `orders` (nie, price) VALUES ('12345678A', 60)
-INSERT INTO `orders` (nie, price) VALUES ('34567891C', 250)
+INSERT INTO `orders` (nie, price) VALUES ('12345678A', 60);
+INSERT INTO `orders` (nie, price) VALUES ('34567891C', 250);
 
 
 INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (2, 50, 1, 1);

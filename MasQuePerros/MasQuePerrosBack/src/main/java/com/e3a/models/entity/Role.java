@@ -15,7 +15,7 @@ public class Role implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long rol_id;
+	private long role_id;
 	@Column(unique = true,length = 20)
 	private String name;
 	
@@ -23,16 +23,16 @@ public class Role implements Serializable{
 
 	public Role(long rol_id, String name) {
 		super();
-		this.rol_id = rol_id;
+		this.role_id = rol_id;
 		this.name = name;
 	}
 
-	public long getRol_id() {
-		return rol_id;
+	public long getRole_id() {
+		return role_id;
 	}
 
-	public void setRol_id(long rol_id) {
-		this.rol_id = rol_id;
+	public void setRole_id(long rol_id) {
+		this.role_id = rol_id;
 	}
 
 	public String getName() {
