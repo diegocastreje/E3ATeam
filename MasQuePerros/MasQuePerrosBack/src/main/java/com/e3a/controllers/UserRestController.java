@@ -33,7 +33,6 @@ public class UserRestController {
     @GetMapping("/users")
     public List<User> index() {
         return userService.findAll();
-
     }
     
     @GetMapping("/users/{id}")
