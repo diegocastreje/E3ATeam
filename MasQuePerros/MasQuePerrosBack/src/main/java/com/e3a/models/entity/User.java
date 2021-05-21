@@ -59,8 +59,8 @@ public class User implements Serializable{
 	private List<Role> roles;
 	
 	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name="paymentMethod", foreignKey = @ForeignKey(name="fk_paymentMethod"))
-	private List<PaymentMethod> paymentMethod;
+	@JoinColumn(name="payment_method", foreignKey = @ForeignKey(name="fk_paymentMethod"))
+	private List<PaymentMethod> payment_method;
 	
 	public User() {}
 	
@@ -144,12 +144,14 @@ public class User implements Serializable{
 		this.first_access = first_access;
 	}
 
-	public List<PaymentMethod> getPaymentMethod() {
-		return paymentMethod;
+	public List<PaymentMethod> getPayment_method() {
+		return payment_method;
 	}
 
-	public void setPaymentMethod(List<PaymentMethod> paymentMethod) {
-		this.paymentMethod = paymentMethod;
+	public void setPayment_method(List<PaymentMethod> payment_method) {
+		this.payment_method = payment_method;
 	}
+
+	
 	
 }
