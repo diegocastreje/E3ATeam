@@ -29,7 +29,6 @@ public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	
 	private String nie;	
 	@NotEmpty(message = "This field can not be empty")
 	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
