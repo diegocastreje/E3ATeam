@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private urlEndPoint: string = 'http://localhost:8080/rutagetusuarios';
+  private urlEndPoint: string = 'http://localhost:8080/api/users';
 
   constructor(private http: HttpClient, private router: Router) { }
 
