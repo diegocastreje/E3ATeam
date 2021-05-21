@@ -16,7 +16,7 @@ public class UserRestController {
     @Autowired
     private IUserService userService;
 
-    @GetMapping
+    @GetMapping("/users")
     public List<User> index() {
         return userService.findAll();
 
