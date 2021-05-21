@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,6 +34,11 @@ public class UserRestController {
     public List<User> index() {
         return userService.findAll();
 
+    }
+    
+    @GetMapping("/users/{id}")
+    public User show(@PathVariable Long id) {
+        return userService.findById(id);
     }
     
     @PutMapping("/users/{id}")
@@ -107,5 +111,5 @@ public class UserRestController {
 		response.put("mensaje", "El usuario ha sido eliminado con éxito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-    
+
 }
