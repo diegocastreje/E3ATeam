@@ -41,7 +41,7 @@ public class User implements Serializable{
 	@Column
 	private Date birth_date;
 	@NotEmpty(message = "This field can not be empty")
-	@Column(unique = true,length = 20)
+	@Column(unique = true,length = 50)
 	@Email
 	private String email;
 	@Column
