@@ -1,0 +1,10 @@
+<table class="table table-light">
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.user }}</td>
+            <td>{{ user.first_name }} {{ user.middle_name }} {{ user.last_name }}</td>
+            <td>{{ user.birth_day }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+    </tbody>
+</table>
