@@ -141,5 +141,9 @@ public class User implements Serializable{
 		this.username = username;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
 	private static final long serialVersionUID = 1L;
 }
