@@ -10,18 +10,18 @@ public class PaymentMethod implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	@Id
-	private long paymentId;
+	private long payment_id;
 	@Column(nullable=false)
 	private String description;
 	
 	public PaymentMethod() {}
 
-	public long getPaymentId() {
-		return paymentId;
+	public long getPayment_id() {
+		return payment_id;
 	}
 
-	public void setPaymentId(long paymentId) {
-		this.paymentId = paymentId;
+	public void setPayment_id(long payment_id) {
+		this.payment_id = payment_id;
 	}
 
 	public String getDescription() {
