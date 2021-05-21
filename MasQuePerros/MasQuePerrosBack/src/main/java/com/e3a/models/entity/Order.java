@@ -27,7 +27,7 @@ public class Order implements Serializable{
 	
 	@JsonIgnoreProperties(value = {"orders","hibernateLazyInitializer","handler"}, allowSetters = true)
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="nie", foreignKey = @ForeignKey(name="fk_user"))
+	@JoinColumn(name="user_id", foreignKey = @ForeignKey(name="fk_user"))
 	private User user;
 	
 	private double price;

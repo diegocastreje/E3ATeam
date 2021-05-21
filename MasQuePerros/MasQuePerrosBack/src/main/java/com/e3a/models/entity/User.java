@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -22,7 +24,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class User implements Serializable{
 	
 	@Id
-	private String nie;	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long user_id;	
 	@NotEmpty(message = "This field can not be empty")
 	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
 	@Column(unique = true)
@@ -56,13 +59,13 @@ public class User implements Serializable{
 	private PaymentMethod payment_method;
 	
 	public User() {}
-	
-	public String getNie() {
-		return nie;
+
+	public long getUser_id() {
+		return user_id;
 	}
 
-	public void setNie(String nie) {
-		this.nie = nie;
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getPassword() {
