@@ -28,15 +28,8 @@ public class Item implements Serializable{
 	
 	private String category;
 
-	public Item(long item_id, String name, String description, int amount, String picture, double price, String category) {
-		super();
-		this.item_id = item_id;
-		this.name = name;
-		this.description = description;
-		this.amount = amount;
-		this.picture = picture;
-		this.price = price;
-		this.category = category;
+	public Item() {
+
 	}
 
 	public long getItem_id() {

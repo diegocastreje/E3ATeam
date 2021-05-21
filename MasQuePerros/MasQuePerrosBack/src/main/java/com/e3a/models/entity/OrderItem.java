@@ -30,12 +30,8 @@ public class OrderItem implements Serializable{
 	@JoinColumn(name="item_id")
 	private Item item;
 
-	public OrderItem(long order_item_id, int amount, double price, Item item) {
-		super();
-		this.order_item_id = order_item_id;
-		this.amount = amount;
-		this.price = price;
-		this.item = item;
+	public OrderItem() {
+
 	}
 
 	public long getOrder_item_id() {
