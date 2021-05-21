@@ -2,7 +2,6 @@ package com.e3a.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,12 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -25,15 +20,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 @Table(name="users")
 public class User implements Serializable{
-
-	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private String nie;	
 	@NotEmpty(message = "This field can not be empty")
 	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
 	@Column(unique = true)
-	private String user;
+	private String username;
 	@NotEmpty(message = "This field can not be empty")
 	@Column(length = 60)
 	private String password;
@@ -54,15 +47,13 @@ public class User implements Serializable{
 	@Column
 	private boolean first_access; //true->first access / false->not first access
 	
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role",joinColumns = @JoinColumn(name="nie")
-	,inverseJoinColumns =@JoinColumn(name="role_id"),
-	uniqueConstraints = {@UniqueConstraint(columnNames = {"nie","role_id"})})
-	private List<Role> roles;
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
+	private Role role;
 	
-	@OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinColumn(name="payment_method", foreignKey = @ForeignKey(name="fk_paymentMethod"))
-	private List<PaymentMethod> payment_method;
+	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
+	private PaymentMethod payment_method;
 	
 	public User() {}
 	
@@ -72,14 +63,6 @@ public class User implements Serializable{
 
 	public void setNie(String nie) {
 		this.nie = nie;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
 	}
 
 	public String getPassword() {
@@ -130,14 +113,6 @@ public class User implements Serializable{
 		this.email = email;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
 	public boolean isFirst_access() {
 		return first_access;
 	}
@@ -146,14 +121,25 @@ public class User implements Serializable{
 		this.first_access = first_access;
 	}
 
-	public List<PaymentMethod> getPayment_method() {
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public PaymentMethod getPayment_method() {
 		return payment_method;
 	}
 
-	public void setPayment_method(List<PaymentMethod> payment_method) {
+	public void setPayment_method(PaymentMethod payment_method) {
 		this.payment_method = payment_method;
 	}
 
-	
-	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	private static final long serialVersionUID = 1L;
 }
