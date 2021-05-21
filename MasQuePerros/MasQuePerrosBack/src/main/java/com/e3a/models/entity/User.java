@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
@@ -22,11 +23,13 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
+@Table(name="users")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	
 	private String nie;	
 	@NotEmpty(message = "This field can not be empty")
 	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
@@ -53,7 +56,7 @@ public class User implements Serializable{
 	private boolean first_access; //true->first access / false->not first access
 	
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	@JoinTable(name = "user_role",joinColumns = @JoinColumn(name="role_id")
+	@JoinTable(name = "user_role",joinColumns = @JoinColumn(name="nie")
 	,inverseJoinColumns =@JoinColumn(name="role_id"),
 	uniqueConstraints = {@UniqueConstraint(columnNames = {"nie","role_id"})})
 	private List<Role> roles;
