@@ -1,4 +1,4 @@
-package com.example.ProyectoPruebaRamasLimpio;
+package main.java.com.example.ProyectoPruebaRamasLimpio;
 
 public class Alumno {
 	
