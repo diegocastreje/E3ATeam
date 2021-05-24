@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { User } from './user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getUsuarios(): Observable<any> {
-    return this.http.get(this.urlEndPoint);
+  getUsuarios(): Observable<User[]> {
+    return this.http.get<User[]>(this.urlEndPoint);
   }
 }

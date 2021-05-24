@@ -1,56 +1,60 @@
-<div class="card bg-dark text-white border-primary mb-3 my-3">
-  <div class="card-header">Clientes</div>
-  <div class="card-body text-primary">
-    <h5 class="card-title text-white">Lista de Clientes</h5>
-
-    <div class="my-3 text-left">
-      <button
-        class="btn btn-rounded btn-primary"
-      >
-      
-        <!--[routerLink]="['/users/rutadelformulario']"-->
-        Crear
-      </button>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-4 col-sm-3 col-md-2 bg-dark text-light ml-3">Ordenar por:</div>
+    <div class="col-3 col-sm-2">
+      <select class="form-control" (change)="cambioOrden($event.target)">
+        <option>Nombre de usuario</option>
+        <option>Método de pago</option>
+        <option>Perfil</option>
+      </select>
     </div>
+  </div>
 
-    <table
-      aria-describedby="tablaClientes"
-      class="table table-dark text-white"
-    >
-      <thead>
-        <tr>
-          <th scope="col">Nombre Usuario</th>
-          <th scope="col">Método de pago</th>
-          <th scope="col">Perfil</th>
-          <th scope="col">Usuario</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users">
-          <td>{{ user.user }}</td>
-          <td>{{ user.paymentMethod }}</td>
-          <td>
-            <button
-              type="button"
-              name="editar"
-              
-              class="btn btn-primary"
-              style="margin-right: 10px"
-            >
-            <!--[routerLink]="['/clientes/formulario', cli.id]"-->
-              <em class="bi bi-pencil"></em>
-            </button>
-            <button
-              type="button"
-              name="eliminar"
-              class="btn btn-danger"
-            >
-            <!--(click)="delete(cli)"-->
-              <em class="bi bi-eraser"></em>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col">
+      <div class="my-3 text-left">
+        <button class="btn btn-rounded btn-primary">
+          <!--[routerLink]="['/users/rutadelformulario']"-->
+          Crear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table aria-describedby="tablaClientes" class="table">
+        <thead>
+          <tr>
+            <th scope="col">Nombre Usuario</th>
+            <th scope="col">Método de pago</th>
+            <th scope="col">Perfil</th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>{{ user.payment_method.description }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>
+              <button
+                type="button"
+                name="editar"
+                class="btn btn-primary"
+                style="margin-right: 10px"
+              >
+                <!--[routerLink]="['/clientes/formulario', cli.id]"-->
+                <em class="bi bi-pencil"></em>
+              </button>
+              <button type="button" name="eliminar" class="btn btn-danger">
+                <!--(click)="delete(cli)"-->
+                <em class="bi bi-eraser"></em>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
