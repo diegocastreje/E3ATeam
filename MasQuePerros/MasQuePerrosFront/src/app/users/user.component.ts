@@ -19,8 +19,13 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.userService.getUsuarios().subscribe((response) => {
-        this.users = response.content as User[];
+        console.info(response);
+        this.users = response as User[];
       });
     });
+  }
+
+  cambioOrden(target: any){
+    console.info(target.value);
   }
 }
