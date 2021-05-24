@@ -44,7 +44,7 @@ public class User implements Serializable{
 	private String middle_name;
 	@Column(length = 20)
 	private String last_name;
-	@NotEmpty(message = "This field can not be empty")
+	//@NotEmpty(message = "This field can not be empty")
 	@Column
 	private Date birth_date;
 	@NotEmpty(message = "This field can not be empty")
@@ -55,12 +55,12 @@ public class User implements Serializable{
 	private boolean first_access; //true->first access / false->not first access
 	
 	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
 	private Role role;
 	
 	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;
 	
