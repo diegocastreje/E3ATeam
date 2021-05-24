@@ -10,6 +10,8 @@ import { UserService } from './user.service';
 })
 export class UserComponent implements OnInit {
   users: User[] = [];
+  columna: string = '';
+  tipoOrden: string = '';
 
   constructor(
     private userService: UserService,
@@ -19,13 +21,58 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.userService.getUsuarios().subscribe((response) => {
-        console.info(response);
-        this.users = response as User[];
+        this.users = response;
       });
     });
   }
 
-  cambioOrden(target: any){
-    console.info(target.value);
+  cambioOrden(columna: string) {
+    if (columna) {
+      if (this.columna === columna) {
+        this.tipoOrden = this.tipoOrden === 'asc' ? 'desc' : 'asc';
+      }
+
+      this.columna = columna;
+
+      this.ordenar(this.users, this.columna, this.tipoOrden);
+    }
+  }
+
+  ordenarAsc(columna: string) {
+    return this.columna == columna && this.tipoOrden == 'asc';
+  }
+
+  ordenarDesc(columna: string) {
+    return this.columna == columna && this.tipoOrden == 'desc';
+  }
+
+  private ordenar(usuarios: Array<any>, columna: string, orden: string) {
+    var sortFunc = function (field: string, desc: boolean) {
+      // Return the required a,b function
+      return function (a: any, b: any) {
+        // Reset a, b to the field
+        var ca = a[columna];
+        var cb = b[columna];
+        var res = 0;
+
+        switch (columna) {
+          case 'username':
+            res = ca.localeCompare(cb);
+            break;
+          case 'role':
+            res = ca.name > cb.name ? -1 : 1;
+            break;
+          case 'payment_method':
+            res =
+              ca.description > cb.description
+                ? -1
+                : 1;
+        }
+
+        return res * (desc ? -1 : 1);
+      };
+    };
+
+    usuarios.sort(sortFunc(columna, orden === 'desc'));
   }
 }
