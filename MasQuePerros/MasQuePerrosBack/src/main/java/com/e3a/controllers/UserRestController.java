@@ -2,16 +2,18 @@ package com.e3a.controllers;
 
 import com.e3a.models.entity.User;
 import com.e3a.models.services.IUserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = {"http://localhost:4200", "*"})
 public class UserRestController {
 
     @Autowired
@@ -41,6 +44,39 @@ public class UserRestController {
     public User show(@PathVariable Long id) {
         return userService.findById(id);
     }
+    
+	@PostMapping("/users")
+	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
+		User userNew =null;
+		Map<String , Object> response = new HashMap();
+		
+		if(result.hasErrors()) {
+            
+            List<String> errors = new ArrayList<>();
+            for(FieldError err: result.getFieldErrors()) {
+                System.out.println("El campo '" + err.getField() + "' " + err.getDefaultMessage());
+                errors.add("El campo '" + err.getField() + "' " + err.getDefaultMessage());
+            }
+            
+            response.put("errors", errors);
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+        }
+        else {
+			
+			try {
+				userNew = userService.save(user);
+			}catch(DataAccessException e) {
+				response.put("mensaje","Error al realizar la insercion en la base de datos");
+				response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+			}
+			response.put("mensaje", "El usuario ha sido creado con exito!");
+			response.put("user", userNew);
+			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+			
+			}
+		}
     
     @PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
