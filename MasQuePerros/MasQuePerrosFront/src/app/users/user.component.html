@@ -44,24 +44,33 @@
           <tr>
             <th
               scope="col"
-              (click)="cambioOrden('username')"
+              (click)="cambioOrden('first_name')"
               [ngClass]="{
-                sorting_asc: ordenarAsc('username'),
-                sorting_desc: ordenarDesc('username')
+                sorting_asc: ordenarAsc('first_name'),
+                sorting_desc: ordenarDesc('first_name')
               }"
             >
-              Nombre Usuario
+              Nombre
             </th>
             <th
               scope="col"
-              (click)="cambioOrden('payment_method')"
+              (click)="cambioOrden('middle_name')"
               [ngClass]="{
-                sorting_asc: ordenarAsc('payment_method'),
-                sorting_desc: ordenarDesc('payment_method')
+                sorting_asc: ordenarAsc('middle_name'),
+                sorting_desc: ordenarDesc('middle_name')
               }"
             >
-              Método de pago 
-              <span></span>
+              Primer Apellido
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('last_name')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('last_name'),
+                sorting_desc: ordenarDesc('last_name')
+              }"
+            >
+              Segundo Apellido
             </th>
             <th
               scope="col"
@@ -78,8 +87,9 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of users">
-            <td>{{ user.username }}</td>
-            <td>{{ user.payment_method.description }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.middle_name }}</td>
+            <td>{{ user.last_name }}</td>
             <td>{{ user.role.name }}</td>
             <td>
               <button

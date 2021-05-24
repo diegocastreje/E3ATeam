@@ -56,17 +56,13 @@ export class UserComponent implements OnInit {
         var res = 0;
 
         switch (columna) {
-          case 'username':
+          case 'first_name':
+          case 'middle_name':
+          case 'last_name':
             res = ca.localeCompare(cb);
             break;
           case 'role':
             res = ca.name > cb.name ? -1 : 1;
-            break;
-          case 'payment_method':
-            res =
-              ca.description > cb.description
-                ? -1
-                : 1;
         }
 
         return res * (desc ? -1 : 1);
