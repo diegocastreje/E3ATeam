@@ -6,11 +6,10 @@
           <div class="card-header">
             <h5 class="mb-0">
               <button
+                id="btnFiltrosUsers"
                 class="btn btn-link"
                 data-toggle="collapse"
                 data-target="#filtros"
-                aria-expanded="true"
-                aria-controls="filtros"
               >
                 Filtros
               </button>
@@ -18,7 +17,50 @@
           </div>
           <div id="filtros" class="collapse" data-parent="#accordion">
             <div class="card-body">
-              <!--Aqui van los filtros-->
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Nombre</div>
+                        <div class="col-12">
+                          <input type="text" name="fNombre" [value]="fNombre" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Primer Apellido</div>
+                        <div class="col-12">
+                          <input type="text" name="fPrimer" [value]="fPrimer" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Segundo Apellido</div>
+                        <div class="col-12">
+                          <input type="text" name="fSegundo" [value]="fSegundo" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Perfil</div>
+                        <div class="col-12">
+                          <input type="text" name="fPerfil" [value]="fPerfil" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +128,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let user of users">
+          <tr *ngFor="let user of usuariosFiltrados">
             <td>{{ user.first_name }}</td>
             <td>{{ user.middle_name }}</td>
             <td>{{ user.last_name }}</td>
