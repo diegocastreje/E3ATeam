@@ -1,0 +1,72 @@
+<!-- Barras Ordenar y Buscar-->
+<!--
+<div class="row">
+  <div class="col">
+    <div class="container">
+      <div class="dropdown">
+        <button class="btn btnFilter dropdown-toggle filter text-white" type="button" data-toggle="dropdown">Ordenar por:
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Nombre</a></li>
+          <li><a href="#">Cantidad</a></li>
+          <li><a href="#">Descripción</a></li>
+          <li><a href="#">Foto</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <form class="d-flex search">
+      <input class="form-control" type="search" style="border-radius: 0px;">
+      <button class="btnSearch" type="submit">Buscar</button>
+    </form>
+  </div>
+</div>
+-->
+<!-- Tabla de productos -->
+
+<table class="table table-bordered table-striped" *ngIf="items?.length>0">
+  <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th>Stock</th>
+      <th>Descripción</th>
+      <!--
+      <th>Añadir al carrito</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+      -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of items">
+      <td><img *ngIf="item?.picture"
+        src="http://localhost:8081/api/uploads/img/{{item.picture}}" alt="{{item.picture}}" class="img-thumbnail rounded"
+        style="width:64px; cursor: pointer;">
+        <img *ngIf="!item?.picture"
+          src="http://localhost:8081/img/bone.png" alt="Sin foto" class="img-thumbnail rounded"
+          style="width:64px; cursor: pointer;"></td>
+      <td>{{item.nombre}}</td>
+      <td>{{item.amount}}</td>
+      <td>{{item.description}}</td>
+      <!--
+      <td>
+        <button type="button" class="btn btn-success btn-sm" [routerLink] = "">Añadir al carrito</button>
+      </td>
+
+      <td>
+        <button type="button" name="editar" [routerLink] = "['/items/form',items.id]" class="btn btn-primary btn-sm">
+          Editar
+        </button>
+      </td>
+      <td>
+        <button type="button" name="eliminar" (click)='delete(item)' class="btn btn-danger btn-sm">
+          Eliminar
+        </button>
+      </td>
+      -->
+
+    </tr>
+  </tbody>
+</table>

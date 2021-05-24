@@ -3,13 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { ProductosComponent } from './productos/productos.component';
+import { ItemsComponent } from './items/items.component';
+import { ItemService } from './items/item.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/productos', pathMatch: 'full'},
-  {path: 'productos', component: ProductosComponent}
+  {path: 'productos', component: ItemsComponent}
 ];
 
 @NgModule({
@@ -17,13 +19,14 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductosComponent
+    ItemsComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
