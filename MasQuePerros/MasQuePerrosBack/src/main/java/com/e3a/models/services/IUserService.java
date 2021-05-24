@@ -22,9 +22,8 @@ public interface IUserService {
 	
 	public Order saveOrder(Order order);
 	
-	public void deleteFacturaById(Long id);
+	public void deleteOrderById(Long id);
 	
-	public List<Item> findItemByName(String term);
 	
 
 }

@@ -62,13 +62,10 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	@Transactional 
-	public void deleteFacturaById(Long id) {
+	public void deleteOrderById(Long id) {
 		orderDao.deleteById(id);
 	}
 
-	@Override
-	public List<Item> findItemByName(String term) {
-		return itemDao.findByNameContainingIgnoreCase(term);
-	}
+	
 
 }
