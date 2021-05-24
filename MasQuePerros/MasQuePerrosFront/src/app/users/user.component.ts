@@ -10,8 +10,15 @@ import { UserService } from './user.service';
 })
 export class UserComponent implements OnInit {
   users: User[] = [];
+
   columna: string = '';
   tipoOrden: string = '';
+
+  fNombre: string = '';
+  fPrimer: string = '';
+  fSegundo: string = '';
+  fPerfil: string = '';
+  usuariosFiltrados: User[] = [];
 
   constructor(
     private userService: UserService,
@@ -22,7 +29,60 @@ export class UserComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.userService.getUsuarios().subscribe((response) => {
         this.users = response;
+        this.usuariosFiltrados = response;
       });
+    });
+  }
+
+  aplicarFiltro(event: any) {
+    switch (event.originalTarget.name) {
+      case 'fNombre':
+        this.fNombre = event.originalTarget.value;
+        break;
+      case 'fPrimer':
+        this.fPrimer = event.originalTarget.value;
+        break;
+      case 'fSegundo':
+        this.fSegundo = event.originalTarget.value;
+        break;
+      case 'fPerfil':
+        this.fPerfil = event.originalTarget.value;
+    }
+
+    this.usuariosFiltrados = this.filtrar();
+  }
+
+  filtrar(): User[] {
+    return this.users.filter((usuario: User) => {
+      var filtrar = true;
+      if (this.fNombre) {
+        filtrar =
+          usuario.first_name
+            .toLocaleLowerCase()
+            .indexOf(this.fNombre.toLocaleLowerCase()) !== -1;
+      }
+
+      if (this.fPrimer && filtrar) {
+        filtrar =
+          usuario.middle_name
+            .toLocaleLowerCase()
+            .indexOf(this.fPrimer.toLocaleLowerCase()) !== -1;
+      }
+
+      if (this.fSegundo && filtrar) {
+        filtrar =
+          usuario.last_name
+            .toLocaleLowerCase()
+            .indexOf(this.fSegundo.toLocaleLowerCase()) !== -1;
+      }
+
+      if (this.fPerfil && filtrar) {
+        filtrar =
+          usuario.role.name
+            .toLocaleLowerCase()
+            .indexOf(this.fPerfil.toLocaleLowerCase()) !== -1;
+      }
+      return filtrar;
     });
   }
 
