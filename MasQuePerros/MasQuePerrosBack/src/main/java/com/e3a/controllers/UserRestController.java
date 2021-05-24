@@ -150,9 +150,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			
-			User user = userService.findById(id);
-			
+
 			userService.delete(id);
 			
 		}catch(DataAccessException e){

@@ -55,12 +55,12 @@ public class User implements Serializable{
 	private boolean first_access; //true->first access / false->not first access
 	
 	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
 	private Role role;
 	
 	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;
 	
