@@ -36,8 +36,14 @@ public class UserRestController {
     }
 
 	@GetMapping("/users/{id}")
-	public User show(@PathVariable Long id) {
-		return userService.findById(id);
+	public ResponseEntity<?> show(@PathVariable Long id) {
+		User user = userService.findById(id);
+		Map<String, Object> response = new HashMap<>();
+		if(user == null) {
+			response.put("mensaje", "El usuario ID:".concat(id.toString().concat(" no existe en la base de dattos.")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
     @PutMapping("/users/{id}")
