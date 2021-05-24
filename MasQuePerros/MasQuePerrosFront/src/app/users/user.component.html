@@ -1,12 +1,28 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-4 col-sm-3 col-md-2 bg-dark text-light ml-3">Ordenar por:</div>
-    <div class="col-3 col-sm-2">
-      <select class="form-control" (change)="cambioOrden($event.target)">
-        <option>Nombre de usuario</option>
-        <option>Método de pago</option>
-        <option>Perfil</option>
-      </select>
+    <div class="col">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button
+                class="btn btn-link"
+                data-toggle="collapse"
+                data-target="#filtros"
+                aria-expanded="true"
+                aria-controls="filtros"
+              >
+                Filtros
+              </button>
+            </h5>
+          </div>
+          <div id="filtros" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <!--Aqui van los filtros-->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -26,9 +42,37 @@
       <table aria-describedby="tablaClientes" class="table">
         <thead>
           <tr>
-            <th scope="col">Nombre Usuario</th>
-            <th scope="col">Método de pago</th>
-            <th scope="col">Perfil</th>
+            <th
+              scope="col"
+              (click)="cambioOrden('username')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('username'),
+                sorting_desc: ordenarDesc('username')
+              }"
+            >
+              Nombre Usuario
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('payment_method')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('payment_method'),
+                sorting_desc: ordenarDesc('payment_method')
+              }"
+            >
+              Método de pago 
+              <span></span>
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('role')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('role'),
+                sorting_desc: ordenarDesc('role')
+              }"
+            >
+              Perfil
+            </th>
             <th scope="col">Usuario</th>
           </tr>
         </thead>
