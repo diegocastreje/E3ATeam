@@ -42,8 +42,16 @@ public class UserRestController {
 
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
-		User user = userService.findById(id);
+		User user = null;
 		Map<String, Object> response = new HashMap<>();
+		try {
+			user = userService.findById(id);
+		} catch(DataAccessException e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+
 		if(user == null) {
 			response.put("mensaje", "El usuario ID:".concat(id.toString().concat(" no existe en la base de dattos.")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
@@ -142,9 +150,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			
-			User user = userService.findById(id);
-			
+
 			userService.delete(id);
 			
 		}catch(DataAccessException e){
