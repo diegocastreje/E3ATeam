@@ -9,7 +9,7 @@ import { User } from './user';
   providedIn: 'root'
 })
 export class UserService {
-  private urlEndPoint: string = 'http://localhost:8080/api/users';
+  private urlEndPoint: string = 'http://localhost:8081/api/users';
 
   constructor(private http: HttpClient, private router: Router) { }
 
