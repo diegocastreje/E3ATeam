@@ -1,0 +1,157 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div id="accordion">
+        <div class="card mt-3" style="background-color: #393e46; width: 90%; margin-left: auto; margin-right: auto;">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button
+                id="btnFiltrosItems"
+                class="btn btn-link"
+                data-toggle="collapse"
+                data-target="#filters"
+                style="color: #00adb5; border-color: #00adb5;"
+              >
+                Filtros
+              </button>
+            </h5>
+          </div>
+          <div id="filters" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12 text-white">Nombre</div>
+                        <div class="col-12">
+                          <input type="text" name="fName" [value]="fName" (input)="applyFilter($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12 text-white">Cantidad</div>
+                        <div class="col-12">
+                          <input type="number" name="fAmount" [value]="fAmount" (input)="applyFilter($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12 text-white">Descripción</div>
+                        <div class="col-12">
+                          <input type="text" name="fDescription" [value]="fDescription" (input)="applyFilter($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12 text-white">Foto</div>
+                        <div class="col-12">
+                          <input type="text" name="fPicture" [value]="fPicture" (input)="applyFilter($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="my-3 text-left">
+        <button class="btn btn-rounded btn-primary">
+          <!--[routerLink]="['/items/rutadelformulario']"-->
+          Crear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table aria-describedby="itemsTable" class="table">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              (click)="changeOrder('picture')"
+              [ngClass]="{
+                sorting_asc: orderAsc('picture'),
+                sorting_desc: orderDesc('picture')
+              }"
+            >
+              Foto
+            </th>
+            <th
+              scope="col"
+              (click)="changeOrder('name')"
+              [ngClass]="{
+                sorting_asc: orderAsc('name'),
+                sorting_desc: orderDesc('name')
+              }"
+            >
+              Nombre
+            </th>
+            <th
+              scope="col"
+              (click)="changeOrder('amount')"
+              [ngClass]="{
+                sorting_asc: orderAsc('amount'),
+                sorting_desc: orderDesc('amount')
+              }"
+            >
+              Cantidad
+            </th>
+            <th
+              scope="col"
+              (click)="changeOrder('description')"
+              [ngClass]="{
+                sorting_asc: orderAsc('description'),
+                sorting_desc: orderDesc('description')
+              }"
+            >
+              Descripción
+            </th>
+            <th scope="col">Item</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filteredItems">
+            <td><img src="http://localhost:8081/img/bone.png" alt="Bone" style="width:64px;"></td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.amount }}</td>
+            <td>{{ item.description }}</td>
+            <td>
+              <button
+                type="button"
+                name="editar"
+                class="btn btn-primary"
+                style="margin-right: 10px"
+              >
+                <!--[routerLink]="['/items/formulario', item.id]"-->
+                <em class="bi bi-pencil"></em>
+              </button>
+              <button type="button" name="eliminar" class="btn btn-danger">
+                <!--(click)="delete(item)"-->
+                <em class="bi bi-eraser"></em>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
