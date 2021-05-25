@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col">
       <div id="accordion">
-        <div class="card">
+        <div class="card mt-3" style="background-color: #393e46; width: 90%; margin-left: auto; margin-right: auto;">
           <div class="card-header">
             <h5 class="mb-0">
               <button
@@ -10,6 +10,7 @@
                 class="btn btn-link"
                 data-toggle="collapse"
                 data-target="#filters"
+                style="color: #00adb5; border-color: #00adb5;"
               >
                 Filtros
               </button>
@@ -22,7 +23,7 @@
                   <div class="col-3">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-12">Nombre</div>
+                        <div class="col-12 text-white">Nombre</div>
                         <div class="col-12">
                           <input type="text" name="fName" [value]="fName" (input)="applyFilter($event)"/>
                         </div>
@@ -32,7 +33,7 @@
                   <div class="col-3">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-12">Cantidad</div>
+                        <div class="col-12 text-white">Cantidad</div>
                         <div class="col-12">
                           <input type="number" name="fAmount" [value]="fAmount" (input)="applyFilter($event)"/>
                         </div>
@@ -42,7 +43,7 @@
                   <div class="col-3">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-12">Descripción</div>
+                        <div class="col-12 text-white">Descripción</div>
                         <div class="col-12">
                           <input type="text" name="fDescription" [value]="fDescription" (input)="applyFilter($event)"/>
                         </div>
@@ -52,7 +53,7 @@
                   <div class="col-3">
                     <div class="container-fluid">
                       <div class="row">
-                        <div class="col-12">Foto</div>
+                        <div class="col-12 text-white">Foto</div>
                         <div class="col-12">
                           <input type="text" name="fPicture" [value]="fPicture" (input)="applyFilter($event)"/>
                         </div>
@@ -129,7 +130,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of filteredItems">
-            <td>{{ item.picture }}</td>
+            <td><img src="http://localhost:8081/img/bone.png" alt="Bone" style="width:64px;"></td>
             <td>{{ item.name }}</td>
             <td>{{ item.amount }}</td>
             <td>{{ item.description }}</td>

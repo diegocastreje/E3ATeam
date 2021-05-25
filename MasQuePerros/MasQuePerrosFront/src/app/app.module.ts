@@ -10,8 +10,8 @@ import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/productos', pathMatch: 'full'},
-  {path: 'productos', component: ItemsComponent}
+  {path: '', redirectTo: '/items', pathMatch: 'full'},
+  {path: 'items', component: ItemsComponent}
 ];
 
 @NgModule({

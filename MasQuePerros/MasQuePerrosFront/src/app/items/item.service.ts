@@ -8,7 +8,7 @@ import { Item } from './item';
 })
 export class ItemService {
 
-  private urlEndPoint: string = 'http://localhost:8081/api/users';
+  private urlEndPoint: string = 'http://localhost:8081/api/items';
 
   constructor(private http: HttpClient, private router: Router) { }
 
