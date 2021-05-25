@@ -1,0 +1,155 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <div id="accordion">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">
+              <button
+                id="btnFiltrosUsers"
+                class="btn btn-link"
+                data-toggle="collapse"
+                data-target="#filtros"
+              >
+                Filtros
+              </button>
+            </h5>
+          </div>
+          <div id="filtros" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Nombre</div>
+                        <div class="col-12">
+                          <input type="text" name="fNombre" [value]="fNombre" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Primer Apellido</div>
+                        <div class="col-12">
+                          <input type="text" name="fPrimer" [value]="fPrimer" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Segundo Apellido</div>
+                        <div class="col-12">
+                          <input type="text" name="fSegundo" [value]="fSegundo" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-12">Perfil</div>
+                        <div class="col-12">
+                          <input type="text" name="fPerfil" [value]="fPerfil" (input)="aplicarFiltro($event)"/>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="my-3 text-left">
+        <button class="btn btn-rounded btn-primary">
+          <!--[routerLink]="['/users/rutadelformulario']"-->
+          Crear
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <table aria-describedby="tablaClientes" class="table">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              (click)="cambioOrden('first_name')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('first_name'),
+                sorting_desc: ordenarDesc('first_name')
+              }"
+            >
+              Nombre
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('middle_name')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('middle_name'),
+                sorting_desc: ordenarDesc('middle_name')
+              }"
+            >
+              Primer Apellido
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('last_name')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('last_name'),
+                sorting_desc: ordenarDesc('last_name')
+              }"
+            >
+              Segundo Apellido
+            </th>
+            <th
+              scope="col"
+              (click)="cambioOrden('role')"
+              [ngClass]="{
+                sorting_asc: ordenarAsc('role'),
+                sorting_desc: ordenarDesc('role')
+              }"
+            >
+              Perfil
+            </th>
+            <th scope="col">Usuario</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuariosFiltrados">
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.middle_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.role.name }}</td>
+            <td>
+              <button
+                type="button"
+                name="editar"
+                class="btn btn-primary"
+                style="margin-right: 10px"
+              >
+                <!--[routerLink]="['/clientes/formulario', cli.id]"-->
+                <em class="bi bi-pencil"></em>
+              </button>
+              <button type="button" name="eliminar" class="btn btn-danger" (click)="borrar(user)">
+                <em class="bi bi-eraser"></em>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
