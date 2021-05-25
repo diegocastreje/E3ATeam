@@ -2,15 +2,14 @@
   <div class="row">
     <div class="col">
       <div id="accordion">
-        <div class="card mt-3" style="background-color: #393e46; width: 90%; margin-left: auto; margin-right: auto;">
+        <div class="card mt-3 filtersBack">
           <div class="card-header">
             <h5 class="mb-0">
               <button
-                id="btnFiltrosItems"
-                class="btn btn-link"
+                id="btnFiltersItems"
+                class="btn btn-link btnFilter"
                 data-toggle="collapse"
                 data-target="#filters"
-                style="color: #00adb5; border-color: #00adb5;"
               >
                 Filtros
               </button>
@@ -130,7 +129,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of filteredItems">
-            <td><img src="http://localhost:8081/img/bone.png" alt="Bone" style="width:64px;"></td>
+            <td><img class="imageSize" src="http://localhost:8081/img/bone.png" alt="Bone"></td>
             <td>{{ item.name }}</td>
             <td>{{ item.amount }}</td>
             <td>{{ item.description }}</td>
