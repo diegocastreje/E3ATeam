@@ -1,7 +1,9 @@
 package com.e3a.controllers;
 
+import com.e3a.models.entity.Item;
 import com.e3a.models.entity.User;
 import com.e3a.models.services.IUserService;
+import com.e3a.utilities.Reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,8 +22,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +40,8 @@ import javax.validation.Valid;
 @CrossOrigin(origins = {"http://localhost:4200", "*"})
 public class UserRestController {
 
+	private Reader reader= new Reader();
+	
     @Autowired
     private IUserService userService;
 
@@ -56,13 +63,13 @@ public class UserRestController {
 		try {
 			user = userService.findById(id);
 		} catch(DataAccessException e) {
-			response.put("mensaje", "Error al realizar la consulta en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put(reader.getString("message"),reader.getString("queryError"));
+			response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		if(user == null) {
-			response.put("mensaje", "El usuario ID:".concat(id.toString().concat(" no existe en la base de dattos.")));
+			response.put(reader.getString("message"), "El usuario ID:".concat(id.toString().concat(" no existe en la base de datos.")));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
@@ -77,11 +84,11 @@ public class UserRestController {
             
             List<String> errors = new ArrayList<>();
             for(FieldError err: result.getFieldErrors()) {
-                System.out.println("El campo '" + err.getField() + "' " + err.getDefaultMessage());
-                errors.add("El campo '" + err.getField() + "' " + err.getDefaultMessage());
+                System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+                errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
             }
             
-            response.put("errors", errors);
+            response.put(reader.getString("error"), errors);
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         else {
@@ -89,13 +96,13 @@ public class UserRestController {
 			try {
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
-				response.put("mensaje","Error al realizar la insercion en la base de datos");
-				response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				response.put(reader.getString("message"),reader.getString("queryError"));
+				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			
 			}
-			response.put("mensaje", "El usuario ha sido creado con exito!");
-			response.put("user", userNew);
+			response.put(reader.getString("message"), reader.getString("userCreated"));
+			response.put(reader.getString("user"), userNew);
 			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
 			
 			}
@@ -114,15 +121,15 @@ public class UserRestController {
 			
 			List<String> errors = new ArrayList<>();
 			for(FieldError err: result.getFieldErrors()) {
-				errors.add("El campo '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
 			}
 			
-			response.put("errors", errors);
+			response.put(reader.getString("error"), errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		
 		if(userActual == null) {
-			response.put("mensaje", "Error, no se pudo editar, el usuario ID:".concat(id.toString().concat(" no existe en la base de datos!")));
+			response.put(reader.getString("message"), reader.getString("errorUpdatingUser").concat(id.toString().concat(reader.getString("notInBBDD"))));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		
@@ -141,12 +148,12 @@ public class UserRestController {
 		userUpdated = userService.save(userActual);
 		
 		}catch(DataAccessException e){
-			response.put("mensaje", "Error al actualizar en la base de datos");
+			response.put(reader.getString("message"),  reader.getString("errorUpdatingUser"));
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
-		response.put("mensaje","El usuario ha sido actualizado con éxito");
+		response.put(reader.getString("message"),reader.getString("userUpdated"));
 		response.put("cliente", userUpdated);
 		
 		
@@ -163,12 +170,14 @@ public class UserRestController {
 			userService.delete(id);
 			
 		}catch(DataAccessException e){
-			response.put("mensaje", "Error al eliminar en la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));
+			response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		response.put("mensaje", "El usuario ha sido eliminado con éxito");
+		response.put(reader.getString("message"), reader.getString("userDeleted"));
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	
 
 }

@@ -44,7 +44,7 @@ public class User implements Serializable{
 	private String middle_name;
 	@Column(length = 20)
 	private String last_name;
-	@NotEmpty(message = "This field can not be empty")
+	//@NotEmpty(message = "This field can not be empty")
 	@Column
 	private Date birth_date;
 	@NotEmpty(message = "This field can not be empty")
