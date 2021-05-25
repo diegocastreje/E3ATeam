@@ -108,9 +108,7 @@ export class UserComponent implements OnInit {
 
   private ordenar(usuarios: Array<any>, columna: string, orden: string) {
     var sortFunc = function (field: string, desc: boolean) {
-      // Return the required a,b function
       return function (a: any, b: any) {
-        // Reset a, b to the field
         var ca = a[columna];
         var cb = b[columna];
         var res = 0;
@@ -130,5 +128,41 @@ export class UserComponent implements OnInit {
     };
 
     usuarios.sort(sortFunc(columna, orden === 'desc'));
+  }
+
+  borrar(user: User) {
+    /*
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: '¿Estás seguro?',
+        text: '¡No podrás recuperarlo!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, borralo',
+        cancelButtonText: 'No, cancelar',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {*/
+          this.userService.delete(user).subscribe((response) => {
+            this.usuariosFiltrados = this.usuariosFiltrados.filter((usr) => usr !== user);
+            this.users = this.users.filter((usr) => usr !== user);
+/*
+            swalWithBootstrapButtons.fire(
+              'Borrado',
+              `El cliente ${cliente.nombre} ${cliente.apellido} ha sido borrado`,
+              'success'
+            );*/
+          });
+        /*}
+      });*/
   }
 }
