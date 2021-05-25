@@ -3,7 +3,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mas_que_perros?useSSL=false
     username: root
-    password: root
+    password: 
+    
   jpa:
     show-sql: true
     hibernate:
