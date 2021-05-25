@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from './user';
+import config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private urlEndPoint: string = 'http://localhost:8080/api/users';
+  private urlEndPoint: string = config.url + 'users';
 
   constructor(private http: HttpClient, private router: Router) { }
 
