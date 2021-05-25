@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mas_que_perros?useSSL=false
     username: root
-    password: 
+    password:
   jpa:
     show-sql: true
     hibernate:
@@ -20,6 +20,6 @@ spring:
       max-request-size: 10MB
 logging:
   level:
-    '[org.hibernate.sql]': debug   
+    '[org.hibernate.sql]': debug
 server:
   port: 8081
