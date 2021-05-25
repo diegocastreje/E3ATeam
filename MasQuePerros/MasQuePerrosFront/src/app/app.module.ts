@@ -11,6 +11,7 @@ import { ItemService } from './items/item.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
+  {path: '', redirectTo: '/users', pathMatch: 'full'},
   {path: 'items', component: ItemsComponent}
 ];
 
