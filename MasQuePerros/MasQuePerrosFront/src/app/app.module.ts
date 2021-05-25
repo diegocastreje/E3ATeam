@@ -7,12 +7,16 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './users/user.component';
+import { FormComponent } from './users/form.component';
+import { FormsModule } from '@angular/forms';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: 'clientes/form', component:FormComponent}
+];
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, UserComponent],
-  imports: [BrowserModule, HttpClientModule, RouterModule.forRoot(routes)],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, UserComponent, FormComponent],
+  imports: [BrowserModule, HttpClientModule,FormsModule, RouterModule.forRoot(routes)],
   providers: [],
   bootstrap: [AppComponent],
 })
