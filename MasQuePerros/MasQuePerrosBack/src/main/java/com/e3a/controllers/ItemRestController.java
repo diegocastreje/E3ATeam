@@ -69,6 +69,14 @@ public class ItemRestController {
 	public Order crear(@RequestBody Order factura) {
 		return userService.saveOrder(factura);
 	}
+	
+	@GetMapping("/items")
+	@ResponseStatus(code = HttpStatus.OK)
+	public List<Item> index() {
+		return itemService.findAll();
+	} 
+	
+	
 	//Este metodo corresponde al de subir imagen que iria en el ItemRestController (no esta testeado porq noestaba la clase creada caudn se creo este metodo, avisar a niqui si algo falla)
 	@PostMapping("/items/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile archivo, @RequestParam("id") Long id){
