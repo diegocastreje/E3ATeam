@@ -1,6 +1,7 @@
 package com.e3a.controllers;
 
 import com.e3a.models.entity.Item;
+import com.e3a.models.entity.Order;
 import com.e3a.models.entity.User;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
@@ -157,8 +158,12 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-
+//			List<Order> UserOrders =userService.findOrderByUserId(id);
+//			for (Order order : UserOrders) {
+//				order.setUser(null);
+//			}
 			userService.delete(id);
+			
 			
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));

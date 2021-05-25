@@ -24,6 +24,6 @@ public interface IUserService {
 	
 	public void deleteOrderById(Long id);
 	
-	
+	public List<Order> findOrderByUserId(Long id);
 
 }
