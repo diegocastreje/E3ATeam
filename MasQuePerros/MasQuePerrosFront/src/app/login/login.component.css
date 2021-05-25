@@ -1,0 +1,23 @@
+.column1{
+  background: #687980;
+  border: 1px solid black;
+}
+.column2{
+  background: #393e46;
+  border: 1px solid black;
+}
+.height{
+  height: 330px;
+}
+.input{
+  width: 70%;
+  margin: auto;
+  border: 1px solid black;
+}
+.btnLogin{
+  background: #00adb5; font-weight: bold;
+  border: 1px solid black;
+}
+.bold{
+  font-weight: bold;
+}
