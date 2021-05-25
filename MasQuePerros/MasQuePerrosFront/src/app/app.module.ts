@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -13,6 +12,7 @@ import { ItemService } from './items/item.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
+  {path: '', redirectTo: '/users', pathMatch: 'full'},
   {path: 'items', component: ItemsComponent}
 ];
 
