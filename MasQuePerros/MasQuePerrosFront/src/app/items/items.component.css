@@ -1,0 +1,30 @@
+.filter{
+  background-color: #393e46;
+  margin-right: auto;
+  margin-left: 53px;
+  margin-top: 10px;
+  border-radius: 0px;
+  height: 35px;
+}
+.search{
+  background-color: #393e46;
+  margin-left: auto;
+  margin-right: 70px;
+  margin-top: 10px;
+  border-radius: 0px;
+  width: 50%;
+}
+.btnSearch{
+  background-color: #393e46;
+  color: white;
+  border: none;
+}
+.btnSearch:active {
+  transform: translateY(1px);
+}
+.btnFilter span {
+  transition: 0.5s;
+}
+.btnFilter:hover span {
+  padding-right: 10px;
+}
