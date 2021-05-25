@@ -3,17 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './users/user.component';
 import { ItemsComponent } from './items/items.component';
+import { FormComponent } from './items/form.component';
 import { ItemService } from './items/item.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
-  {path: 'items', component: ItemsComponent}
+  {path: 'items', component: ItemsComponent},
+  {path: 'items/form/:id', component: FormComponent}
 ];
 
 @NgModule({
@@ -21,7 +22,8 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ItemsComponent, 
+    ItemsComponent,
+    FormComponent,
     UserComponent
   ],
   imports: [
