@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { User } from './user';
+import { PaymentMethod } from './payment-method';
+import { Role } from './role';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +20,20 @@ export class UserService {
   }
 
   create(user: User): Observable<any> {
+    console.log("0")
     return this.http.post<any>(this.urlEndPoint, user).pipe(
       catchError(e => {
 
         if (e.status == 400) {
+          console.log("1")
           return throwError(e);
         }
         if ( e.error.mensaje) {
+
+          console.log("2")
           console.error(e.error.mensaje);
         }
-
+        console.log("3")
         return throwError(e);
       })
     );
@@ -42,5 +48,11 @@ export class UserService {
         return throwError(e);
       })
     );
+  }
+  getRoles(): Observable<Role[]>{
+    return this.http.get<Role[]>(this.urlEndPoint + '/roles');
+  }
+  getPaymentMethods(): Observable<PaymentMethod[]>{
+    return this.http.get<PaymentMethod[]>(this.urlEndPoint + '/paymentMethods');
   }
 }

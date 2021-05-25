@@ -2,20 +2,21 @@ import { PaymentMethod } from './payment-method';
 import { Role } from './role';
 
 export class User {
-  user_id: number;
-  username: string;
-  password: string;
-  first_name: string;
-  middle_name: string;
-  last_name: string;
-  birth_date: string;
-  email: string;
-  first_access: boolean;
-  role: Role;
-  payment_method: PaymentMethod;
+  user_id: number=0;
+  username: string="";
+  password: string="";
+  first_name: string="";
+  middle_name: string="";
+  last_name: string="";
+  birth_date: string="";
+  email: string="";
+  first_access: boolean=true;
+  role: Role=new Role();
+  payment_method: PaymentMethod=new PaymentMethod();
 
+//let user:User;
 
-  constructor(
+ /*constructor(
     user_id: number,
     username: string,
     password: string,
@@ -39,5 +40,5 @@ export class User {
     this.first_access = first_access;
     this.role = role;
     this.payment_method = payment_method;
-  }
+  }*/
 }

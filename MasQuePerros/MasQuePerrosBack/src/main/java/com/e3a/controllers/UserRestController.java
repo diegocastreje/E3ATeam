@@ -1,6 +1,8 @@
 package com.e3a.controllers;
 
 import com.e3a.models.entity.Item;
+import com.e3a.models.entity.PaymentMethod;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
@@ -178,6 +180,13 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
+	@GetMapping("/users/roles")
+	public List<Role> listRoles(){
+		return userService.findAllRoles();
+	}
 	
-
+	@GetMapping("/users/paymentMethods")
+	public List<PaymentMethod> listPaymentMethods(){
+		return userService.findAllPaymentMethods();
+	}
 }

@@ -1,6 +1,6 @@
 <div class="card bg-dark text-white">
   <div class="card-header">
-    {{titulo}}
+    {{title}}
   </div>
   <div class="card-body">
     <form (ngSubmit) = "create()" >
@@ -43,7 +43,7 @@
       <div class="form-group row">
         <label for="birth_date" class="col-form-label col-sm-2">Birth_date</label>
         <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.birth_date" name="birth_date">
+          <input type="date" class="form-control" [(ngModel)]="user.birth_date" name="birth_date">
         </div>
       </div>
 
@@ -56,7 +56,7 @@
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <button class="btn btn-primary" role="button">Crear</button>
+          <button class="btn btn-primary" role="button" type="submit">Crear</button>
         </div>
       </div>
     </form>

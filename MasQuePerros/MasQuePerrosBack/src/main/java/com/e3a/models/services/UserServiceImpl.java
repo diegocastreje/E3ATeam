@@ -10,9 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e3a.models.dao.IItemDao;
 import com.e3a.models.dao.IOrderDao;
+import com.e3a.models.dao.IPaymentMethodDao;
+import com.e3a.models.dao.IRoleDao;
 import com.e3a.models.dao.IUserDao;
 import com.e3a.models.entity.Item;
 import com.e3a.models.entity.Order;
+import com.e3a.models.entity.PaymentMethod;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
 
 @Service
@@ -26,6 +30,12 @@ public class UserServiceImpl implements IUserService{
 	
 	 @Autowired
 	 private IItemDao itemDao;
+	 
+	 @Autowired
+	 private IRoleDao roleDao;
+	 
+	 @Autowired
+	 private IPaymentMethodDao paymentMethodDao;
 	
 	
 	@Override
@@ -71,6 +81,20 @@ public class UserServiceImpl implements IUserService{
 	@Transactional 
 	public void deleteOrderById(Long id) {
 		orderDao.deleteById(id);
+	}
+
+	@Override
+	@Transactional (readOnly=true)
+	public List<Role> findAllRoles() {
+		// TODO Auto-generated method stub
+		return roleDao.findAllRoles();
+	}
+
+	@Override
+	@Transactional (readOnly=true)
+	public List<PaymentMethod> findAllPaymentMethods() {
+		// TODO Auto-generated method stub
+		return paymentMethodDao.findAllPaymentMethods();
 	}
 
 	

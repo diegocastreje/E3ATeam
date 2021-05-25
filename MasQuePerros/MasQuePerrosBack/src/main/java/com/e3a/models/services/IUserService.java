@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.e3a.models.entity.Item;
 import com.e3a.models.entity.Order;
+import com.e3a.models.entity.PaymentMethod;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,8 @@ public interface IUserService {
 	
 	public void deleteOrderById(Long id);
 	
-	
+	public List<Role> findAllRoles();
 
+	public List<PaymentMethod> findAllPaymentMethods();
+	
 }

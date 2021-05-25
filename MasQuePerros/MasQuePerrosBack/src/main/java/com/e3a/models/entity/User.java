@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -44,7 +45,7 @@ public class User implements Serializable{
 	private String middle_name;
 	@Column(length = 20)
 	private String last_name;
-	//@NotEmpty(message = "This field can not be empty")
+	@NotNull(message = "This field can not be empty")
 	@Column
 	private Date birth_date;
 	@NotEmpty(message = "This field can not be empty")
@@ -53,13 +54,13 @@ public class User implements Serializable{
 	private String email;
 	@Column
 	private boolean first_access; //true->first access / false->not first access
-	
-	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
+	//@NotNull(message = "This field can not be empty")
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
 	private Role role;
-	
-	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
+	//@NotNull(message = "This field can not be empty")
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;

@@ -12,7 +12,7 @@ public class PaymentMethod implements Serializable{
 
 	@Id
 	private long payment_id;
-	@Column(nullable=false)
+	//@Column(nullable=false)
 	private String description;
 	
 	public PaymentMethod() {}
