@@ -146,7 +146,7 @@ public class UserRestController {
 		}
 		
 		response.put(reader.getString("message"),reader.getString("userUpdated"));
-		response.put("cliente", userUpdated);
+		response.put(reader.getString("user"), userUpdated);
 		
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED); 
