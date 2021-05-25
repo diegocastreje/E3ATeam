@@ -30,8 +30,6 @@ import com.e3a.models.services.IUploadFileService;
 import com.e3a.models.services.IUserService;
 
 
-
-
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:4200", "*"})
@@ -75,6 +73,29 @@ public class ItemRestController {
 	public List<Item> index() {
 		return itemService.findAll();
 	} 
+	
+	@GetMapping("/items/{id}")
+	public ResponseEntity<?> showItem(@PathVariable Long id) {
+		
+		Item item = null;
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			item = itemService.findById(id);
+		} catch (Exception e) {
+			response.put("mensaje", "Error al realizar la consulta en la base de datos.");
+			response.put("error", e.getMessage().concat(": ").concat(e.getLocalizedMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		if(item == null) {
+			response.put("mensaje", "El item con ID: ".concat(id.toString().concat(" no existe en la base de datos.")));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Item>(item, HttpStatus.OK);
+	}
 	
 	
 	//Este metodo corresponde al de subir imagen que iria en el ItemRestController (no esta testeado porq noestaba la clase creada caudn se creo este metodo, avisar a niqui si algo falla)
