@@ -35,12 +35,6 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	@Transactional(readOnly=true)
-	public Page<User> findAll(Pageable pageable) {
-		return userDao.findAll(pageable);
-	}
-
-	@Override
 	public User save(User user) {
 		return userDao.save(user);
 	}
