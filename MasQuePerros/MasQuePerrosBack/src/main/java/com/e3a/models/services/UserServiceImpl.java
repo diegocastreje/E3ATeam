@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.e3a.models.dao.IItemDao;
 import com.e3a.models.dao.IOrderDao;
+import com.e3a.models.dao.IRoleDao;
 import com.e3a.models.dao.IUserDao;
 import com.e3a.models.entity.Item;
 import com.e3a.models.entity.Order;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
 
 @Service
@@ -24,8 +26,7 @@ public class UserServiceImpl implements IUserService{
 	
 	 @Autowired
 	 private IItemDao itemDao;
-	
-	
+	 
 	@Override
 	@Transactional(readOnly=true)
 	public List<User> findAll() {
@@ -66,14 +67,11 @@ public class UserServiceImpl implements IUserService{
 		orderDao.deleteById(id);
 	}
 
+
 	@Override
 	public List<Order> findOrderByUserId(Long id) {
 		// TODO Auto-generated method stub
 		return orderDao.findByUser(id);
 	}
-
-	
-
-	
 
 }

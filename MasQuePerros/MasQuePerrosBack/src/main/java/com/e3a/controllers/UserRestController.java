@@ -1,8 +1,13 @@
 package com.e3a.controllers;
 
+import com.e3a.models.dao.IPaymentMethodDao;
 import com.e3a.models.entity.Item;
 import com.e3a.models.entity.Order;
+import com.e3a.models.entity.PaymentMethod;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
+import com.e3a.models.services.IPaymentMethodService;
+import com.e3a.models.services.IRoleService;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
 
@@ -42,6 +47,12 @@ public class UserRestController {
 	
     @Autowired
     private IUserService userService;
+    
+    @Autowired
+    private IPaymentMethodService paymentMethodService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @GetMapping("/users")
     public List<User> index() {
@@ -86,6 +97,44 @@ public class UserRestController {
         else {
 			
 			try {
+				
+				System.out.println(user.toString());
+				Role roleFinal =null;
+				List<Role> roles = roleService.findByName(user.getRole().getName());
+				roleFinal = roles.get(0);
+				System.out.println(roleFinal);
+				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
+				PaymentMethod paymentFinal =payments.get(0);
+				
+//				System.out.println(user.getRole().getRole_id());
+//				Long idRole = user.getRole().getRole_id();
+//				System.out.println("El id del rol es="+idRole);
+//				List<Role> roles = roleService.findAllRoles();
+//				Role roleFinal =null;
+//	 			for (Role role : roles) {
+//					if(role.getRole_id()==user.getRole().getRole_id()) {
+//						roleFinal=user.getRole();
+//					}
+//				}
+//				System.out.println(roleFinal);
+//				
+//				System.out.println(user.getPayment_method().getPayment_id());
+//				Long idPaymetn = user.getPayment_method().getPayment_id();
+//				System.out.println("El id del pago es="+idPaymetn);
+//				List<PaymentMethod> payments = paymentMethodService.findAllPaymentMethods();
+//				PaymentMethod paymentFinal =null;
+//	 			for (PaymentMethod paymentMethod : payments) {
+//					if(paymentMethod.getPayment_id()==user.getPayment_method().getPayment_id()) {
+//						paymentFinal=user.getPayment_method();
+//					}
+//				}
+//				System.out.println(paymentFinal);
+			
+				user.setRole(roleFinal);
+				user.setPayment_method(paymentFinal);
+				
+				System.out.println(user);
+				
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));

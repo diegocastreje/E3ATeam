@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
@@ -46,6 +47,7 @@ public class User implements Serializable{
 	private String last_name;
 	//@NotEmpty(message = "This field can not be empty")
 	@Column
+	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Date birth_date;
 	@NotEmpty(message = "This field can not be empty")
 	@Column(unique = true,length = 50)
@@ -55,12 +57,12 @@ public class User implements Serializable{
 	private boolean first_access; //true->first access / false->not first access
 	
 	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
 	private Role role;
 	
 	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;
 	
@@ -175,6 +177,16 @@ public class User implements Serializable{
 	public String getUsername() {
 		return username;
 	}
+
+	
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", first_name="
+				+ first_name + ", middle_name=" + middle_name + ", last_name=" + last_name + ", birth_date="
+				+ birth_date + ", email=" + email + ", first_access=" + first_access + ", role=" + role
+				+ ", payment_method=" + payment_method + "]";
+	}
+
 
 	private static final long serialVersionUID = 1L;
 }

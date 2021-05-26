@@ -33,5 +33,10 @@ public class PaymentMethod implements Serializable{
 		this.description = description;
 	}
 	
+	@Override
+	public String toString() {
+		return "PaymentMethod [payment_id=" + payment_id + ", description=" + description + "]";
+	}
+
 	private static final long serialVersionUID = 1L;
 }
