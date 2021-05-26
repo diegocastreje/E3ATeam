@@ -19,14 +19,6 @@ public class Role implements Serializable{
 	
 	@Column(unique = true,length = 20)
 	private String name;
-	
-/*	public Role() {}*/
-
-/*	public Role(long rol_id, String name) {
-		super();
-		this.role_id = rol_id;
-		this.name = name;
-	}*/
 
 	public Long getRole_id() { return role_id; }
 

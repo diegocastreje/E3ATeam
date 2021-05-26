@@ -58,7 +58,7 @@ public class User implements Serializable{
 	@Column
 	private boolean enabled;
 
-	//@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
+	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "user_id", "role_id" }) })
@@ -70,28 +70,6 @@ public class User implements Serializable{
 	private PaymentMethod payment_method;
 	
 	public User() {}
-
-	
-	
-	
-/*	public User(long user_id,
-			@Size(min = 4, max = 20, message = "This field should have beetween 4 and 20 characters") String username,
-			String password, String first_name, String middle_name, String last_name, Date birth_date, String email,
-			boolean first_access) {
-		super();
-		this.user_id = user_id;
-		this.username = username;
-		this.password = password;
-		this.first_name = first_name;
-		this.middle_name = middle_name;
-		this.last_name = last_name;
-		this.birth_date = birth_date;
-		this.email = email;
-		this.first_access = first_access;
-	}*/
-
-
-
 
 	public long getUser_id() {
 		return user_id;
