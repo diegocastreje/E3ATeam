@@ -20,31 +20,31 @@
         <a class="nav-link active">Registro</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white">Login</a>
+        <a class="nav-link text-white" routerLink="/login">Login</a>
       </li>
     </ul>
     <ul class="navbar-nav mx-auto">
       <!-- if sesionIniciadaCustomer: -->
       <li class="nav-item">
-        <a class="nav-link active">Home</a>
+        <a class="nav-link active" routerLink="/items">Home</a>
       </li>
       <li class="nav-item right">
         <a class="nav-link text-white">Carro de compra</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger">Cerrar Sesión</a>
+        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <!-- if sesionIniciadaAdmin: -->
       <li class="nav-item">
-        <a class="nav-link active">Productos</a>
+        <a class="nav-link active" routerLink="/items">Productos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white">Usuarios</a>
+        <a class="nav-link text-white" routerLink="/users">Usuarios</a>
       </li>
       <li class="nav-item right">
-        <a class="nav-link text-danger">Cerrar Sesión</a>
+        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
       </li>
     </ul>
   </div>
