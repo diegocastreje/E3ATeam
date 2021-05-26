@@ -8,6 +8,8 @@ import com.e3a.models.entity.User;
 
 
 public interface IUserService {
+
+	public User findByUsername(String username);
 	
 	public List<User> findAll();
 
@@ -22,7 +24,7 @@ public interface IUserService {
 	public Order saveOrder(Order order);
 	
 	public void deleteOrderById(Long id);
-	
-	
+
+
 
 }

@@ -26,8 +26,13 @@ public class UserServiceImpl implements IUserService{
 	
 	 @Autowired
 	 private IItemDao itemDao;
-	
-	
+
+
+	@Override
+	public User findByUsername(String username) {
+		return null;
+	}
+
 	@Override
 	@Transactional(readOnly=true)
 	public List<User> findAll() {

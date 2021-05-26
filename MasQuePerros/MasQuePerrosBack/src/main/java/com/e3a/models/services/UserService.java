@@ -1,6 +1,7 @@
 package com.e3a.models.services;
 
 import com.e3a.models.dao.IUserDao;
+import com.e3a.models.entity.Order;
 import com.e3a.models.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService implements IUserService ,UserDetailsService{
 
     private Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -41,5 +42,45 @@ public class UserService implements UserDetailsService{
         ArrayList<GrantedAuthority> authorities = new ArrayList<>();*/
 
         return new org.springframework.security.core.userdetails.User(username, user.getPassword(), user.isEnabled(), true, true, true, authorities);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userDao.findByUsername(username);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return null;
+    }
+
+    @Override
+    public User save(User user) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
+    public User findById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Order findOrderById(Long id) {
+        return null;
+    }
+
+    @Override
+    public Order saveOrder(Order order) {
+        return null;
+    }
+
+    @Override
+    public void deleteOrderById(Long id) {
+
     }
 }
