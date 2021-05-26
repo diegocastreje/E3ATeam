@@ -1,27 +1,49 @@
-.header{
+.container-fluid {
+  padding: 0;
+}
+
+.header {
   background-color: #00adb5;
   font-weight: bold;
-  text-align:center;
+  text-align: center;
   font-size: 26px;
 }
-.headerContainer{
-  width: 100%;
-  height: 60px;
-}
-.title{
+
+.title {
   line-height: 60px;
 }
-.navBar{
-  background-color: #393e46;
-  width: 90%;
-  height: 40px;
+
+.navBar {
   margin-left: auto;
   margin-right: auto;
-  margin-top: 20px;
+  margin-top: 5px;
+  border-radius: 5px;
 }
-.right{
+
+.right {
   margin-left: auto;
 }
-.active{
+
+.active {
   color: #00adb5;
+}
+
+.navbar {
+  position: relative;
+}
+
+@media (max-width: 767.98px) {
+  .navbar {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+}
+
+button {
+  border-color: #00adb5;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 10px;
+  margin-top: 10px;
 }
