@@ -24,7 +24,6 @@ public class IPaymentMethodServiceImpl implements IPaymentMethodService {
 
 	@Override
 	public List<PaymentMethod> findByDescription(String term) {
-		// TODO Auto-generated method stub
 		return paymentMethodDao.findByDescription(term);
 	}
 
