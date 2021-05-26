@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 import { User } from './user';
 import { UserService } from './user.service';
 
@@ -107,7 +108,7 @@ export class UserComponent implements OnInit {
   }
 
   private ordenar(usuarios: Array<any>, columna: string, orden: string) {
-    var sortFunc = function (field: string, desc: boolean) {
+    var sortFunc = function (desc: boolean) {
       return function (a: any, b: any) {
         var ca = a[columna];
         var cb = b[columna];
@@ -127,11 +128,10 @@ export class UserComponent implements OnInit {
       };
     };
 
-    usuarios.sort(sortFunc(columna, orden === 'desc'));
+    usuarios.sort(sortFunc(orden === 'desc'));
   }
 
   borrar(user: User) {
-    /*
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -151,18 +151,19 @@ export class UserComponent implements OnInit {
         reverseButtons: true,
       })
       .then((result) => {
-        if (result.isConfirmed) {*/
+        if (result.isConfirmed) {
           this.userService.delete(user).subscribe((response) => {
-            this.usuariosFiltrados = this.usuariosFiltrados.filter((usr) => usr !== user);
+            this.usuariosFiltrados = this.usuariosFiltrados.filter(
+              (usr) => usr !== user
+            );
             this.users = this.users.filter((usr) => usr !== user);
-/*
             swalWithBootstrapButtons.fire(
               'Borrado',
-              `El cliente ${cliente.nombre} ${cliente.apellido} ha sido borrado`,
+              `El usuario ${user.first_name} ${user.middle_name} ha sido borrado`,
               'success'
-            );*/
+            );
           });
-        /*}
-      });*/
+        }
+      });
   }
 }
