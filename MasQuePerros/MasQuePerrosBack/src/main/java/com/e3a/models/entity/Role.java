@@ -20,29 +20,21 @@ public class Role implements Serializable{
 	@Column(unique = true,length = 20)
 	private String name;
 	
-	public Role() {}
+/*	public Role() {}*/
 
-	public Role(long rol_id, String name) {
+/*	public Role(long rol_id, String name) {
 		super();
 		this.role_id = rol_id;
 		this.name = name;
-	}
+	}*/
 
-	public long getRole_id() {
-		return role_id;
-	}
+	public Long getRole_id() { return role_id; }
 
-	public void setRole_id(long rol_id) {
-		this.role_id = rol_id;
-	}
+	public void setRole_id(long rol_id) { this.role_id = rol_id; }
 
-	public String getName() {
-		return name;
-	}
+	public String getName() { return name; }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	public void setName(String name) { this.name = name; }
 
 	private static final long serialVersionUID = 1L;
 }

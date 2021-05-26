@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,9 @@ public class UserService implements UserDetailsService{
         }
 
         List<GrantedAuthority> authorities = user.getRole().stream().map(role -> new SimpleGrantedAuthority(role.getName())).peek(authority -> logger.info("Role: " + authority.getAuthority())).collect(Collectors.toList());
+/*        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getRole().getName());
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();*/
 
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), user.getEnabled(), true, true, true, authorities);
+        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), user.isEnabled(), true, true, true, authorities);
     }
 }
