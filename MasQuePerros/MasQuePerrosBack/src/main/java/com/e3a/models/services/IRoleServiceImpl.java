@@ -12,15 +12,9 @@ import com.e3a.models.entity.Role;
 public class IRoleServiceImpl implements IRoleService{
 	
 
-	 @Autowired
-	 private IRoleDao roleDao;
+	@Autowired
+	private IRoleDao roleDao;
 	
-	
-//	@Override
-//	public Role findByid(Long role_id) {
-//		return roleDao.findById(role_id).orElse(null);
-//	}
-
 
 	@Override
 	public List<Role> findAllRoles() {
