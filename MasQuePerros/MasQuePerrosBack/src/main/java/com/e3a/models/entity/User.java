@@ -18,7 +18,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(name="users")
 public class User implements Serializable{
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long user_id;
@@ -48,7 +48,7 @@ public class User implements Serializable{
 	private Date birth_date;
 
 	@NotEmpty(message = "This field can not be empty")
-	@Column(unique = true,length = 50)
+	@Column(unique = true, length = 50)
 	@Email
 	private String email;
 
@@ -68,16 +68,11 @@ public class User implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;
-	
-	public User() {}
 
-	public long getUser_id() {
-		return user_id;
-	}
 
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
+	public long getUser_id() { return user_id; }
+
+	public void setUser_id(long user_id) { this.user_id = user_id; }
 
 	public String getPassword() {
 		return password;
@@ -157,6 +152,14 @@ public class User implements Serializable{
 
 	public String getUsername() {
 		return username;
+	}
+
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", username=" + username + ", password=" + password + ", first_name="
+				+ first_name + ", middle_name=" + middle_name + ", last_name=" + last_name + ", birth_date="
+				+ birth_date + ", email=" + email + ", first_access=" + first_access + ", role=" + role
+				+ ", payment_method=" + payment_method + "]";
 	}
 
 	private static final long serialVersionUID = 1L;
