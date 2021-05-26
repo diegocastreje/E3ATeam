@@ -44,6 +44,7 @@ public class User implements Serializable{
 	private String email;
 	@Column
 	private boolean first_access; //true->first access / false->not first access
+	private Boolean enabled;
 
 	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -143,6 +144,10 @@ public class User implements Serializable{
 	public void setFirst_access(boolean first_access) {
 		this.first_access = first_access;
 	}
+
+	public Boolean getEnabled() { return enabled; }
+
+	public void setEnabled(Boolean enabled) { this.enabled = enabled; }
 
 	public List<Role> getRole() { return role; }
 
