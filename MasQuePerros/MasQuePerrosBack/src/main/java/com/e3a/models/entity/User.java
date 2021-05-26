@@ -2,18 +2,9 @@ package com.e3a.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -53,11 +44,12 @@ public class User implements Serializable{
 	private String email;
 	@Column
 	private boolean first_access; //true->first access / false->not first access
-	
+
 	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
-	private Role role;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "user_id", "role_id" }) })
+	private List<Role> role;
 	
 	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -152,13 +144,9 @@ public class User implements Serializable{
 		this.first_access = first_access;
 	}
 
-	public Role getRole() {
-		return role;
-	}
+	public List<Role> getRole() { return role; }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+	public void setRole(List<Role> role) { this.role = role; }
 
 	public PaymentMethod getPayment_method() {
 		return payment_method;
