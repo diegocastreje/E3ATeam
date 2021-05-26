@@ -105,31 +105,7 @@ public class UserRestController {
 				System.out.println(roleFinal);
 				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 				PaymentMethod paymentFinal =payments.get(0);
-				
-//				System.out.println(user.getRole().getRole_id());
-//				Long idRole = user.getRole().getRole_id();
-//				System.out.println("El id del rol es="+idRole);
-//				List<Role> roles = roleService.findAllRoles();
-//				Role roleFinal =null;
-//	 			for (Role role : roles) {
-//					if(role.getRole_id()==user.getRole().getRole_id()) {
-//						roleFinal=user.getRole();
-//					}
-//				}
-//				System.out.println(roleFinal);
-//				
-//				System.out.println(user.getPayment_method().getPayment_id());
-//				Long idPaymetn = user.getPayment_method().getPayment_id();
-//				System.out.println("El id del pago es="+idPaymetn);
-//				List<PaymentMethod> payments = paymentMethodService.findAllPaymentMethods();
-//				PaymentMethod paymentFinal =null;
-//	 			for (PaymentMethod paymentMethod : payments) {
-//					if(paymentMethod.getPayment_id()==user.getPayment_method().getPayment_id()) {
-//						paymentFinal=user.getPayment_method();
-//					}
-//				}
-//				System.out.println(paymentFinal);
-			
+							
 				user.setRole(roleFinal);
 				user.setPayment_method(paymentFinal);
 				
