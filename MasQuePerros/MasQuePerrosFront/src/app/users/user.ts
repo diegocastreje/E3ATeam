@@ -14,6 +14,7 @@ export class User {
   role: Role;
   payment_method: PaymentMethod;
 
+
   constructor(
     user_id: number,
     username: string,
