@@ -207,13 +207,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-//			List<Order> UserOrders =userService.findOrderByUserId(id);
-//			for (Order order : UserOrders) {
-//				order.setUser(null);
-//			}
 			userService.delete(id);
-			
-			
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));
 			response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
