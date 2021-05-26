@@ -107,19 +107,15 @@ public class UserRestController {
 			
 			try {
 				
-				System.out.println(user.toString());
 				Role roleFinal =null;
 				List<Role> roles = roleService.findByName(user.getRole().getName());
 				roleFinal = roles.get(0);
-				System.out.println(roleFinal);
 				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 				PaymentMethod paymentFinal =payments.get(0);
 							
 				user.setRole(roleFinal);
 				user.setPayment_method(paymentFinal);
-				
-				System.out.println(user);
-				
+
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -160,6 +156,12 @@ public class UserRestController {
 		}
 		
 		try {
+
+			Role roleFinal =null;
+			List<Role> roles = roleService.findByName(user.getRole().getName());
+			roleFinal = roles.get(0);
+			List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
+			PaymentMethod paymentFinal =payments.get(0);
 			
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
@@ -168,9 +170,9 @@ public class UserRestController {
 			userActual.setLast_name(user.getLast_name());
 			userActual.setBirth_date(user.getBirth_date());
 			userActual.setEmail(user.getEmail());
-			userActual.setRole(user.getRole());
-			userActual.setPayment_method(user.getPayment_method());
-		
+			userActual.setRole(roleFinal);
+			userActual.setPayment_method(paymentFinal);
+
 		userUpdated = userService.save(userActual);
 		
 		}catch(DataAccessException e){
