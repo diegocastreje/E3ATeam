@@ -70,7 +70,6 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public List<Order> findOrderByUserId(Long id) {
-		// TODO Auto-generated method stub
 		return orderDao.findByUser(id);
 	}
 
