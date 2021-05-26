@@ -1,7 +1,13 @@
 package com.e3a.controllers;
 
+import com.e3a.models.dao.IPaymentMethodDao;
 import com.e3a.models.entity.Item;
+import com.e3a.models.entity.Order;
+import com.e3a.models.entity.PaymentMethod;
+import com.e3a.models.entity.Role;
 import com.e3a.models.entity.User;
+import com.e3a.models.services.IPaymentMethodService;
+import com.e3a.models.services.IRoleService;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
 
@@ -44,6 +50,12 @@ public class UserRestController {
 	
     @Autowired
     private IUserService userService;
+    
+    @Autowired
+    private IPaymentMethodService paymentMethodService;
+
+    @Autowired
+    private IRoleService roleService;
 
     @GetMapping("/users")
     public List<User> index() {
@@ -94,6 +106,20 @@ public class UserRestController {
         else {
 			
 			try {
+				
+				System.out.println(user.toString());
+				Role roleFinal =null;
+				List<Role> roles = roleService.findByName(user.getRole().getName());
+				roleFinal = roles.get(0);
+				System.out.println(roleFinal);
+				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
+				PaymentMethod paymentFinal =payments.get(0);
+							
+				user.setRole(roleFinal);
+				user.setPayment_method(paymentFinal);
+				
+				System.out.println(user);
+				
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -154,7 +180,7 @@ public class UserRestController {
 		}
 		
 		response.put(reader.getString("message"),reader.getString("userUpdated"));
-		response.put("cliente", userUpdated);
+		response.put(reader.getString("user"), userUpdated);
 		
 		
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED); 
@@ -166,9 +192,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-
 			userService.delete(id);
-			
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));
 			response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
