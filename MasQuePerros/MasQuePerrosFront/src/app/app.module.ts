@@ -18,6 +18,7 @@ import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RegisterComponent } from './register/register.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 
@@ -30,7 +31,8 @@ const routes: Routes = [
   {path: 'items/:id', component: FormComponent},
   {path: 'users', component: UserComponent},
   {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
+  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'orders', component: OrdersComponent}
 ];
 
 @NgModule({
@@ -43,6 +45,7 @@ const routes: Routes = [
     FormComponent,
     LoginComponent,
     RegisterComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
