@@ -34,6 +34,7 @@ export class UserService {
         if ( e.error.mensaje) {
           console.error(e.error.mensaje);
         }
+
         return throwError(e);
       })
     );
@@ -63,4 +64,5 @@ export class UserService {
       })
     );
   }
+
 }

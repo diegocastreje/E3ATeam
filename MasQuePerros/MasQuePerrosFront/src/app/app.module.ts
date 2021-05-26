@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './users/user.component';
@@ -10,7 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
@@ -28,14 +31,18 @@ const routes: Routes = [
     FooterComponent,
     ItemsComponent,
     UserComponent,
+
     FormComponent,
     LoginComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [ItemService],
   bootstrap: [AppComponent]
+
 })
-export class AppModule { }
+export class AppModule {}

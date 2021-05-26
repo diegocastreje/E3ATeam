@@ -3,6 +3,8 @@ package com.e3a.models.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,7 +36,12 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	
+	@Transactional(readOnly=true)
+	public Page<User> findAll(Pageable pageable) {
+		return userDao.findAll(pageable);
+	}
+
+	@Override
 	public User save(User user) {
 		return userDao.save(user);
 	}

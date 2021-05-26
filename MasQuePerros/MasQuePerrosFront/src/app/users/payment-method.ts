@@ -6,4 +6,5 @@ export class PaymentMethod {
     this.payment_id = payment_id;
     this.description = description;
   }*/
+
 }
