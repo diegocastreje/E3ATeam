@@ -14,9 +14,6 @@ import com.e3a.models.entity.User;
 
 public interface IRoleDao  extends JpaRepository<Role, Long>{
 		
-	//@Query("from Role r where r.role_id = ?")
-	//public Role findById(Long id);
-	
 	@Query("from Role")
 	public List<Role> findAllRoles();
 	
