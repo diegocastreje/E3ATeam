@@ -56,6 +56,7 @@ public class UserRestController {
 
 	@GetMapping("/users")
 	public List<User> index() {
+		System.out.println(userService.findAll());
 		return userService.findAll();
 	}
 
