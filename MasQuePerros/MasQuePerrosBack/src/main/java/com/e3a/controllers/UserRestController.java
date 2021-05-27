@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -60,6 +61,7 @@ public class UserRestController {
 		return userService.findAll();
 	}
 
+	@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		User user = null;
@@ -79,6 +81,7 @@ public class UserRestController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/users")
 	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
 		User userNew =null;
@@ -125,6 +128,7 @@ public class UserRestController {
 	}
 
 
+	@Secured("ROLE_ADMIN")
 	@PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
 
@@ -176,6 +180,7 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
+	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 
