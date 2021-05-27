@@ -34,11 +34,6 @@ public class PaymentMethod implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	@Override
-	public String toString() {
-		return "PaymentMethod [payment_id=" + payment_id + ", description=" + description + "]";
-	}
 	
 	@Override
 	public String toString() {

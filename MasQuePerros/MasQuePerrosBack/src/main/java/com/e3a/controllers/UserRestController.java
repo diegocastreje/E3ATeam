@@ -44,20 +44,20 @@ import javax.validation.Valid;
 public class UserRestController {
 
 	private Reader reader= new Reader();
-	
-    @Autowired
-    private IUserService userService;
-    
-    @Autowired
-    private IPaymentMethodService paymentMethodService;
 
-    @Autowired
-    private IRoleService roleService;
+	@Autowired
+	private IUserService userService;
 
-    @GetMapping("/users")
-    public List<User> index() {
-        return userService.findAll();
-    }
+	@Autowired
+	private IPaymentMethodService paymentMethodService;
+
+	@Autowired
+	private IRoleService roleService;
+
+	@GetMapping("/users")
+	public List<User> index() {
+		return userService.findAll();
+	}
 
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
@@ -77,81 +77,79 @@ public class UserRestController {
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-    
+
 	@PostMapping("/users")
 	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
 		User userNew =null;
 		Map<String , Object> response = new HashMap();
-		
+
 		if(result.hasErrors()) {
-            
-            List<String> errors = new ArrayList<>();
-            for(FieldError err: result.getFieldErrors()) {
-                System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
-                errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
-            }
-            
-            response.put(reader.getString("error"), errors);
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-        }
-        else {
-			
+
+			List<String> errors = new ArrayList<>();
+			for(FieldError err: result.getFieldErrors()) {
+				System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+			}
+
+			response.put(reader.getString("error"), errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		else {
+
 			try {
-				
+
 				System.out.println(user.toString());
-				Role roleFinal =null;
-				List<Role> roles = roleService.findByName(user.getRole().getName());
-				roleFinal = roles.get(0);
+				List<Role>roleFinal = roleService.findByName(user.getRole().get(0).getName());
 				System.out.println(roleFinal);
 				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 				PaymentMethod paymentFinal =payments.get(0);
-							
+
 				user.setRole(roleFinal);
 				user.setPayment_method(paymentFinal);
-				
+
 				System.out.println(user);
-				
+
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
 				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
+
 			}
 			response.put(reader.getString("message"), reader.getString("userCreated"));
 			response.put(reader.getString("user"), userNew);
 			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
-			
-			}
-		}
-    
 
-    @PutMapping("/users/{id}")
+		}
+	}
+
+
+	@PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
-		
+
 		User userActual = userService.findById(id);
 		User userUpdated = null;
-		
+
 		Map<String, Object> response = new HashMap<>();
-		
+
 		if(result.hasErrors()) {
-			
+
 			List<String> errors = new ArrayList<>();
 			for(FieldError err: result.getFieldErrors()) {
 				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
 			}
-			
+
 			response.put(reader.getString("error"), errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		if(userActual == null) {
 			response.put(reader.getString("message"), reader.getString("errorUpdatingUser").concat(id.toString().concat(reader.getString("notInBBDD"))));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		
+
 		try {
-			
+
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
 			userActual.setFirst_name(user.getFirst_name());
@@ -161,27 +159,27 @@ public class UserRestController {
 			userActual.setEmail(user.getEmail());
 			userActual.setRole(user.getRole());
 			userActual.setPayment_method(user.getPayment_method());
-		
-		userUpdated = userService.save(userActual);
-		
+
+			userUpdated = userService.save(userActual);
+
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"),  reader.getString("errorUpdatingUser"));
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		response.put(reader.getString("message"),reader.getString("userUpdated"));
 		response.put(reader.getString("user"), userUpdated);
-		
-		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED); 
+
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
+
 		Map<String, Object> response = new HashMap<>();
-		
+
 		try {
 			userService.delete(id);
 		}catch(DataAccessException e){
@@ -192,7 +190,7 @@ public class UserRestController {
 		response.put(reader.getString("message"), reader.getString("userDeleted"));
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-	
-	
+
+
 
 }

@@ -83,4 +83,9 @@ public class UserService implements IUserService ,UserDetailsService{
     public void deleteOrderById(Long id) {
 
     }
+
+    @Override
+    public List<Order> findOrderByUserId(Long id) {
+        return null;
+    }
 }
