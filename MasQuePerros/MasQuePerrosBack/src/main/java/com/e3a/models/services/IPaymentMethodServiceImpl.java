@@ -18,7 +18,7 @@ public class IPaymentMethodServiceImpl implements IPaymentMethodService {
 	
 	
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional (readOnly=true)
 	public List<PaymentMethod> findAllPaymentMethods() {
 		
 		return paymentMethodDao.findAllPaymentMethods();

@@ -19,7 +19,7 @@ public class IRoleServiceImpl implements IRoleService{
 	
 
 	@Override
-	@Transactional(readOnly=true)
+	@Transactional (readOnly=true)
 	public List<Role> findAllRoles() {
 		
 		return roleDao.findAll();
