@@ -12,6 +12,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL57Dialect
+        
   jackson:
     time-zone: America/Sao_Paulo
     locale: es_ES
@@ -19,8 +20,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+      
 logging:
   level:
     '[org.hibernate.sql]': debug
+    
 server:
   port: 8081

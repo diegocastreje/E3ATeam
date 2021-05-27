@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name="payment_methods")
 public class PaymentMethod implements Serializable{
 
 	@Id
 	private long payment_id;
+
 	@Column(nullable=false)
 	private String description;
 	
@@ -39,4 +41,5 @@ public class PaymentMethod implements Serializable{
 	}
 
 	private static final long serialVersionUID = 1L;
+
 }
