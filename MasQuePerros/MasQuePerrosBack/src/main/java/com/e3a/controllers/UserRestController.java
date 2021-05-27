@@ -106,15 +106,9 @@ public class UserRestController {
         else {
 			
 			try {
-				
-				Role roleFinal =null;
-				List<Role> roles = roleService.findByName(user.getRole().getName());
-				roleFinal = roles.get(0);
-				List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
-				PaymentMethod paymentFinal =payments.get(0);
 							
-				user.setRole(roleFinal);
-				user.setPayment_method(paymentFinal);
+				user.setRole(obtenerRolPorNombre(user));
+				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
@@ -131,7 +125,17 @@ public class UserRestController {
 		}
     
 
-    @PutMapping("/users/{id}")
+    private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
+    	List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
+		return payments.get(0);
+	}
+
+	private Role obtenerRolPorNombre(@Valid User user) {
+    	List<Role> roles = roleService.findByName(user.getRole().getName());
+		return roles.get(0);
+	}
+
+	@PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
 		
 		User userActual = userService.findById(id);
@@ -156,12 +160,6 @@ public class UserRestController {
 		}
 		
 		try {
-
-			Role roleFinal =null;
-			List<Role> roles = roleService.findByName(user.getRole().getName());
-			roleFinal = roles.get(0);
-			List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
-			PaymentMethod paymentFinal =payments.get(0);
 			
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
@@ -170,8 +168,8 @@ public class UserRestController {
 			userActual.setLast_name(user.getLast_name());
 			userActual.setBirth_date(user.getBirth_date());
 			userActual.setEmail(user.getEmail());
-			userActual.setRole(roleFinal);
-			userActual.setPayment_method(paymentFinal);
+			userActual.setRole(obtenerRolPorNombre(user));
+			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 		userUpdated = userService.save(userActual);
 		
