@@ -13,9 +13,6 @@ import com.e3a.utilities.Reader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -47,25 +44,19 @@ import javax.validation.Valid;
 public class UserRestController {
 
 	private Reader reader= new Reader();
-	
-    @Autowired
-    private IUserService userService;
-    
-    @Autowired
-    private IPaymentMethodService paymentMethodService;
 
-    @Autowired
-    private IRoleService roleService;
+	@Autowired
+	private IUserService userService;
 
-    @GetMapping("/users")
-    public List<User> index() {
-        return userService.findAll();
-    }
+	@Autowired
+	private IPaymentMethodService paymentMethodService;
 
-	@GetMapping("/users/page/{page}")
-	public Page<User> index(@PathVariable Integer page) {
-    	Pageable pageable = PageRequest.of(page, 4);
-		return userService.findAll(pageable);
+	@Autowired
+	private IRoleService roleService;
+
+	@GetMapping("/users")
+	public List<User> index() {
+		return userService.findAll();
 	}
 
 	@GetMapping("/users/{id}")
@@ -86,26 +77,27 @@ public class UserRestController {
 		}
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
-    
+
 	@PostMapping("/users")
 	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
 		User userNew =null;
 		Map<String , Object> response = new HashMap();
-		
+
 		if(result.hasErrors()) {
-            
-            List<String> errors = new ArrayList<>();
-            for(FieldError err: result.getFieldErrors()) {
-                System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
-                errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
-            }
-            
-            response.put(reader.getString("error"), errors);
-            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-        }
-        else {
-			
+
+			List<String> errors = new ArrayList<>();
+			for(FieldError err: result.getFieldErrors()) {
+				System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+			}
+
+			response.put(reader.getString("error"), errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		else {
+
 			try {
+
 							
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
@@ -115,15 +107,16 @@ public class UserRestController {
 				response.put(reader.getString("message"),reader.getString("queryError"));
 				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-			
+
 			}
 			response.put(reader.getString("message"), reader.getString("userCreated"));
 			response.put(reader.getString("user"), userNew);
 			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
-			
-			}
+
 		}
-    
+	}
+
+
 
     private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
     	List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
@@ -135,32 +128,33 @@ public class UserRestController {
 		return roles.get(0);
 	}
 
+
 	@PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
-		
+
 		User userActual = userService.findById(id);
 		User userUpdated = null;
-		
+
 		Map<String, Object> response = new HashMap<>();
-		
+
 		if(result.hasErrors()) {
-			
+
 			List<String> errors = new ArrayList<>();
 			for(FieldError err: result.getFieldErrors()) {
 				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
 			}
-			
+
 			response.put(reader.getString("error"), errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
-		
+
 		if(userActual == null) {
 			response.put(reader.getString("message"), reader.getString("errorUpdatingUser").concat(id.toString().concat(reader.getString("notInBBDD"))));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
-		
+
 		try {
-			
+
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
 			userActual.setFirst_name(user.getFirst_name());
@@ -168,29 +162,30 @@ public class UserRestController {
 			userActual.setLast_name(user.getLast_name());
 			userActual.setBirth_date(user.getBirth_date());
 			userActual.setEmail(user.getEmail());
+
 			userActual.setRole(obtenerRolPorNombre(user));
 			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 		userUpdated = userService.save(userActual);
-		
+
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"),  reader.getString("errorUpdatingUser"));
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		response.put(reader.getString("message"),reader.getString("userUpdated"));
 		response.put(reader.getString("user"), userUpdated);
-		
-		
-		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED); 
+
+
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
-		
+
 		Map<String, Object> response = new HashMap<>();
-		
+
 		try {
 			userService.delete(id);
 		}catch(DataAccessException e){
@@ -201,10 +196,12 @@ public class UserRestController {
 		response.put(reader.getString("message"), reader.getString("userDeleted"));
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+
 	
 	@GetMapping("/users/payment_methods")
 	public List<PaymentMethod> listPaymentMethods(){
 		return paymentMethodService.findAllPaymentMethods();
 	}
+
 
 }
