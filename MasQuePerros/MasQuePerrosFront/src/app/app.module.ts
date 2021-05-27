@@ -12,12 +12,16 @@ import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 import { LoginComponent } from './login/login.component';
 
+
+
+
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'users', component: UserComponent},
-  {path: 'clientes/form', component:FormComponent}
+  {path: 'users/form', component:FormComponent},
+  {path: 'users/form/:id', component:FormComponent}
 ];
 
 @NgModule({
@@ -27,11 +31,9 @@ const routes: Routes = [
     FooterComponent,
     ItemsComponent,
     UserComponent,
-<<<<<<< HEAD
-    FormComponent
-=======
+
+    FormComponent,
     LoginComponent
->>>>>>> 879ef3e0ea5d806c60eaca6b1e52bd785444452b
   ],
   imports: [
     BrowserModule,
