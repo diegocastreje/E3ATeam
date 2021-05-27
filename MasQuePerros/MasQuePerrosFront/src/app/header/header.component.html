@@ -1,38 +1,51 @@
-
 <nav class="header">
-<div class="headerContainer">
-  <p class="text-white title">
-    {{ title }}
-    <sup>{{ symbol }}</sup>
-  </p>
-</div>
+  <div class="headerContainer">
+    <div class="text-white title">{{ title }}</div>
+  </div>
 </nav>
-<ul class="nav navBar">
-<!-- if sesionNoIniciada: -->
-<li class="nav-item">
-  <a class="nav-link active">Registro</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link text-white">Login</a>
-</li>
-<!-- if sesionIniciadaCustomer: -->
-<li class="nav-item">
-  <a class="nav-link active">Home</a>
-</li>
-<li class="nav-item right">
-  <a class="nav-link text-white">Carro de compra</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link text-danger">Cerrar Sesión</a>
-</li>
-<!-- if sesionIniciadaAdmin: -->
-<li class="nav-item">
-  <a class="nav-link active">Productos</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link text-white">Usuarios</a>
-</li>
-<li class="nav-item right">
-  <a class="nav-link text-danger">Cerrar Sesión</a>
-</li>
-</ul>
+<nav class="navbar navbar-expand-md navBar mx-1 bg-dark">
+  <button
+    class="navbar-toggler navbar-toggler-right ml-aut"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavbar"
+  >
+    <span class="bi bi-list"> </span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <!-- if sesionNoIniciada: -->
+      <li class="nav-item">
+        <a class="nav-link active">Registro</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/login">Login</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mx-auto">
+      <!-- if sesionIniciadaCustomer: -->
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/items">Home</a>
+      </li>
+      <li class="nav-item right">
+        <a class="nav-link text-white">Carro de compra</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- if sesionIniciadaAdmin: -->
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/items">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/users">Usuarios</a>
+      </li>
+      <li class="nav-item right">
+        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -6,9 +6,5 @@ import { Component } from '@angular/core';
     styleUrls: ['./header.component.css']
   })
   export class HeaderComponent {
-    title: string = 'Más Que Perros';
-    symbol: string = 'TM';
-
-
-
+    title: string = 'Más Que Perros™';
     }

@@ -1,18 +1,11 @@
-#btnFiltersItems{
-    display: block;
-    text-align: left;
-    width: 100%;
-}
-.filtersBack{
-  background-color: #393e46;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-}
-.btnFilter{
-  color: #00adb5;
+#btnFiltersItems {
   border-color: #00adb5;
+  color: #00adb5;
+  display: block;
+  text-align: left;
+  width: 100%;
 }
+
 .imageSize{
   width:64px;
 }

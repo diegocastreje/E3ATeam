@@ -26,7 +26,7 @@ public class Order implements Serializable{
 	private long order_id;
 	
 	@JsonIgnoreProperties(value = {"orders","hibernateLazyInitializer","handler"}, allowSetters = true)
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="user_id")
 	private User user;
 	
