@@ -202,6 +202,9 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 	
-	
+	@GetMapping("/users/payment_methods")
+	public List<PaymentMethod> listPaymentMethods(){
+		return paymentMethodService.findAllPaymentMethods();
+	}
 
 }

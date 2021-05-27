@@ -14,8 +14,8 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
 
   public title: string = "Create user";
-  public user=new User()
-
+  public user:User =new User()
+  public paymentMethods :PaymentMethod[] =  [] ;
 
   constructor(public userService : UserService,
   public router:Router,
@@ -23,6 +23,10 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarUsuario();
+    this.userService.getPayments().subscribe(paymentMethods => {
+      this.paymentMethods = paymentMethods;
+      console.log(paymentMethods);
+    });
   }
 
   cargarUsuario():void{
@@ -48,5 +52,12 @@ export class FormComponent implements OnInit {
       this.router.navigate(['/users'])
         Swal.fire('Usuario actualizado',`Usuario ${user.username} actualizado con exito`, 'success')
     });
+  }
+
+  comparePayment(o1:PaymentMethod, o2:PaymentMethod):boolean {
+    if(o1.payment_id === 2 && o2.payment_id === 2){
+      return true
+    }
+    return o1 == null || o2 ==null? false: o1.payment_id===o2.payment_id;
   }
 }

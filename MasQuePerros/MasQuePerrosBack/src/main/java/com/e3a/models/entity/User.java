@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
@@ -60,8 +61,8 @@ public class User implements Serializable{
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="role_id", foreignKey = @ForeignKey(name="fk_role"))
 	private Role role;
-	
-	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
+	@NotNull
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;

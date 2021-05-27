@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.e3a.models.dao.IRoleDao;
 import com.e3a.models.entity.Role;
@@ -17,6 +18,7 @@ public class IRoleServiceImpl implements IRoleService{
 	
 
 	@Override
+	@Transactional (readOnly=true)
 	public List<Role> findAllRoles() {
 		
 		return roleDao.findAll();
@@ -24,6 +26,7 @@ public class IRoleServiceImpl implements IRoleService{
 
 
 	@Override
+	@Transactional (readOnly=true)
 	public List<Role> findByName(String term) {
 		// TODO Auto-generated method stub
 		return roleDao.findByName(term);
