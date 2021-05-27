@@ -40,7 +40,7 @@ export class User {
     this.first_access = first_access;
     this.role = role;
     this.payment_method = payment_method;
-
+    
   }*/
 
 }
