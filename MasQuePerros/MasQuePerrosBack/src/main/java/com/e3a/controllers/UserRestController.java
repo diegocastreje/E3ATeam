@@ -103,7 +103,7 @@ public class UserRestController {
 			try {
 
 							
-				user.setRole(obtenerRolPorNombre(user));
+				user.setRole((List<Role>) obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 				userNew = userService.save(user);
@@ -120,14 +120,14 @@ public class UserRestController {
 		}
 	}
   
-  private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
+	private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
     	List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 		return payments.get(0);
 	}
 
 	private Role obtenerRolPorNombre(@Valid User user) {
-    	List<Role> roles = roleService.findByName(user.getRole().getName());
-		return roles.get(0);
+		List<Role>roleFinal = roleService.findByName(user.getRole().get(0).getName());
+		return roleFinal.get(0);
 	}
 
 
@@ -166,7 +166,7 @@ public class UserRestController {
 			userActual.setBirth_date(user.getBirth_date());
 			userActual.setEmail(user.getEmail());
 
-			userActual.setRole(obtenerRolPorNombre(user));
+			userActual.setRole((List<Role>) obtenerRolPorNombre(user));
 			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 		userUpdated = userService.save(userActual);
