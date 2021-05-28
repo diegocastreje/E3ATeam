@@ -28,8 +28,10 @@ export class AuthService {
     params.set('email', user.email);
   
     params.set('password', user.password);
+
+    console.log(params.toString());
   
-    return this.http.post<any>(urlEndpoint, params, {headers: httpHeaders});
+    return this.http.post<any>(urlEndpoint, params.toString(), {headers: httpHeaders});
   }
 
 }
