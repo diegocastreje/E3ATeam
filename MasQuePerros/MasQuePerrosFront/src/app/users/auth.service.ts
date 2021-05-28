@@ -127,12 +127,26 @@ export class AuthService {
     let payload = this.importTokenData(this.token);
 
     if(payload != null && payload.user_name && payload.user_name.length>0){
-      
+
       return true;
 
     }
 
     return false;
+
+  }
+
+  logout(): void {
+
+    this._token = null;
+
+    this._user = null;
+    
+    sessionStorage.clear();
+
+    sessionStorage.removeItem('token');
+
+    sessionStorage.removeItem('user');
 
   }
 
