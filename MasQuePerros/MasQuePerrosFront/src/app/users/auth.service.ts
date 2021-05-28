@@ -122,4 +122,18 @@ export class AuthService {
 
   }
 
+  isAuthenticated(): boolean {
+
+    let payload = this.importTokenData(this.token);
+
+    if(payload != null && payload.user_name && payload.user_name.length>0){
+      
+      return true;
+
+    }
+
+    return false;
+
+  }
+
 }

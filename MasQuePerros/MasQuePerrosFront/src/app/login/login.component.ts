@@ -27,6 +27,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if(this.authService.isAuthenticated()) {
+
+      swal.fire('Login', `Hi ${this.authService.user.username} you're already signed in!`, 'info');
+
+      this.router.navigate(['/users']);
+
+    }
+
   }
 
   login():void  {
@@ -64,7 +72,7 @@ export class LoginComponent implements OnInit {
       }
 
     }
-    
+
     );
 
   }
