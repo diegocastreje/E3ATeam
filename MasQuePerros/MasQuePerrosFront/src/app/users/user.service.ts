@@ -15,23 +15,78 @@ export class UserService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
+  private isNoAuthorized(e): boolean{
+
+    if(e.status==401 || e.status==403){
+
+      this.router.navigate(['/login'])
+
+      return true;
+
+    }
+
+    return false;
+
+  }
+
   getPayments():Observable<PaymentMethod[]>{
-    return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods');
+    return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods').pipe(
+      catchError(e => {
+        
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+          
+        }
+
+        return throwError(e);
+
+      })
+    );
   }
 
   getUsuarios(): Observable<User[]> {
     return this.http.get<User[]>(this.urlEndPoint).pipe(
-      map(response => response as User[])
+      map(response => response as User[]), 
+      catchError(e => {
+        
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+          
+        }
+
+        return throwError(e);
+
+      })
     );
   }
 
   getUsuario(id:number): Observable<User> {
-    return this.http.get<User>(`${this.urlEndPoint}/${id}`);
+    return this.http.get<User>(`${this.urlEndPoint}/${id}`).pipe(
+      catchError(e => {
+        
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+          
+        }
+
+        return throwError(e);
+
+      })
+    );
   }
 
   create(user: User): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, user).pipe(
       catchError(e => {
+
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+
+        }
 
         if (e.status == 400) {
           return throwError(e);
@@ -48,6 +103,13 @@ export class UserService {
   delete(user: User): Observable<any>{
     return this.http.delete<User>(`${this.urlEndPoint}/${user.user_id}`).pipe(
       catchError((e) => {
+
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+          
+        }
+
         if (e.error.mensaje) {
           console.error(e.error.mensaje);
         }
@@ -55,9 +117,16 @@ export class UserService {
       })
     );
   }
+
   update(user:User):Observable<User>{
     return this.http.put<any>(`${this.urlEndPoint}/${user.user_id}`,user).pipe(
       catchError(e => {
+
+        if(this.isNoAuthorized(e)){
+
+          return throwError(e);
+          
+        }
 
         if (e.status == 400) {
           return throwError(e);
@@ -69,5 +138,4 @@ export class UserService {
       })
     );
   }
-
 }
