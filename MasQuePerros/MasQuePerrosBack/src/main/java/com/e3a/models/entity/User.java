@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
@@ -24,18 +21,16 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name="users")
 public class User implements Serializable{
 
 	@Id
+//	@TableGenerator(initialValue = 100000, name = "user_id", table = "users")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long user_id;
+	private long user_id;
 
 	@NotEmpty(message = "This field can not be empty")
 	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
@@ -56,7 +51,7 @@ public class User implements Serializable{
 	@Column(length = 20)
 	private String last_name;
 
-	@NotEmpty(message = "This field can not be empty")
+	//@NotEmpty(message = "This field can not be empty")
 	@Column
 	@DateTimeFormat(pattern = "yyyy-MM-dd" )
 	private Date birth_date;
@@ -72,15 +67,15 @@ public class User implements Serializable{
 	@Column
 	private boolean enabled;
 
-	@JsonIgnoreProperties({"role_id","hibernateLazyInitializer","handler"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"), uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "user_id", "role_id" }) })
 	private List<Role> role;
 	
 	@JsonIgnoreProperties({"payment_id","hibernateLazyInitializer","handler"})
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="payment_id", foreignKey = @ForeignKey(name="fk_paymentMethod"))
 	private PaymentMethod payment_method;
 

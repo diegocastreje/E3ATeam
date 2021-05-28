@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from './user';
 import { PaymentMethod } from './payment-method';
+import { Role } from './role';
 import config from '../../assets/config/config.json';
 
 @Injectable({
@@ -18,7 +19,9 @@ export class UserService {
   getPayments():Observable<PaymentMethod[]>{
     return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods');
   }
-
+  getRoles():Observable<Role[]>{
+    return this.http.get<Role[]>(this.urlEndPoint+'/roles');
+  }
   getUsuarios(): Observable<User[]> {
     return this.http.get<User[]>(this.urlEndPoint).pipe(
       map(response => response as User[])

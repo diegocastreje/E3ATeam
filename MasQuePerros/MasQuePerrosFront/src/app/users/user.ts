@@ -12,7 +12,7 @@ export class User {
   birth_date: string="";
   email: string="";
   first_access: boolean=true;
-  role: Role=new Role();
+  role: Role[]=[new Role()];
   payment_method: PaymentMethod=new PaymentMethod();
 
 
@@ -40,7 +40,7 @@ export class User {
     this.first_access = first_access;
     this.role = role;
     this.payment_method = payment_method;
-    
+
   }*/
 
 }

@@ -15,7 +15,8 @@ export class FormComponent implements OnInit {
 
   public title: string = "Create user";
   public user:User =new User()
-  public paymentMethods :PaymentMethod[] =  [] ;
+  public paymentMethods :PaymentMethod[]=[];
+  public roles :Role[]=[];
 
   constructor(public userService : UserService,
   public router:Router,
@@ -26,6 +27,10 @@ export class FormComponent implements OnInit {
     this.userService.getPayments().subscribe(paymentMethods => {
       this.paymentMethods = paymentMethods;
       console.log(paymentMethods);
+    });
+    this.userService.getRoles().subscribe(roles => {
+      this.roles = roles;
+      console.log(roles);
     });
   }
 
@@ -59,5 +64,9 @@ export class FormComponent implements OnInit {
       return true
     }
     return o1 == null || o2 ==null? false: o1.payment_id===o2.payment_id;
+  }
+
+  compareRole(){
+
   }
 }
