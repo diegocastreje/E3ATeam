@@ -94,7 +94,8 @@
         <div class="card">
           <div class="card-header">
             <div class="my-3 text-left">
-              <button class="btn btn-rounded btn-success" routerLink="/users/form">
+              <button class="btn btn-rounded btn-success" [routerLink]="['/users/form']">
+                <!--[routerLink]="['/users/rutadelformulario']"-->
                 Crear
               </button>
             </div>
@@ -158,8 +159,9 @@
                       name="editar"
                       class="btn btn-primary"
                       style="margin-right: 10px"
+                      [routerLink]="['/users/form', user.user_id]"
                     >
-                      <!--[routerLink]="['/clientes/formulario', cli.id]"-->
+                      <!-- [routerLink]="['/clientes/formulario', cli.id]"-->
                       <em class="bi bi-pencil"></em>
                     </button>
                     <button
