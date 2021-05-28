@@ -82,6 +82,7 @@ public class UserRestController {
 //	@Secured("ROLE_ADMIN")
 	@PostMapping("/users")
 	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
+
 		User userNew =null;
 		Map<String , Object> response = new HashMap();
 
@@ -99,9 +100,8 @@ public class UserRestController {
 		else {
 
 			try {
-
-							
-				//user.setRole(obtenerRolPorNombre(user));
+						
+				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 				userNew = userService.save(user);

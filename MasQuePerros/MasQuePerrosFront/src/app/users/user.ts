@@ -12,7 +12,7 @@ export class User {
   birth_date: string="";
   email: string="";
   first_access: boolean=true;
-  role: Role[]=[new Role()];
+  role: Role[]|any=[new Role()];
   payment_method: PaymentMethod=new PaymentMethod();
 
 

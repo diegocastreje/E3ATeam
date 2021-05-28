@@ -5,6 +5,7 @@ import { PaymentMethod } from './payment-method';
 import { UserService } from './user.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
@@ -13,8 +14,9 @@ import Swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
 
+  public selectedCountriesControl = new FormControl();
   public title: string = "Create user";
-  public user:User =new User()
+  public user:User =new User();
   public paymentMethods :PaymentMethod[]=[];
   public roles :Role[]=[];
 
@@ -26,11 +28,9 @@ export class FormComponent implements OnInit {
     this.cargarUsuario();
     this.userService.getPayments().subscribe(paymentMethods => {
       this.paymentMethods = paymentMethods;
-      console.log(paymentMethods);
     });
     this.userService.getRoles().subscribe(roles => {
       this.roles = roles;
-      console.log(roles);
     });
   }
 
@@ -44,8 +44,10 @@ export class FormComponent implements OnInit {
   }
 
   public create():void{
-    console.log("1");
-    console.log(this.user);
+
+//    var roles:Role[]=[];
+//    roles[0]=this.user.role;
+    this.user.role=  [this.user.role];
     this.userService.create(this.user).subscribe(
       reponse => this.router.navigate(['/users'])
 
@@ -53,17 +55,25 @@ export class FormComponent implements OnInit {
   }
 
   update():void{
+//    var roles:Role[]=[this.user.role];
+//    roles[0]=this.user.role;
+    this.user.role= [this.user.role];
     this.userService.update(this.user).subscribe(user => {
       this.router.navigate(['/users'])
         Swal.fire('Usuario actualizado',`Usuario ${user.username} actualizado con exito`, 'success')
     });
   }
 
-  comparePayment(o1:PaymentMethod, o2:PaymentMethod):boolean {
-    if(o1.payment_id === 2 && o2.payment_id === 2){
-      return true
+  comparePayment(o1:any, o2:any):boolean {
+    if(typeof o2== "object" && o2!=null && o2!=undefined ){
+      if(o1 === 2 && o2.payment_id === 2){
+        return true
+      }
+      if(typeof o1== "object" && o1!=null && o1!=undefined ){
+          return o1 === null || o2 ===null || o1 === undefined || o2 ===undefined? false: o1.description==o2.description;
+      }
     }
-    return o1 == null || o2 ==null? false: o1.payment_id===o2.payment_id;
+    return false;
   }
 
   compareRole(){

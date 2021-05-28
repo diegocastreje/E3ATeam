@@ -86,17 +86,18 @@
       <div class="form-group row">
         <label for="payment_method" class="col-form-label col-sm-2">PaymentMethod</label>
         <div class=" col-sm-6">
-          <select [compareWith]="comparePayment" type="payment_method" class="form-control" [(ngModel)]="user.payment_method" name="payment_method" #payment_method=ngModel required >
-            <option [ngValue]="2">--- select one payment method ---</option>
-            <option *ngFor="let paymentMethod of paymentMethods" [ngValue]="paymentMethod">{{paymentMethod.description}}</option>
+          <select [compareWith]="comparePayment"  type="payment_method" class="form-control" [(ngModel)]="user.payment_method" name="payment_method" #payment_method=ngModel required >
+            <ng-container *ngFor="let paymentMethod of paymentMethods" >
+              <option [ngValue]="paymentMethod">{{paymentMethod.description}}</option>
+            </ng-container>
           </select>
         </div>
       </div>
-
       <div class="form-group row">
         <label for="role" class="col-form-label col-sm-2">Roles</label>
         <div class=" col-sm-6">
-          <select [compareWith]="comparePayment" type="role" class="form-control" [(ngModel)]="user.role" name="role" #role=ngModel required >
+          <select  type="role" class="form-control" [(ngModel)]="user.role" name="role" #role=ngModel required >
+            <option [ngValue]="2">--- select one role ---</option>
             <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
           </select>
         </div>
