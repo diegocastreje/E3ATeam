@@ -32,7 +32,7 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public User findByUsername(String username) {
-		return null;
+		return userDao.findByUsername(username);
 	}
 
 	@Override

@@ -77,12 +77,12 @@ export class UserComponent implements OnInit {
             .indexOf(this.fSegundo.toLocaleLowerCase()) !== -1;
       }
 
-      if (this.fPerfil && filtrar) {
+      /*if (this.fPerfil && filtrar) {
         filtrar =
           usuario.role.name
             .toLocaleLowerCase()
             .indexOf(this.fPerfil.toLocaleLowerCase()) !== -1;
-      }
+      }*/
       return filtrar;
     });
   }

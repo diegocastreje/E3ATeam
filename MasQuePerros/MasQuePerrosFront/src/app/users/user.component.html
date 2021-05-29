@@ -95,7 +95,6 @@
           <div class="card-header">
             <div class="my-3 text-left">
               <button class="btn btn-rounded btn-success" [routerLink]="['/users/form']">
-                <!--[routerLink]="['/users/rutadelformulario']"-->
                 Crear
               </button>
             </div>
@@ -134,7 +133,7 @@
                   >
                     Segundo Apellido
                   </th>
-                  <th
+                  <!--<th
                     scope="col"
                     (click)="cambioOrden('role')"
                     [ngClass]="{
@@ -143,37 +142,39 @@
                     }"
                   >
                     Perfil
-                  </th>
+                  </th>-->
                   <th scope="col">Usuario</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of usuariosFiltrados">
-                  <td>{{ user.first_name }}</td>
-                  <td>{{ user.middle_name }}</td>
-                  <td>{{ user.last_name }}</td>
-                  <td>{{ user.role.name }}</td>
-                  <td>
-                    <button
-                      type="button"
-                      name="editar"
-                      class="btn btn-primary"
-                      style="margin-right: 10px"
-                      [routerLink]="['/users/form', user.user_id]"
-                    >
-                      <!-- [routerLink]="['/clientes/formulario', cli.id]"-->
-                      <em class="bi bi-pencil"></em>
-                    </button>
-                    <button
-                      type="button"
-                      name="eliminar"
-                      class="btn btn-danger"
-                      (click)="borrar(user)"
-                    >
-                      <em class="bi bi-eraser"></em>
-                    </button>
-                  </td>
-                </tr>
+                <ng-container *ngFor="let user of usuariosFiltrados">
+                  <tr *ngIf="user.user_id>1">
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.middle_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <!--<td>{{ user.role.name }}</td>-->
+                    <td>
+                      <button
+                        type="button"
+                        name="editar"
+                        class="btn btn-primary"
+                        style="margin-right: 10px"
+                        [routerLink]="['/users/form', user.user_id]"
+                      >
+                        <!-- [routerLink]="['/clientes/formulario', cli.id]"-->
+                        <em class="bi bi-pencil"></em>
+                      </button>
+                      <button
+                        type="button"
+                        name="eliminar"
+                        class="btn btn-danger"
+                        (click)="borrar(user)"
+                      >
+                        <em class="bi bi-eraser"></em>
+                      </button>
+                    </td>
+                  </tr>
+                </ng-container>
               </tbody>
             </table>
           </div>

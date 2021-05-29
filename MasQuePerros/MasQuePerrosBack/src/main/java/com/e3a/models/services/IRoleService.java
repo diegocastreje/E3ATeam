@@ -8,5 +8,5 @@ public interface IRoleService {
 
 	public List<Role>findAllRoles();
 
-	public List<Role>findByName(String term);
+	public List<Role>findByName(String string);
 }
