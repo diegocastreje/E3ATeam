@@ -11,7 +11,7 @@
                 data-toggle="collapse"
                 data-target="#filters"
               >
-                Filtros
+                {{ "Filters" | translate }}
               </button>
             </h5>
           </div>
@@ -22,7 +22,7 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">Nombre</div>
+                        <div class="col-12 px-0">{{ "Name" | translate }}</div>
                         <div class="col-12 px-0">
                           <input
                             type="text"
@@ -37,7 +37,7 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">Cantidad</div>
+                        <div class="col-12 px-0">{{ "Quantity" | translate }}</div>
                         <div class="col-12 px-0">
                           <input
                             type="number"
@@ -52,7 +52,7 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">Descripción</div>
+                        <div class="col-12 px-0">{{ "Description" | translate }}</div>
                         <div class="col-12 px-0">
                           <input
                             type="text"
@@ -67,7 +67,7 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">Foto</div>
+                        <div class="col-12 px-0">{{ "Picture" | translate }}</div>
                         <div class="col-12 px-0">
                           <input
                             type="text"
@@ -94,8 +94,11 @@
         <div class="card">
           <div class="card-header">
             <div class="my-3 text-left">
-              <button class="btn btn-rounded btn-success" routerLink="/items/form">
-                Crear
+              <button
+                class="btn btn-rounded btn-success"
+                routerLink="/items/form"
+              >
+              {{ "Create" | translate }}
               </button>
             </div>
           </div>
@@ -111,7 +114,7 @@
                       sorting_desc: orderDesc('picture')
                     }"
                   >
-                    Foto
+                  {{ "Picture" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -121,7 +124,7 @@
                       sorting_desc: orderDesc('name')
                     }"
                   >
-                    Nombre
+                  {{ "Name" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -131,7 +134,7 @@
                       sorting_desc: orderDesc('amount')
                     }"
                   >
-                    Cantidad
+                  {{ "Quantity" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -141,9 +144,9 @@
                       sorting_desc: orderDesc('description')
                     }"
                   >
-                    Descripción
+                  {{ "Description" | translate }}
                   </th>
-                  <th scope="col">Item</th>
+                  <th scope="col">{{ "Item" | translate }}</th>
                 </tr>
               </thead>
               <tbody>
