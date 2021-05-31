@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { URLSearchParams } from 'url';
@@ -26,9 +26,7 @@ export class AuthService {
 
       } else if(this._user == null && sessionStorage.getItem('user') != null){
 
-        var otroNombreDistinto: string = sessionStorage.getItem('user');
-
-        this._user = JSON.parse(otroNombreDistinto) as User;
+        this._user = JSON.parse(sessionStorage.getItem('user') || '{}') as User;
 
         return this._user;
 
@@ -48,7 +46,7 @@ export class AuthService {
 
         this._token = sessionStorage.getItem('token');
 
-        return this._token;
+        return this._token || '';
 
       }
 
