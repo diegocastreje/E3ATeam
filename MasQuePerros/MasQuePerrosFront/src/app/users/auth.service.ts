@@ -12,9 +12,9 @@ import { User } from './user';
 
 export class AuthService {
 
-  private _user: User = new User();
+  private _user: User | null = new User();
 
-  private _token: string = '';
+  private _token: string | null = '' ;
 
   constructor(private http: HttpClient) {}
 
@@ -26,7 +26,9 @@ export class AuthService {
 
       } else if(this._user == null && sessionStorage.getItem('user') != null){
 
-        this._user = JSON.parse(sessionStorage.getItem('user')) as User;
+        var otroNombreDistinto: string = sessionStorage.getItem('user');
+
+        this._user = JSON.parse(otroNombreDistinto) as User;
 
         return this._user;
 
@@ -50,7 +52,7 @@ export class AuthService {
 
       }
 
-      return null;
+      return '';
 
     }
 
