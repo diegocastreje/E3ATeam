@@ -138,6 +138,18 @@ export class AuthService {
 
   }
 
+  hasRole(role: string): boolean {
+
+    if(this.user.role.includes(role)) {
+
+      return true;
+
+    }
+
+    return false;
+
+  }
+
   logout(): void {
 
     this._token = null;

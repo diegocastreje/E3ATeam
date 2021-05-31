@@ -94,7 +94,7 @@
         <div class="card">
           <div class="card-header">
             <div class="my-3 text-left">
-              <button class="btn btn-rounded btn-success" [routerLink]="['/users/form']">
+              <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-success" [routerLink]="['/users/form']">
                 <!--[routerLink]="['/users/rutadelformulario']"-->
                 Crear
               </button>
@@ -153,8 +153,9 @@
                   <td>{{ user.middle_name }}</td>
                   <td>{{ user.last_name }}</td>
                   <td>{{ user.role.name }}</td>
-                  <td>
+                  <td *ngIf="authService.hasRole('ROLE_ADMIN')">
                     <button
+                      *ngIf="authService.hasRole('ROLE_ADMIN')"
                       type="button"
                       name="editar"
                       class="btn btn-primary"
@@ -165,6 +166,7 @@
                       <em class="bi bi-pencil"></em>
                     </button>
                     <button
+                      *ngIf="authService.hasRole('ROLE_ADMIN')"
                       type="button"
                       name="eliminar"
                       class="btn btn-danger"
