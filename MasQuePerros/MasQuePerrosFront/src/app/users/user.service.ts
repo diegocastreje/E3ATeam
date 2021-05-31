@@ -19,17 +19,29 @@ export class UserService {
   getPayments():Observable<PaymentMethod[]>{
     return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods');
   }
+
   getRoles():Observable<Role[]>{
     return this.http.get<Role[]>(this.urlEndPoint+'/roles');
   }
+
   getUsuarios(): Observable<User[]> {
     return this.http.get<User[]>(this.urlEndPoint).pipe(
       map(response => response as User[])
-    );
+      );
   }
 
   getUsuario(id:number): Observable<User> {
-    return this.http.get<User>(`${this.urlEndPoint}/${id}`);
+    return this.http.get<User>(`${this.urlEndPoint}/${id}`).pipe(
+      catchError(e => {
+        if(e.status != 401 && e.error.message){
+
+          this.router.navigate(['/users']);
+          console.error(e.error.message);
+
+        }
+      return throwError(e);
+      })
+    );
   }
 
   create(user: User): Observable<any> {
@@ -39,10 +51,11 @@ export class UserService {
         if (e.status == 400) {
           return throwError(e);
         }
-        if ( e.error.mensaje) {
-          console.error(e.error.mensaje);
-        }
+        if(e.error.message){
 
+          console.error(e.error.message);
+
+        }
         return throwError(e);
       })
     );
@@ -51,26 +64,30 @@ export class UserService {
   delete(user: User): Observable<any>{
     return this.http.delete<User>(`${this.urlEndPoint}/${user.user_id}`).pipe(
       catchError((e) => {
-        if (e.error.mensaje) {
-          console.error(e.error.mensaje);
+        if(e.error.message){
+
+          console.error(e.error.message);
+
         }
         return throwError(e);
       })
     );
   }
+
   update(user:User):Observable<User>{
-    return this.http.put<any>(`${this.urlEndPoint}/${user.user_id}`,user).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${user.user_id}`, user).pipe(
       catchError(e => {
 
         if (e.status == 400) {
           return throwError(e);
         }
-        if ( e.error.mensaje) {
-          console.error(e.error.mensaje);
+        if(e.error.message){
+
+          console.error(e.error.message);
+
         }
         return throwError(e);
       })
     );
   }
-
 }

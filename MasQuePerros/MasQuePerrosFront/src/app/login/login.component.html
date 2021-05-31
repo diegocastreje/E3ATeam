@@ -3,29 +3,29 @@
     <div class="col mt-5 column1">
       <div class="container height text-white mt-5 me-5 ms-5">
         <h3 class="bold">
-          {{ title }}
+          {{ 'AppName' | translate }}
         </h3>
         <br>
-        {{ text1 }}
+        {{ 'WelcomeMessage1' | translate }}
         <br><br>
-        {{ text2 }}
+        {{ 'WelcomeMessage2' | translate }}
       </div>
     </div>
     <div class="col mt-5 column2">
       <div class="container height text-white mt-5 me-5 ms-5">
         <div class="form-group text-center">
-          <label class="bold">Email</label>
-          <input type="text" class="form-control input" placeholder="Escriba su email" autofocus required>
+          <label class="bold">{{ 'Email' | translate }}</label>
+          <input [(ngModel)]="user.email" type="text" class="form-control input" placeholder="{{ 'EmailPh' | translate }}" autofocus required>
         </div>
         <div class="form-group text-center">
-          <label class="bold">Contraseña</label>
-          <input type="password" class="form-control input" placeholder="Escriba su contraseña" required>
+          <label class="bold">{{ 'Password' | translate }}</label>
+          <input [(ngModel)]="user.password" type="password" class="form-control input" placeholder="{{ 'PasswordPh' | translate }}" required>
         </div><br>
         <div class="form-group text-center">
-          <button type="submit" class="btn btnLogin text-white">Entrar</button>
+          <button (click)='login()' type="submit" class="btn btnLogin text-white">{{ 'Login' | translate }}</button>
         </div>
         <div class="text-center">
-          <span><a class="text-white">¿No tienes una cuenta? Regístrate</a></span>
+          <span>{{ 'Register?1' | translate }}<a class="text-info">{{ 'Register?2' | translate }}</a></span>
         </div>
       </div>
     </div>

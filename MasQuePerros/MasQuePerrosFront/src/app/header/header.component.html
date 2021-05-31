@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <nav class="header">
   <div class="headerContainer">
     <div class="text-white title">{{ title }}</div>
@@ -46,3 +47,82 @@
     </ul>
   </div>
 </nav>
+=======
+<nav class="header">
+  <div class="headerContainer">
+    <div class="text-white title">
+      {{ "AppName" | translate }}
+    </div>
+  </div>
+</nav>
+<nav class="navbar navbar-expand-md navBar mx-1 bg-dark">
+  <button
+    class="navbar-toggler navbar-toggler-right ml-aut"
+    type="button"
+    data-toggle="collapse"
+    data-target="#collapsibleNavbar"
+  >
+    <span class="bi bi-list"> </span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav mr-auto">
+      <!-- if sesionNoIniciada: -->
+      <li class="nav-item">
+        <a class="nav-link active">
+          {{ "Register" | translate }}
+        </a>
+      </li>
+      <li *ngIf="!authService.isAuthenticated()" class="nav-item">
+        <a class="nav-link text-white" routerLink="/login">
+          {{ "Login" | translate }}
+        </a>
+      </li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ authService.user.username }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button (click)="logout()" class="dropdown-item" type="submit">Cerrar sesión</button>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav mx-auto">
+      <!-- if sesionIniciadaCustomer: -->
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/items">
+          {{ "Home" | translate }}
+        </a>
+      </li>
+      <li class="nav-item right">
+        <a class="nav-link text-white">
+          {{ "Cart" | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-danger" routerLink="/login">
+          {{ "Logout" | translate }}
+        </a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <!-- if sesionIniciadaAdmin: -->
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="/items">
+          {{ "Products" | translate }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" routerLink="/users">
+          {{ "Users" | translate }}
+        </a>
+      </li>
+      <li class="nav-item right">
+        <a class="nav-link text-danger" routerLink="/login">
+          {{ "Logout" | translate }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+>>>>>>> 4483c149f6c9aa6d14805f3c3ff92af7ee53891a

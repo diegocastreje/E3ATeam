@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
+import { AuthService } from './auth.service';
 import { User } from './user';
 import { UserService } from './user.service';
 
@@ -23,7 +25,9 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private activatedRoute: ActivatedRoute
+    public authService: AuthService,
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +40,7 @@ export class UserComponent implements OnInit {
   }
 
   aplicarFiltro(event: any) {
+    console.log(event.originalTarget);
     switch (event.originalTarget.name) {
       case 'fNombre':
         this.fNombre = event.originalTarget.value;
@@ -77,12 +82,12 @@ export class UserComponent implements OnInit {
             .indexOf(this.fSegundo.toLocaleLowerCase()) !== -1;
       }
 
-      /*if (this.fPerfil && filtrar) {
+      if (this.fPerfil && filtrar) {
         filtrar =
-          usuario.role.name
+          usuario.role[0].name
             .toLocaleLowerCase()
             .indexOf(this.fPerfil.toLocaleLowerCase()) !== -1;
-      }*/
+      }
       return filtrar;
     });
   }
@@ -142,12 +147,12 @@ export class UserComponent implements OnInit {
 
     swalWithBootstrapButtons
       .fire({
-        title: '¿Estás seguro?',
-        text: '¡No podrás recuperarlo!',
+        title: this.translate.instant('AreYouSure'),
+        text: this.translate.instant('DeleteMessg1'),
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, borralo',
-        cancelButtonText: 'No, cancelar',
+        confirmButtonText: this.translate.instant('DeleteMessgConfirm'),
+        cancelButtonText: this.translate.instant('DeleteMessgCancel'),
         reverseButtons: true,
       })
       .then((result) => {
@@ -158,8 +163,11 @@ export class UserComponent implements OnInit {
             );
             this.users = this.users.filter((usr) => usr !== user);
             swalWithBootstrapButtons.fire(
-              'Borrado',
-              `El usuario ${user.first_name} ${user.middle_name} ha sido borrado`,
+              this.translate.instant('DeletedTitle'),
+              this.translate.instant('DeletedMessg1') +
+                user.first_name +
+                user.middle_name +
+                this.translate.instant('DeletedMessg2'),
               'success'
             );
           });

@@ -59,6 +59,8 @@ public class UserRestController {
 		return userService.findAll();
 	}
 
+
+  
 //	@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
@@ -99,8 +101,7 @@ public class UserRestController {
 		}
 		else {
 
-			try {
-						
+			try {	
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
@@ -117,8 +118,8 @@ public class UserRestController {
 
 		}
 	}
-  
-  private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
+
+	private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
     	List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 		return payments.get(0);
 	}
@@ -127,6 +128,7 @@ public class UserRestController {
     	List<Role> roles = roleService.findByName(user.getRole().get(0).getName());
 		return roles;
 	}
+
 
 
 //	@Secured("ROLE_ADMIN")
@@ -167,7 +169,7 @@ public class UserRestController {
 			userActual.setBirth_date(user.getBirth_date());
 			userActual.setEmail(user.getEmail());
 
-			userActual.setRole(obtenerRolPorNombre(user));
+			userActual.setRole((List<Role>) obtenerRolPorNombre(user));
 			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 			System.out.println(userUpdated);
 		userUpdated = userService.save(userActual);
@@ -184,6 +186,7 @@ public class UserRestController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
+
 
 //	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/users/{id}")
@@ -202,7 +205,7 @@ public class UserRestController {
 		response.put(reader.getString("message"), reader.getString("userDeleted"));
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
-  
+
   //@Secured("ROLE_ADMIN")
   @GetMapping("/users/payment_methods")
 	public List<PaymentMethod> listPaymentMethods(){

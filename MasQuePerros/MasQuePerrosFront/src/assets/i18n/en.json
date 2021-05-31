@@ -1,0 +1,40 @@
+{
+    "AppName": "Mas Que Perros™",
+    "Register": "Register",
+    "Login": "Login",
+    "Home": "Home",
+    "Cart": "Shopping Cart",
+    "Logout": "Logout",
+    "Products": "Products",
+    "Users": "Users",
+
+    "Filters": "Filters",
+    "Name" : "Name",
+    "Quantity": "Quantity",
+    "Description": "Description",
+    "Picture": "Picture",
+    "Create": "Create",
+    "Item": "Item",
+
+    "WelcomeMessage1": "In this store you will find all the products for your pets.",
+    "WelcomeMessage2": "Specialists in dog food.",
+    "Email": "Email",
+    "EmailPh": "Enter your email",
+    "Password": "Password",
+    "PasswordPh": "Enter your password",
+    "Register?1": "Don't have an account? ",
+    "Register?2": "Sign up",
+
+    "MiddleName": "Middle Name",
+    "LastName": "Last Name",
+    "Profile": "Profile",
+    "User": "User",
+
+    "AreYouSure": "Are you sure?",
+    "DeleteMessg1": "You won't be able to get it back!",
+    "DeleteMessgConfirm": "Yes, delete it",
+    "DeleteMessgCancel": "No, cancel",
+    "DeletedTitle": "Deleted",
+    "DeletedMessg1": "The user ",
+    "DeletedMessg2": " has been deleted"
+}

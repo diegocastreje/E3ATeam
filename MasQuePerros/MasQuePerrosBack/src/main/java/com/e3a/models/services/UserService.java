@@ -33,6 +33,12 @@ public class UserService implements IUserService ,UserDetailsService{
     @Autowired
     private IRoleDao roleDao;
 
+    @Autowired
+    private IOrderDao orderDao;
+
+    @Autowired
+    private IRoleDao roleDao;
+
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -105,7 +111,9 @@ public class UserService implements IUserService ,UserDetailsService{
     @Override
     @Transactional(readOnly=false)
     public void deleteOrderById(Long id) {
+      
     	orderDao.deleteById(id);
+
     }
 
     @Override
