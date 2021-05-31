@@ -24,7 +24,7 @@ export class UserService {
   }
   getUsuarios(): Observable<User[]> {
     return this.http.get<User[]>(this.urlEndPoint).pipe(
-      map(response => response as User[])
+      map(response => response)
     );
   }
 
