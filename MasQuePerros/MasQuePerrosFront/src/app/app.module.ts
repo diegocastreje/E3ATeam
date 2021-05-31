@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './users/guards/auth.guard';
 import { RoleGuard } from './users/guards/role.guard';
 import { TokenInterceptor } from './users/interceptors/token.interceptor';
+import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 
 
 
