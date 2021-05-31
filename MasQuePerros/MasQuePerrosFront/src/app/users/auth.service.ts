@@ -58,7 +58,7 @@ export class AuthService {
 
   login(user:User): Observable<any>{
   
-    const urlEndpoint = 'http://localhost8081/oauth/token';
+    const urlEndpoint = 'http://localhost:8081/oauth/token';
   
     const credentials = btoa('MasQuePerrosFront' + ':' + '12345');
   
