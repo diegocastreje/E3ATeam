@@ -15,7 +15,18 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
       if(this.authService.isAuthenticated()) {
+        
+        if(this.isTokenExpired()) {
+
+          this.authService.logout();
+
+          this.router.navigate(['/login']);
+
+          return false;
+
+        }
 
         return true;
 
@@ -26,6 +37,29 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     return false;
 
   }
+
+  isTokenExpired(): boolean{
+
+    let token = this.authService.token;
+
+    let payload = this.authService.importTokenData(token);
+
+    let now = new Date().getTime() / 1000;
+
+    if(payload.exp < now) {
+
+      return true;
+
+    }
+
+    return false;
+
+  }
+
+
+
+
+
   canActivateChild(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
