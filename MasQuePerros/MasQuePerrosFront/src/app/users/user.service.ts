@@ -15,23 +15,7 @@ import swal from 'sweetalert2';
 export class UserService {
   private urlEndPoint: string = config.url + 'users';
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json'});
-
   constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
-
-  private addAuthorizationHeader() {
-
-    let token = this.authService.token;
-
-    if(token != null) {
-
-      return this.httpHeaders.append('Authorization',  'Bearer' + token);
-
-    }
-
-    return this.httpHeaders;
-
-  }
 
   private isNoAuthorized(e): boolean {
 
@@ -40,7 +24,7 @@ export class UserService {
       if(this.authService.isAuthenticated()){
 
         this.authService.logout();
-        
+
       }
 
       this.router.navigate(['/login']);
@@ -64,7 +48,7 @@ export class UserService {
   }
 
   getPayments():Observable<PaymentMethod[]>{
-    return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods', {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<PaymentMethod[]>(this.urlEndPoint+'/payment_methods').pipe(
       catchError(e => {
         
         if(this.isNoAuthorized(e)){
@@ -97,7 +81,7 @@ export class UserService {
   }
 
   getUsuario(id:number): Observable<User> {
-    return this.http.get<User>(`${this.urlEndPoint}/${id}`, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.get<User>(`${this.urlEndPoint}/${id}`).pipe(
       catchError(e => {
         
         if(this.isNoAuthorized(e)){
@@ -113,7 +97,7 @@ export class UserService {
   }
 
   create(user: User): Observable<any> {
-    return this.http.post<any>(this.urlEndPoint, user, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.post<any>(this.urlEndPoint, user).pipe(
       catchError(e => {
 
         if(this.isNoAuthorized(e)){
@@ -135,7 +119,7 @@ export class UserService {
   }
 
   delete(user: User): Observable<any>{
-    return this.http.delete<User>(`${this.urlEndPoint}/${user.user_id}`, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.delete<User>(`${this.urlEndPoint}/${user.user_id}`).pipe(
       catchError((e) => {
 
         if(this.isNoAuthorized(e)){
@@ -153,7 +137,7 @@ export class UserService {
   }
 
   update(user:User):Observable<User>{
-    return this.http.put<any>(`${this.urlEndPoint}/${user.user_id}`, user, {headers: this.addAuthorizationHeader()}).pipe(
+    return this.http.put<any>(`${this.urlEndPoint}/${user.user_id}`, user).pipe(
       catchError(e => {
 
         if(this.isNoAuthorized(e)){
