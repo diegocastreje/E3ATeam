@@ -23,10 +23,18 @@
           {{ "Register" | translate }}
         </a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="!authService.isAuthenticated()" class="nav-item">
         <a class="nav-link text-white" routerLink="/login">
           {{ "Login" | translate }}
         </a>
+      </li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+        <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ authService.user.username }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <button (click)="logout()" class="dropdown-item" type="submit">Cerrar sesión</button>
+        </div>
       </li>
     </ul>
     <ul class="navbar-nav mx-auto">

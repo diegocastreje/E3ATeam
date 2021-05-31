@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
+import { AuthService } from './auth.service';
 import { User } from './user';
 import { UserService } from './user.service';
 
@@ -24,6 +25,7 @@ export class UserComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    public authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService
   ) {}
