@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
   })
 
   export class HeaderComponent {
-    title: string = 'Más Que Perros™';
 
     constructor(public authService:AuthService, private router: Router) { }
 
