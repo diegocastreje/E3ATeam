@@ -12,6 +12,7 @@ import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './users/guards/auth.guard';
+import { RoleGuard } from './users/guards/role.guard';
 
 
 
@@ -21,8 +22,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'users', component: UserComponent},
-  {path: 'users/form', component:FormComponent, canActivate: [AuthGuard]},
-  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard]}
+  {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
 ];
 
 @NgModule({
