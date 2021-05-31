@@ -26,6 +26,12 @@ public class UserService implements IUserService ,UserDetailsService{
     @Autowired
     private IUserDao userDao;
 
+    @Autowired
+    private IOrderDao orderDao;
+
+    @Autowired
+    private IRoleDao roleDao;
+
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -51,42 +57,59 @@ public class UserService implements IUserService ,UserDetailsService{
     }
 
     @Override
+    @Transactional(readOnly=true)
     public List<User> findAll() {
         return (List<User>) userDao.findAll();
     }
 
     @Override
+    @Transactional(readOnly=false)
     public User save(User user) {
-        return null;
+        return userDao.save(user);
     }
 
     @Override
+    @Transactional(readOnly=false)
     public void delete(Long id) {
+        User user=userDao.findById((long) 1).orElse(null);
+        System.out.println(user.toString());
+        List<Order> orders = orderDao.findByUser(id);
+        for (Order order : orders) {
+            order.setUser(user);
+            saveOrder(order);
+            System.out.println(order);
+        }
 
+        userDao.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly=true)
     public User findById(Long id) {
-        return null;
+        return userDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional(readOnly=true)
     public Order findOrderById(Long id) {
-        return null;
+        return orderDao.findById(id).orElse(null);
     }
 
     @Override
+    @Transactional(readOnly=false)
     public Order saveOrder(Order order) {
-        return null;
+        return orderDao.save(order);
     }
 
     @Override
+    @Transactional(readOnly=false)
     public void deleteOrderById(Long id) {
-
+        orderDao.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly=true)
     public List<Order> findOrderByUserId(Long id) {
-        return null;
+        return orderDao.findByUser(id);
     }
 }
