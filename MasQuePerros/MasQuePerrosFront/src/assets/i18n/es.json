@@ -1,0 +1,39 @@
+{
+    "AppName": "Mas Que Perros™",
+    "Register": "Registro",
+    "Login": "Iniciar Sesion",
+    "Home": "Inicio",
+    "Cart": "Carro de compra",
+    "Logout": "Cerrar Sesión",
+    "Products": "Productos",
+    "Users": "Usuarios",
+
+    "Filters": "Filtros",
+    "Name" : "Nombre",
+    "Quantity": "Cantidad",
+    "Description": "Descripción",
+    "Picture": "Foto",
+    "Create": "Crear",
+    "Item": "Item",
+
+    "WelcomeMessage1": "En esta tienda encontrarás todos los productos para tu mascota.",
+    "WelcomeMessage2": "Especialistas en alimentación para perros.",
+    "Email": "Email",
+    "EmailPh": "Escriba su email",
+    "Password": "Contraseña",
+    "PasswordPh": "Escriba su contraseña",
+    "Register?1": "¿No tienes una cuenta? ",
+    "Register?2": "Regístrate",
+
+    "MiddleName": "Primer Apellido",
+    "LastName": "Segundo Apellido",
+    "Profile": "Perfil",
+
+    "AreYouSure": "¿Estás seguro?",
+    "DeleteMessg1": "¡No podrás recuperarlo!",
+    "DeleteMessgConfirm": "Sí, borralo",
+    "DeleteMessgCancel": "No, cancelar",
+    "DeletedTitle": "Borrado",
+    "DeletedMessg1": "El usuario ",
+    "DeletedMessg2": " ha sido borrado"
+}
