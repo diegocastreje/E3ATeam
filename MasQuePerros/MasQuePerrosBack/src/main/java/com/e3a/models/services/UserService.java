@@ -1,5 +1,7 @@
 package com.e3a.models.services;
 
+import com.e3a.models.dao.IOrderDao;
+import com.e3a.models.dao.IRoleDao;
 import com.e3a.models.dao.IUserDao;
 import com.e3a.models.entity.Order;
 import com.e3a.models.entity.User;
@@ -14,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,12 @@ public class UserService implements IUserService ,UserDetailsService{
 
     @Autowired
     private IUserDao userDao;
+    
+    @Autowired
+    private IOrderDao orderDao;
+    
+    @Autowired
+    private IRoleDao roleDao;
 
     @Autowired
     private IOrderDao orderDao;
@@ -71,16 +78,16 @@ public class UserService implements IUserService ,UserDetailsService{
     @Override
     @Transactional(readOnly=false)
     public void delete(Long id) {
-        User user=userDao.findById((long) 1).orElse(null);
-        System.out.println(user.toString());
-        List<Order> orders = orderDao.findByUser(id);
-        for (Order order : orders) {
-            order.setUser(user);
-            saveOrder(order);
-            System.out.println(order);
-        }
-
-        userDao.deleteById(id);
+    	User user=userDao.findById((long) 1).orElse(null);
+    	System.out.println(user.toString());
+    	List<Order> orders = orderDao.findByUser(id);
+    	for (Order order : orders) {
+			order.setUser(user);
+			saveOrder(order);
+			System.out.println(order);
+		}
+    	
+    	userDao.deleteById(id);
     }
 
     @Override
@@ -104,7 +111,9 @@ public class UserService implements IUserService ,UserDetailsService{
     @Override
     @Transactional(readOnly=false)
     public void deleteOrderById(Long id) {
-        orderDao.deleteById(id);
+      
+    	orderDao.deleteById(id);
+
     }
 
     @Override

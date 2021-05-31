@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from './user';
 import { PaymentMethod } from './payment-method';
+import { Role } from './role';
 import config from '../../assets/config/config.json';
 import { Role } from './role';
 

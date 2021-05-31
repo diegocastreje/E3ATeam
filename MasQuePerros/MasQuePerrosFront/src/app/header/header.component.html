@@ -1,6 +1,8 @@
 <nav class="header">
   <div class="headerContainer">
-    <div class="text-white title">{{ title }}</div>
+    <div class="text-white title">
+      {{ "AppName" | translate }}
+    </div>
   </div>
 </nav>
 <nav class="navbar navbar-expand-md navBar mx-1 bg-dark">
@@ -17,10 +19,14 @@
     <ul class="navbar-nav mr-auto">
       <!-- if sesionNoIniciada: -->
       <li class="nav-item">
-        <a class="nav-link active">Registro</a>
+        <a class="nav-link active">
+          {{ "Register" | translate }}
+        </a>
       </li>
       <li *ngIf="!authService.isAuthenticated()" class="nav-item">
-        <a class="nav-link text-white" routerLink="/login">Login</a>
+        <a class="nav-link text-white" routerLink="/login">
+          {{ "Login" | translate }}
+        </a>
       </li>
       <li *ngIf="authService.isAuthenticated()" class="dropdown">
         <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,25 +40,37 @@
     <ul class="navbar-nav mx-auto">
       <!-- if sesionIniciadaCustomer: -->
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/items">Home</a>
+        <a class="nav-link active" routerLink="/items">
+          {{ "Home" | translate }}
+        </a>
       </li>
       <li class="nav-item right">
-        <a class="nav-link text-white">Carro de compra</a>
+        <a class="nav-link text-white">
+          {{ "Cart" | translate }}
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
+        <a class="nav-link text-danger" routerLink="/login">
+          {{ "Logout" | translate }}
+        </a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
       <!-- if sesionIniciadaAdmin: -->
       <li class="nav-item">
-        <a class="nav-link active" routerLink="/items">Productos</a>
+        <a class="nav-link active" routerLink="/items">
+          {{ "Products" | translate }}
+        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" routerLink="/users">Usuarios</a>
+        <a class="nav-link text-white" routerLink="/users">
+          {{ "Users" | translate }}
+        </a>
       </li>
       <li class="nav-item right">
-        <a class="nav-link text-danger" routerLink="/login">Cerrar Sesión</a>
+        <a class="nav-link text-danger" routerLink="/login">
+          {{ "Logout" | translate }}
+        </a>
       </li>
     </ul>
   </div>

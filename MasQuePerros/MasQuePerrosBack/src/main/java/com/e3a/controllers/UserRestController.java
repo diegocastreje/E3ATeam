@@ -11,6 +11,7 @@ import com.e3a.models.services.IRoleService;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
 
+import org.bouncycastle.asn1.x509.qualified.TypeOfBiometricData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -26,11 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,7 +59,9 @@ public class UserRestController {
 		return userService.findAll();
 	}
 
-	//@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
+
+  
+//	@Secured({"ROLE_ADMIN", "ROLE_CLIENT"})
 	@GetMapping("/users/{id}")
 	public ResponseEntity<?> show(@PathVariable Long id) {
 		User user = null;
@@ -81,9 +81,10 @@ public class UserRestController {
 		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
 
-	//@Secured("ROLE_ADMIN")
+//	@Secured("ROLE_ADMIN")
 	@PostMapping("/users")
 	public ResponseEntity<?> create(@Valid @RequestBody User  user, BindingResult result) {
+
 		User userNew =null;
 		Map<String , Object> response = new HashMap();
 
@@ -100,10 +101,8 @@ public class UserRestController {
 		}
 		else {
 
-			try {
-
-
-				user.setRole((List<Role>) obtenerRolPorNombre(user));
+			try {	
+				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 
 				userNew = userService.save(user);
@@ -125,23 +124,26 @@ public class UserRestController {
 		return payments.get(0);
 	}
 
-	private Role obtenerRolPorNombre(@Valid User user) {
-		List<Role>roles = roleService.findByName(user.getRole().get(0).getName());
+	private List<Role> obtenerRolPorNombre(@Valid User user) {
+    	List<Role> roles = roleService.findByName(user.getRole().get(0).getName());
 		return roles;
 	}
 
 
-	//@Secured("ROLE_ADMIN")
+
+//	@Secured("ROLE_ADMIN")
 	@PutMapping("/users/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody User user, BindingResult result, @PathVariable Long id) {
-
+		
+		System.out.println("Entramos en update, el ide es: "+userService.findById(id));
+		
 		User userActual = userService.findById(id);
 		User userUpdated = null;
 
 		Map<String, Object> response = new HashMap<>();
 
 		if(result.hasErrors()) {
-
+			System.out.println("Entramos en update en el if");
 			List<String> errors = new ArrayList<>();
 			for(FieldError err: result.getFieldErrors()) {
 				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
@@ -152,12 +154,13 @@ public class UserRestController {
 		}
 
 		if(userActual == null) {
+			System.out.println("Usuario nulo");
 			response.put(reader.getString("message"), reader.getString("errorUpdatingUser").concat(id.toString().concat(reader.getString("notInBBDD"))));
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 
 		try {
-
+			System.out.println("hola");
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
 			userActual.setFirst_name(user.getFirst_name());
@@ -168,7 +171,7 @@ public class UserRestController {
 
 			userActual.setRole((List<Role>) obtenerRolPorNombre(user));
 			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
-
+			System.out.println(userUpdated);
 		userUpdated = userService.save(userActual);
 
 		}catch(DataAccessException e){
@@ -184,13 +187,15 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 
-	//@Secured("ROLE_ADMIN")
+
+//	@Secured("ROLE_ADMIN")
 	@DeleteMapping("/users/{id}")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 
 		Map<String, Object> response = new HashMap<>();
 
 		try {
+			
 			userService.delete(id);
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));
@@ -201,18 +206,16 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
-  	//@Secured("ROLE_ADMIN")
-  	@GetMapping("/users/payment_methods")
+  //@Secured("ROLE_ADMIN")
+  @GetMapping("/users/payment_methods")
 	public List<PaymentMethod> listPaymentMethods(){
 		return paymentMethodService.findAllPaymentMethods();
 	}
-
-	//@Secured("ROLE_ADMIN")
-	@GetMapping("/users/roles")
+  //@Secured("ROLE_ADMIN")
+  @GetMapping("/users/roles")
 	public List<Role> listRoles(){
 		return roleService.findAllRoles();
 	}
-
 
 
 }
