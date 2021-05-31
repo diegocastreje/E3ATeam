@@ -3,7 +3,6 @@ import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegmen
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import swal from 'sweetalert2';
-import { Console } from 'console';
 
 @Injectable({
   providedIn: 'root'

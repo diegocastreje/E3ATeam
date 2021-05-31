@@ -12,11 +12,11 @@ import { User } from './user';
 
 export class AuthService {
 
-  private _user: User | null = new User();
+  public _user: User | null = new User();
 
-  private _token: string | null = '' ;
+  public _token: string | null = '' ;
 
-  constructor(private http: HttpClient) {}
+  constructor(public http: HttpClient) {}
 
     public get user(): User {
 
