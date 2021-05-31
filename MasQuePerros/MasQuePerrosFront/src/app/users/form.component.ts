@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-
+  public cargado:Boolean=false;
   public selectedCountriesControl = new FormControl();
   public title: string = "Create user";
   public user:User =new User();
@@ -39,6 +39,7 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params =>{
       let user_id = params['id']
       if(user_id){
+        this.cargado=true;
         this.userService.getUsuario(user_id).pipe(
           map(user =>{
             user.birth_date=user.birth_date.substr(0,10);
@@ -48,26 +49,24 @@ export class FormComponent implements OnInit {
 
       }
     })
+
   }
 
   public create():void{
-
-//    var roles:Role[]=[];
-//    roles[0]=this.user.role;
     this.user.role=  [this.user.role];
     this.userService.create(this.user).subscribe(
       reponse => this.router.navigate(['/users'])
-
     )
   }
 
   update():void{
-//    var roles:Role[]=[this.user.role];
-//    roles[0]=this.user.role;
-    this.user.role= [this.user.role];
+    if(!Array.isArray(this.user.role)){
+      this.user.role= [this.user.role];
+    }
     this.userService.update(this.user).subscribe(user => {
       this.router.navigate(['/users'])
-        Swal.fire('Usuario actualizado',`Usuario ${user.username} actualizado con exito`, 'success')
+        console.log(user)
+        Swal.fire('Usuario actualizado',`Usuario ${this.user.username} actualizado con exito`, 'success')
     });
   }
 
