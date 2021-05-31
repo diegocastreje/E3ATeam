@@ -7,7 +7,6 @@ import { User } from './user';
 import { PaymentMethod } from './payment-method';
 import { Role } from './role';
 import config from '../../assets/config/config.json';
-import { Role } from './role';
 
 @Injectable({
   providedIn: 'root'
