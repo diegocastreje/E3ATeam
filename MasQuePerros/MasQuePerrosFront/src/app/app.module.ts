@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 import { LoginComponent } from './login/login.component';
+import { AuthGuard } from './users/guards/auth.guard';
 
 
 
@@ -20,8 +21,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'users', component: UserComponent},
-  {path: 'users/form', component:FormComponent},
-  {path: 'users/form/:id', component:FormComponent}
+  {path: 'users/form', component:FormComponent, canActivate: [AuthGuard]},
+  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
