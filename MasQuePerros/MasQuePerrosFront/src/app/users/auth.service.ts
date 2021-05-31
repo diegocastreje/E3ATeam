@@ -112,7 +112,7 @@ export class AuthService {
 
   importTokenData(accessToken: string):any{
 
-    if(accessToken != null){
+    if(accessToken != null && accessToken != ''){
 
       return JSON.parse(atob(accessToken.split(".")[1]));
 
