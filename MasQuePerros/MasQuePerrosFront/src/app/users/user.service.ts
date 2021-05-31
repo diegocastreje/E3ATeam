@@ -7,6 +7,7 @@ import { User } from './user';
 import { PaymentMethod } from './payment-method';
 import config from '../../assets/config/config.json';
 import { AuthService } from './auth.service';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -32,11 +33,21 @@ export class UserService {
 
   }
 
-  private isNoAuthorized(e): boolean{
+  private isNoAuthorized(e): boolean {
 
-    if(e.status==401 || e.status==403){
+    if(e.status==401){
 
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']);
+
+      return true;
+
+    }
+
+    if(e.status==403){
+
+      swal.fire ('Access denied', `Hi, ${this.authService.user.username}. You don't have access to this resource`, 'warning');
+
+      this.router.navigate(['/users']);
 
       return true;
 
