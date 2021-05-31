@@ -6,6 +6,7 @@ import { UserService } from './user.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -38,7 +39,13 @@ export class FormComponent implements OnInit {
     this.activatedRoute.params.subscribe(params =>{
       let user_id = params['id']
       if(user_id){
-        this.userService.getUsuario(user_id).subscribe((user) => this.user = user)
+        this.userService.getUsuario(user_id).pipe(
+          map(user =>{
+            user.birth_date=user.birth_date.substr(0,10);
+            return user})
+        )
+        .subscribe((user) => this.user = user)
+
       }
     })
   }
@@ -76,7 +83,9 @@ export class FormComponent implements OnInit {
     return false;
   }
 
-  compareRole(){
-
+  compareRole(o1:any, o2:any):boolean{
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined? false: o1.role_id==o2[0].role_id;
   }
+
+
 }

@@ -1,6 +1,7 @@
 import { PaymentMethod } from './payment-method';
 import { Role } from './role';
 
+
 export class User {
 
   user_id: number=0;
@@ -9,7 +10,7 @@ export class User {
   first_name: string="";
   middle_name: string="";
   last_name: string="";
-  birth_date: string="";
+  birth_date:string="";
   email: string="";
   first_access: boolean=true;
   role: Role[]|any=[new Role()];
