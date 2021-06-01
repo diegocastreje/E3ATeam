@@ -13,11 +13,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  title: string = "Más Que Perros™";
   user: User;
-  symbol: string = 'TM';
-  text1: string = "En esta tienda encontrarás todos los productos para tu mascota.";
-  text2: string = "Especialistas en alimentación para perros";
 
   constructor(private authService: AuthService, private router: Router) { 
 
@@ -41,7 +37,7 @@ export class LoginComponent implements OnInit {
 
     console.log(this.user);
 
-    if (this.user.email == null || this.user.password == null) {
+    if (this.user.username == null || this.user.password == null) {
 
       swal.fire('Error login','Empty email or password','error');
 

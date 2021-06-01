@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import swal from 'sweetalert2';
@@ -7,7 +7,7 @@ import swal from 'sweetalert2';
 @Injectable({
   providedIn: 'root'
 })
-export class RoleGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+export class RoleGuard implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) {
 
@@ -41,21 +41,5 @@ export class RoleGuard implements CanActivate, CanActivateChild, CanDeactivate<u
       return false;
 
   }
-  canActivateChild(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-  canDeactivate(
-    component: unknown,
-    currentRoute: ActivatedRouteSnapshot,
-    currentState: RouterStateSnapshot,
-    nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
-    return true;
-  }
+
 }

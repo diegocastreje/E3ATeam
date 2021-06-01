@@ -26,7 +26,11 @@ export class AuthService {
 
       } else if(this._user == null && sessionStorage.getItem('user') != null){
 
+        console.log(sessionStorage.getItem('user'));
+
         this._user = JSON.parse(sessionStorage.getItem('user') || '{}') as User;
+
+        console.log(this._user);
 
         return this._user;
 
@@ -44,7 +48,11 @@ export class AuthService {
 
       } else if(this._token == null && sessionStorage.getItem('token') != null){
 
+        console.log(sessionStorage.getItem('token'));
+
         this._token = sessionStorage.getItem('token');
+
+        console.log(this._token);
 
         return this._token || '';
 
@@ -66,14 +74,16 @@ export class AuthService {
     'Authorization': 'Basic ' + credentials});
   
     let params = new URLSearchParams();
-  
+    
     params.set('grant_type', 'password');
   
-    params.set('email', user.email);
+    params.set('username', user.username);
   
     params.set('password', user.password);
 
     console.log(params.toString());
+
+    console.log(httpHeaders);
   
     return this.http.post<any>(urlEndpoint, params.toString(), {headers: httpHeaders});
 
@@ -156,9 +166,9 @@ export class AuthService {
     
     sessionStorage.clear();
 
-    sessionStorage.removeItem('token');
+/*     sessionStorage.removeItem('token');
 
-    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('user'); */
 
   }
 
