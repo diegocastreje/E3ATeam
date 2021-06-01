@@ -19,40 +19,42 @@ import java.util.Arrays;
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Override
-    public void configure(HttpSecurity http) throws Exception {
+	@Override
+	public void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/items").permitAll()
-/*                .antMatchers(HttpMethod.GET, "/api/users/{id}").permitAll()//.hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/api/users").permitAll()//.hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()//.hasRole("ADMIN")
-                .antMatchers("/api/users/**").permitAll()//.hasRole("ADMIN")*/
-                .anyRequest().authenticated()
-                .and().cors().configurationSource(corsConfigurationSource());
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/items").permitAll()
+				/*
+				 * .antMatchers(HttpMethod.GET,
+				 * "/api/users/{id}").permitAll()//.hasRole("ADMIN")
+				 * .antMatchers(HttpMethod.POST, "/api/users").permitAll()//.hasRole("ADMIN")
+				 * .antMatchers(HttpMethod.DELETE, "/users/{id}").permitAll()//.hasRole("ADMIN")
+				 * .antMatchers("/api/users/**").permitAll()//.hasRole("ADMIN")
+				 */
+				.anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
 
-    }
+	}
 
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-/*        configuration.setAllowedOriginPatterns(Arrays.asList("*"));*/
-        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowCredentials(true);
-        configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+		configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+		configuration.setAllowCredentials(true);
+		configuration.setAllowedHeaders(Arrays.asList("Content-Type", "Authorization"));
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
 
-        return source;
-    }
+		return source;
+	}
 
-    @Bean
-    public FilterRegistrationBean<CorsFilter> corsFilter()
-    {
-        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(new CorsFilter(corsConfigurationSource()));
-        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        return bean;
-    }
+	@Bean
+	public FilterRegistrationBean<CorsFilter> corsFilter() {
+		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<CorsFilter>(
+				new CorsFilter(corsConfigurationSource()));
+		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		return bean;
+	}
 
 }

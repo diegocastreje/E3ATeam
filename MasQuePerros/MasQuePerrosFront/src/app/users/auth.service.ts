@@ -83,11 +83,10 @@ export class AuthService {
   saveToken(access_token: string): void {
     this._token = access_token;
     sessionStorage.setItem('token', JSON.stringify(this._token));
-    console.log(this._token);
   }
 
   getTokenData(access_token: string): any {
-    if (access_token != null) {
+    if (access_token != null && access_token != "") {
       return JSON.parse(atob(access_token.split('.')[1]));
     }
     return null;
