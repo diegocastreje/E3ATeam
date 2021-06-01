@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/users']);
 
         if (user != null) {
-          swal.fire('Login', `Hi ${user.email}, you've signed in!`, 'success');
+          swal.fire('Login', `Hi ${user.username}, you've signed in!`, 'success');
         }
       },
       (error) => {
