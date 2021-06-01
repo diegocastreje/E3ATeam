@@ -11,6 +11,8 @@ INSERT INTO users(username, password, first_name, middle_name, last_name, birth_
 INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, role_id, payment_id, first_access) VALUES ('marcos','1234','Marcos', 'Pastoriza', 'Perez', '1999-08-15', 'marcospastoriza@gmail.com', 1, 1, true);
 INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, role_id, payment_id, first_access) VALUES ('leandro','1234','Leandro', 'Tulian', 'Deus', '1998-02-18', 'leandrotulian@gmail.com', 2, 1, true);
 
+INSERT INTO items(name, description, amount, price, category) VALUES ('','', 0, 0, '');
+
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso 12kg','Pienso Marca Blanca 12kg', 20, 25, 'Comida');
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso Premium 12kg','Pienso Marca Premium 12kg', 10, 50, 'Comida');
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pelota','Pelota pequeña roja', 15, 10, 'Juguete');
@@ -20,6 +22,6 @@ INSERT INTO items(name, description, amount, price, category) VALUES ('Correa','
 INSERT INTO `orders` (user_id, price) VALUES (1, 60);
 INSERT INTO `orders` (user_id, price) VALUES (3, 250);
 
-INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (2, 50, 1, 1);
+INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (2, 50, 2, 1);
 INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (1, 10, 3, 1);
-INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (5, 250, 2, 2);
+INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (5, 250, 4, 2);

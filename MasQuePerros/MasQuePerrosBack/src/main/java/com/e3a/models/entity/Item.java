@@ -88,5 +88,11 @@ public class Item implements Serializable{
 		this.category = category;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [item_id=" + item_id + ", name=" + name + ", description=" + description + ", amount=" + amount
+				+ ", picture=" + picture + ", price=" + price + ", category=" + category + "]";
+	}
+
 	private static final long serialVersionUID = 1L;
 }

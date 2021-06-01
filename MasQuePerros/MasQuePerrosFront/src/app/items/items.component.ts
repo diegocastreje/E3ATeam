@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import{ Item } from './item';
 import { ItemService } from './item.service';
+import { ModalService } from './modal.service';
+import swal from 'sweetalert2';
+
 
 
 @Component({
@@ -11,6 +14,8 @@ import { ItemService } from './item.service';
 })
 export class ItemsComponent implements OnInit {
 
+  selectedItem!: Item;
+
   items: Item[] = [];
 
   column: string = '';
@@ -19,10 +24,11 @@ export class ItemsComponent implements OnInit {
   fName: string = '';
   fAmount: number = 0;
   fDescription: string = '';
+  //fPicture: string = '';
   fPicture: string = '';
   filteredItems: Item[] = [];
 
-  constructor(private itemService: ItemService,
+  constructor(private itemService: ItemService, public modalService: ModalService,
   private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -125,5 +131,43 @@ export class ItemsComponent implements OnInit {
     };
 
     items.sort(sortFunc(column, order === 'desc'));
+  }
+
+  delete(item: Item, openedModal: boolean): void{
+    swal.fire({
+      title:'Eliminar Item',
+      text: `¿Seguro que quieres eliminar el item ${item.name}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.itemService.delete(item.item_id).subscribe(
+          response => {
+            this.items = this.items.filter(ite => ite !== item)
+            this.filteredItems = this.filteredItems.filter((itm) => itm !== item);
+            if(openedModal){
+              this.closeModal();
+            }
+            swal.fire(
+              'Eliminado!',
+              'El item ha sido eliminado.',
+              'success'
+            )
+          }
+        )
+      }
+    });
+  }
+
+  openModal(item: Item): void{
+    this.selectedItem = item;
+    this.modalService.openModal();
+  }
+
+  closeModal(){
+    this.modalService.closeModal();
   }
 }

@@ -10,11 +10,12 @@ import { UserComponent } from './users/user.component';
 import { ItemsComponent } from './items/items.component';
 import { FormComponent } from './items/form.component';
 import { ItemService } from './items/item.service';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
   {path: 'items', component: ItemsComponent},
-  {path: 'items/form/:id', component: FormComponent}
+  {path: 'items/:id', component: FormComponent}
 ];
 
 @NgModule({
@@ -29,7 +30,8 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [ItemService],
   bootstrap: [AppComponent]
