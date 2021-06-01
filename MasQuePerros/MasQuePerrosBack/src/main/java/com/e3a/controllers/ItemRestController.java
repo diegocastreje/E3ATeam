@@ -201,8 +201,9 @@ public class ItemRestController {
 		
 		return new ResponseEntity<Map>(response, HttpStatus.CREATED);
 	}
-	@GetMapping("/uploads/img/{pictureName:.+}")
-	public ResponseEntity<Resource> viewPicture(@PathVariable String pictureName){
+	
+	@GetMapping({"/uploads/img/{pictureName:.+}", "/uploads/img/"})
+	public ResponseEntity<Resource> viewPicture(@PathVariable(required = false) String pictureName) throws IOException{
 		
 		Resource recurso = null;
 		
@@ -212,6 +213,7 @@ public class ItemRestController {
 			e.printStackTrace();
 		}
 		HttpHeaders cabecera = new HttpHeaders();
+		
 		cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\""+recurso.getFilename()+"\"");
 		
 		return new ResponseEntity<Resource>(recurso,cabecera, HttpStatus.OK);

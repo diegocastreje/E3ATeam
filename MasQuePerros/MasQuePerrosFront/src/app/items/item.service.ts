@@ -10,8 +10,7 @@ import swal from 'sweetalert2';
   providedIn: 'root'
 })
 export class ItemService {
-
-  urlEndPoint: string = 'http://localhost:8081/api/items';
+  urlEndPoint: string = 'http://localhost:8080/api/items';
   public httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -55,8 +54,6 @@ export class ItemService {
   }
 
   update(item: Item): Observable<Item>{
-    console.log('Item a guardar:')
-    console.log(item);
     return this.http.put<Item>(`${this.urlEndPoint}/${item.item_id}`, item, {headers: this.httpHeaders}).pipe(
       map( (response: any) => response.item as Item),
       catchError(e => {

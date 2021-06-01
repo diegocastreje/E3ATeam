@@ -1,19 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import{ Item } from './item';
+import { Item } from './item';
 import { ItemService } from './item.service';
 import { ModalService } from './modal.service';
 import swal from 'sweetalert2';
 
-
-
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+  styleUrls: ['./items.component.css'],
 })
 export class ItemsComponent implements OnInit {
-
   selectedItem!: Item;
 
   items: Item[] = [];
@@ -28,8 +25,11 @@ export class ItemsComponent implements OnInit {
   fPicture: string = '';
   filteredItems: Item[] = [];
 
-  constructor(private itemService: ItemService, public modalService: ModalService,
-  private activatedRoute: ActivatedRoute) { }
+  constructor(
+    private itemService: ItemService,
+    public modalService: ModalService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -40,7 +40,18 @@ export class ItemsComponent implements OnInit {
     });
   }
 
+  private changeImage(item: Item, i: Item) {
+    if (item.item_id == i.item_id) {
+      i.picture = item.picture;
+    }
+    return i;
+  }
 
+  loadImageItem(item: Item) {
+    this.items = this.items.map(i =>  this.changeImage(item, i));
+
+    this.filteredItems = this.filteredItems.map(i => this.changeImage(item, i));
+  }
 
   applyFilter(event: any) {
     switch (event.originalTarget.name) {
@@ -116,14 +127,10 @@ export class ItemsComponent implements OnInit {
         var cb = b[column];
         var res = 0;
 
-        switch (column) {
-          case 'name':
-          case 'description':
-          case 'picture':
-            res = ca.localeCompare(cb);
-            break;
-          case 'role':
-            res = ca.name > cb.name ? -1 : 1;
+        if (typeof ca === 'number') {
+          res = ca > cb ? -1 : 1;
+        } else {
+          res = ca.localeCompare(cb);
         }
 
         return res * (desc ? -1 : 1);
@@ -133,41 +140,39 @@ export class ItemsComponent implements OnInit {
     items.sort(sortFunc(column, order === 'desc'));
   }
 
-  delete(item: Item, openedModal: boolean): void{
-    swal.fire({
-      title:'Eliminar Item',
-      text: `¿Seguro que quieres eliminar el item ${item.name}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, eliminar!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.itemService.delete(item.item_id).subscribe(
-          response => {
-            this.items = this.items.filter(ite => ite !== item)
-            this.filteredItems = this.filteredItems.filter((itm) => itm !== item);
-            if(openedModal){
+  delete(item: Item, openedModal: boolean): void {
+    swal
+      .fire({
+        title: 'Eliminar Item',
+        text: `¿Seguro que quieres eliminar el item ${item.name}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.itemService.delete(item.item_id).subscribe((response) => {
+            this.items = this.items.filter((ite) => ite !== item);
+            this.filteredItems = this.filteredItems.filter(
+              (itm) => itm !== item
+            );
+            if (openedModal) {
               this.closeModal();
             }
-            swal.fire(
-              'Eliminado!',
-              'El item ha sido eliminado.',
-              'success'
-            )
-          }
-        )
-      }
-    });
+            swal.fire('Eliminado!', 'El item ha sido eliminado.', 'success');
+          });
+        }
+      });
   }
 
-  openModal(item: Item): void{
+  openModal(item: Item): void {
     this.selectedItem = item;
     this.modalService.openModal();
   }
 
-  closeModal(){
+  closeModal() {
     this.modalService.closeModal();
   }
 }
