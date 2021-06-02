@@ -14,8 +14,10 @@ import { Router } from '@angular/router';
     constructor(public authService:AuthService, private router: Router) { }
 
     logout():void {
-
-      let username = this.authService.user.username;
+      let username;
+      if (this.authService.user != undefined) {
+         username = this.authService.user.username;
+      }
 
       this.authService.logout();
 

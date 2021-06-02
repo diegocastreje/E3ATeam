@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpEvent, HttpInterceptor, HttpHandler, HttpRequest
+  HttpEvent,
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
 } from '@angular/common/http';
 
 import { Observable, throwError } from 'rxjs';
@@ -9,48 +12,38 @@ import swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(
-    private authService: AuthService,
-    private router: Router) {
-
-  }
-
-  intercept(req: HttpRequest<any>, next: HttpHandler):
-    Observable<HttpEvent<any>> {
-
-      return next.handle(req).pipe(
-        catchError(e => {
-
-          if(e.status == 401) {
-
-            if(this.authService.isAuthenticated()) {
-
-              this.authService.logout();
-
-            }
-
-            this.router.navigate(['/login']);
-
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((e) => {
+        if (e.status == 401) {
+          if (this.authService.isAuthenticated()) {
+            this.authService.logout();
           }
 
-          if(e.status == 403) {
+          this.router.navigate(['/login']);
+        }
 
-            swal.fire ('Access denied', `Hi, ${this.authService.user.username}. You don't have access to this resource`, 'warning');
-
-            this.router.navigate(['/users']);
-
+        if (e.status == 403) {
+          if (this.authService.user != undefined) {
+            swal.fire(
+              'Access denied',
+              `Hi, ${this.authService.user.username}. You don't have access to this resource`,
+              'warning'
+            );
           }
 
-          return throwError(e);
+          this.router.navigate(['/users']);
+        }
 
-        })
-
-      );
-
+        return throwError(e);
+      })
+    );
   }
-
 }

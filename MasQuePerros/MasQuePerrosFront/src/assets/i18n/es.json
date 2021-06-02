@@ -18,8 +18,8 @@
 
     "WelcomeMessage1": "En esta tienda encontrarás todos los productos para tu mascota.",
     "WelcomeMessage2": "Especialistas en alimentación para perros.",
-    "Email": "Email",
-    "EmailPh": "Escriba su email",
+    "Username": "Nombre de usuario",
+    "UsernamePh": "Escriba su nombre de usuario",
     "Password": "Contraseña",
     "PasswordPh": "Escriba su contraseña",
     "Register?1": "¿No tienes una cuenta? ",
