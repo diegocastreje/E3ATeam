@@ -10,9 +10,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-
-    user: User;
-    title: string = "Más Que Perros™";
+  
+  user: User;
+  title: string = "Más Que Perros™";
   text1: string = "En esta tienda encontrarás todos los productos para tu mascota.";
   text2: string = "Especialistas en alimentación para perros";
 
