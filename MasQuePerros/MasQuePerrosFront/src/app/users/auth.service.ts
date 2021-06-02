@@ -61,13 +61,11 @@ export class AuthService {
     this._token = undefined;
     this._user = undefined;
     sessionStorage.clear();
-    /*
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');*/
   }
 
   saveUser(access_token: string): void {
     let payload = this.getTokenData(access_token);
+    console.log(payload);
 
     this._user = new User();
     this._user.first_name = payload.first_name;

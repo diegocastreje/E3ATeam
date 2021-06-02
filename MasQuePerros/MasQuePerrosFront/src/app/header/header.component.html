@@ -19,7 +19,7 @@
     <ul class="navbar-nav mr-auto">
       <!-- if sesionNoIniciada: -->
       <li *ngIf="!authService.isAuthenticated()" class="nav-item">
-        <a class="nav-link active">
+        <a class="nav-link active" routerLink="/register">
           {{ "Register" | translate }}
         </a>
       </li>
@@ -30,7 +30,7 @@
       </li>
       <li *ngIf="authService.isAuthenticated()" class="dropdown">
         <a *ngIf="authService.user != null" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{ authService.user.username }}
+          {{authService.user.username}}
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <button (click)="logout()" class="dropdown-item" type="submit">Cerrar sesión</button>

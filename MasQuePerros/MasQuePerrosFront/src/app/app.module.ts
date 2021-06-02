@@ -17,6 +17,7 @@ import { TokenInterceptor } from './users/interceptors/token.interceptor';
 import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -24,6 +25,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
   {path: 'items', component: ItemsComponent},
   {path: 'items/:id', component: FormComponent},
   {path: 'users', component: UserComponent},
@@ -40,6 +42,7 @@ const routes: Routes = [
     UserComponent,
     FormComponent,
     LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
