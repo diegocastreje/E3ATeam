@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   user: User;
 
   constructor(private authService: AuthService, private router: Router) {
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         let user = this.authService.user;
 
-        this.router.navigate(['/items']);
+        this.router.navigate(['/users']);
 
         if (user != null) {
           swal.fire('Login', `Hi ${user.username}, you've signed in!`, 'success');

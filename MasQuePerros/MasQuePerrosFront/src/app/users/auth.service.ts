@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<any> {
-    const urlEndPoint = 'http://localhost:8080/oauth/token';
+    const urlEndPoint = 'http://localhost:8081/oauth/token';
     const credenciales = btoa('MasQuePerrosFront' + ':' + '12345');
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',
@@ -61,9 +61,6 @@ export class AuthService {
     this._token = undefined;
     this._user = undefined;
     sessionStorage.clear();
-    /*
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');*/
   }
 
   saveUser(access_token: string): void {

@@ -83,7 +83,6 @@ public class ItemRestController {
 		return userService.saveOrder(factura);
 	}
 
-	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@GetMapping("/items")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Item> index() {
@@ -183,7 +182,7 @@ public class ItemRestController {
 	
 	
 	//Este metodo corresponde al de subir imagen que iria en el ItemRestController (no esta testeado porq noestaba la clase creada caudn se creo este metodo, avisar a niqui si algo falla)
-	@Secured("ROLE_ADMIN")
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
 	@PostMapping("/items/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile archivo, @RequestParam("id") long id){
 		Map<String , Object> response = new HashMap<String, Object>();
@@ -212,7 +211,7 @@ public class ItemRestController {
 		
 		return new ResponseEntity<Map>(response, HttpStatus.CREATED);
 	}
-	@Secured("ROLE_ADMIN")
+
 	@GetMapping({"/uploads/img/{pictureName:.+}", "/uploads/img/"})
 	public ResponseEntity<Resource> viewPicture(@PathVariable(required = false) String pictureName) throws IOException{
 		
