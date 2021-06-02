@@ -16,6 +16,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -53,37 +54,43 @@ public class ItemRestController {
 
 	@Autowired
 	private IUploadFileService uploadFService;
-	
+
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@GetMapping("/orders/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Order show(@PathVariable Long id) {
 		return userService.findOrderById(id);
-	} 
+	}
 
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@DeleteMapping("/orders/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		userService.deleteOrderById(id);
 	}
 
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@GetMapping("/orders/filter-items/{term}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Item> filtrarProductos(@PathVariable String term){
 		return itemService.findItemByName(term);
 	}
-	
+
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@PostMapping("/orders")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Order crear(@RequestBody Order factura) {
 		return userService.saveOrder(factura);
 	}
-	
+
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK", "ROLE_CLIENT"})
 	@GetMapping("/items")
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Item> index() {
 		return itemService.findAll();
-	} 
-	
+	}
+
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
 	@PutMapping("/items/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Item item, BindingResult result, @PathVariable long id) {
 		
@@ -126,7 +133,7 @@ public class ItemRestController {
 	
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-	
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
     @DeleteMapping("/items/{id}")
     public ResponseEntity<?> delete(@PathVariable long id) {
         
@@ -150,7 +157,7 @@ public class ItemRestController {
         response.put("mensaje", "El item ha sido eliminado con éxito");
         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
     }
-	
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
 	@GetMapping("/items/{id}")
 	public ResponseEntity<?> showItem(@PathVariable Long id) {
 		
@@ -176,6 +183,7 @@ public class ItemRestController {
 	
 	
 	//Este metodo corresponde al de subir imagen que iria en el ItemRestController (no esta testeado porq noestaba la clase creada caudn se creo este metodo, avisar a niqui si algo falla)
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/items/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile archivo, @RequestParam("id") long id){
 		Map<String , Object> response = new HashMap<String, Object>();
@@ -204,7 +212,7 @@ public class ItemRestController {
 		
 		return new ResponseEntity<Map>(response, HttpStatus.CREATED);
 	}
-	
+	@Secured("ROLE_ADMIN")
 	@GetMapping({"/uploads/img/{pictureName:.+}", "/uploads/img/"})
 	public ResponseEntity<Resource> viewPicture(@PathVariable(required = false) String pictureName) throws IOException{
 		
