@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         let user = this.authService.user;
 
-        this.router.navigate(['/users']);
+        this.router.navigate(['/items']);
 
         if (user != null) {
           swal.fire('Login', `Hi ${user.username}, you've signed in!`, 'success');

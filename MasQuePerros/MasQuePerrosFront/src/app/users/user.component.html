@@ -153,7 +153,7 @@
                   >
                   {{ "Profile" | translate }}
                   </th>
-                  <th scope="col">{{ "User" | translate }}</th>
+                  <th *ngIf="authService.hasRole('ROLE_ADMIN')" scope="col">{{ "User" | translate }}</th>
                 </tr>
               </thead>
               <tbody>
