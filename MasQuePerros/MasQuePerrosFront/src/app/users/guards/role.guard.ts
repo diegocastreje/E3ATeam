@@ -9,12 +9,13 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth.service';
 import swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private translate: TranslateService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -39,8 +40,8 @@ export class RoleGuard implements CanActivate {
     }
     if (this.authService.user != undefined) {
       swal.fire(
-        'Access denied',
-        `Hi, ${this.authService.user.username}. You don't have access to this resource`,
+        this.translate.instant('AccessDenied'),
+        this.translate.instant('SwalSalute') + this.authService.user.username + this.translate.instant('Swal403'),
         'warning'
       );
     }
