@@ -61,9 +61,6 @@ export class AuthService {
     this._token = undefined;
     this._user = undefined;
     sessionStorage.clear();
-    /*
-    sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user');*/
   }
 
   saveUser(access_token: string): void {

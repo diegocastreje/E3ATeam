@@ -1,7 +1,7 @@
 INSERT INTO payment_methods (payment_id, description) VALUES (0, 'Card');
 INSERT INTO payment_methods (payment_id, description) VALUES (1, 'Cash');
 
-INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, /*role_id,*/ payment_id, first_access, enabled) VALUES ('Prueba','$2a$10$0Y/GEZlcuywGyTY1pk86BubbsxlfnJCl.GycZE/NlngN9jBa/63Dm','Prueba', 'Prueba', 'Prueba', '2000-12-11', 'Prueba@gmail.com', /*2,*/ 0, true, 1);
+INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, /*role_id,*/ payment_id, first_access, enabled) VALUES ('admin','$2a$10$0Y/GEZlcuywGyTY1pk86BubbsxlfnJCl.GycZE/NlngN9jBa/63Dm','admin', 'admin', 'admin', '2000-12-11', 'admin@gmail.com', /*2,*/ 0, true, 1);
 INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, /*role_id,*/ payment_id, first_access, enabled) VALUES ('diego','$2a$10$0Y/GEZlcuywGyTY1pk86BubbsxlfnJCl.GycZE/NlngN9jBa/63Dm','Diego', 'Castreje', 'Dominguez', '2000-12-11', 'diegocastreje@gmail.com', /*2,*/ 0, true, 1);
 INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, /*role_id,*/ payment_id, first_access, enabled) VALUES ('niqui','$2a$10$td/wccN3kvnP2wG05OtCWuZfcwRb4wIuiF3HHPSHydvs41CfVMtLe','Hector', 'Niqui', 'Piñeiro', '1995-12-01', 'hectorniqui@gmail.com', /*1,*/ 1, true, 1);
 INSERT INTO users(username, password, first_name, middle_name, last_name, birth_date, email, /*role_id,*/ payment_id, first_access, enabled) VALUES ('fran','$2a$10$TDL4qV1uTaAygvU3KawGnuQgwl2xNbq6io4N6C48tECodWdG3b7IW','Fran', 'Novo', 'Rodriguez', '1994-05-23', 'frannovo@gmail.com', /*3,*/ 0, true, true);

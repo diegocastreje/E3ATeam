@@ -4,6 +4,7 @@ import { Item } from './item';
 import { ItemService } from './item.service';
 import { ModalService } from './modal.service';
 import swal from 'sweetalert2';
+import { AuthService } from '../users/auth.service';
 
 @Component({
   selector: 'app-items',
@@ -28,6 +29,7 @@ export class ItemsComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     public modalService: ModalService,
+    public authService: AuthService,
     private activatedRoute: ActivatedRoute
   ) {}
 

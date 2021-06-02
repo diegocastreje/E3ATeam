@@ -6,15 +6,11 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css'],
 })
-export class LoginComponent implements OnInit {
-  
+export class RegisterComponent implements OnInit {
   user: User;
-  title: string = "Más Que Perros™";
-  text1: string = "En esta tienda encontrarás todos los productos para tu mascota.";
-  text2: string = "Especialistas en alimentación para perros";
 
   constructor(private authService: AuthService, private router: Router) {
     this.user = new User();
@@ -38,7 +34,7 @@ export class LoginComponent implements OnInit {
 
       return;
     }
-
+    
     this.authService.login(this.user).subscribe(
       (response) => {
         this.authService.saveUser(response.access_token);
@@ -47,7 +43,7 @@ export class LoginComponent implements OnInit {
 
         let user = this.authService.user;
 
-        this.router.navigate(['/items']);
+        this.router.navigate(['/users']);
 
         if (user != null) {
           swal.fire('Login', `Hi ${user.username}, you've signed in!`, 'success');
