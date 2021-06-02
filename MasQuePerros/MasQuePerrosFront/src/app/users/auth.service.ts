@@ -58,7 +58,7 @@ export class AuthService {
 
   login(user:User): Observable<any>{
   
-    const urlEndpoint = 'http://localhost8081/oauth/token';
+    const urlEndpoint = 'http://localhost:8081/oauth/token';
   
     const credentials = btoa('MasQuePerrosFront' + ':' + '12345');
   
@@ -112,7 +112,7 @@ export class AuthService {
 
   importTokenData(accessToken: string):any{
 
-    if(accessToken != null){
+    if(accessToken != null && accessToken != ''){
 
       return JSON.parse(atob(accessToken.split(".")[1]));
 

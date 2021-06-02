@@ -33,12 +33,6 @@ public class UserService implements IUserService ,UserDetailsService{
     @Autowired
     private IRoleDao roleDao;
 
-    @Autowired
-    private IOrderDao orderDao;
-
-    @Autowired
-    private IRoleDao roleDao;
-
     @Override
     @Transactional(readOnly=true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
