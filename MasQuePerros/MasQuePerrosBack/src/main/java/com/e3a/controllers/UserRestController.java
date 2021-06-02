@@ -160,7 +160,7 @@ public class UserRestController {
 		}
 
 		try {
-			System.out.println("hola");
+
 			userActual.setUsername(user.getUsername());
 			userActual.setPassword(user.getPassword());
 			userActual.setFirst_name(user.getFirst_name());
