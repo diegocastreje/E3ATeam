@@ -30,7 +30,7 @@
       </li>
       <li *ngIf="authService.isAuthenticated()" class="dropdown">
         <a *ngIf="authService.user != null" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {{authService.user.username}}
+          {{authService.user.first_name}} {{authService.user.middle_name}} {{authService.user.last_name}}
         </a>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <button (click)="logout()" class="dropdown-item" type="submit">Cerrar sesión</button>

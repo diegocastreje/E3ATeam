@@ -65,7 +65,7 @@ export class AuthService {
 
   saveUser(access_token: string): void {
     let payload = this.getTokenData(access_token);
-    console.log(payload);
+    console.log(JSON.stringify(payload,null, 4));
 
     this._user = new User();
     this._user.first_name = payload.first_name;
