@@ -1,3 +1,4 @@
+<!--<app-form *ngIf="selectedItem" [item]="selectedItem"></app-form>-->
 <div class="container-fluid col">
   <div class="row">
     <div class="col">
@@ -134,7 +135,7 @@
                       sorting_desc: orderDesc('amount')
                     }"
                   >
-                  {{ "Quantity" | translate }}
+                  {{ "Price" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -159,7 +160,7 @@
                     />
                   </td>
                   <td>{{ item.name }}</td>
-                  <td>{{ item.amount }}</td>
+                  <td>{{ item.price }} </td>
                   <td>{{ item.description }}</td>
                   <td>
                     <button

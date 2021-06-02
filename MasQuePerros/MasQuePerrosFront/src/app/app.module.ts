@@ -9,7 +9,9 @@ import { UserComponent } from './users/user.component';
 import { FormComponent } from './users/form.component';
 import { FormsModule } from '@angular/forms';
 import { ItemsComponent } from './items/items.component';
+import { FormComponent } from './items/form.component';
 import { ItemService } from './items/item.service';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './users/guards/auth.guard';
 import { RoleGuard } from './users/guards/role.guard';
@@ -25,6 +27,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'items', component: ItemsComponent},
+  {path: 'items/:id', component: FormComponent},
   {path: 'users', component: UserComponent},
   {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
   {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
@@ -37,7 +40,6 @@ const routes: Routes = [
     FooterComponent,
     ItemsComponent,
     UserComponent,
-
     FormComponent,
     LoginComponent,
   ],

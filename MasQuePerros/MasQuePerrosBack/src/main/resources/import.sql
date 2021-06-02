@@ -19,6 +19,8 @@ INSERT INTO users_roles (user_id, role_id) VALUES (4, 1);
 INSERT INTO users_roles (user_id, role_id) VALUES (5, 1);
 INSERT INTO users_roles (user_id, role_id) VALUES (6, 2);
 
+INSERT INTO items(name, description, amount, price, category) VALUES ('','', 0, 0, '');
+
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso 12kg','Pienso Marca Blanca 12kg', 20, 25, 'Comida');
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso Premium 12kg','Pienso Marca Premium 12kg', 10, 50, 'Comida');
 INSERT INTO items(name, description, amount, price, category) VALUES ('Pelota','Pelota pequeña roja', 15, 10, 'Juguete');
@@ -28,6 +30,6 @@ INSERT INTO items(name, description, amount, price, category) VALUES ('Correa','
 INSERT INTO orders (user_id, price) VALUES (2, 60);
 INSERT INTO orders (user_id, price) VALUES (4, 250);
 
-INSERT INTO order_items (amount, price, item_id, order_id) VALUES (2, 50, 1, 1);
-INSERT INTO order_items (amount, price, item_id, order_id) VALUES (1, 10, 3, 1);
-INSERT INTO order_items (amount, price, item_id, order_id) VALUES (5, 250, 2, 2);
+INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (2, 50, 2, 1);
+INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (1, 10, 3, 1);
+INSERT INTO `order_items` (amount, price, item_id, order_id) VALUES (5, 250, 4, 2);
