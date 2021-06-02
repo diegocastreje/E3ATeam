@@ -5,13 +5,14 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Item } from './item';
 import swal from 'sweetalert2';
+import config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
-  urlEndPoint: string = 'http://localhost:8080/api/items';
   public httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
+  private urlEndPoint: string = config.url + 'items';
 
   constructor(private http: HttpClient, private router: Router) { }
 

@@ -35,12 +35,15 @@ import com.e3a.models.entity.Order;
 import com.e3a.models.services.IItemService;
 import com.e3a.models.services.IUploadFileService;
 import com.e3a.models.services.IUserService;
+import com.e3a.utilities.Reader;
 
 
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = {"http://localhost:4200", "*"})
 public class ItemRestController {
+	
+	private Reader reader= new Reader();
 	
 	@Autowired
 	private IUserService userService;
@@ -184,8 +187,8 @@ public class ItemRestController {
 			try {
 				fileName =  uploadFService.copi(archivo);
 			} catch (IOException e) {
-				response.put("mensaje","Error al realizar subir la imagen");
-				response.put("error", e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				response.put(reader.getString("message"),reader.getString("message"));
+				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getCause().getMessage()));
 				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
@@ -195,8 +198,8 @@ public class ItemRestController {
 			
 			item.setPicture(fileName);
 			itemService.save(item);
-			response.put("item", item);
-			response.put("mensaje", "Has subido correctamente la imagen: "+fileName);
+			response.put(reader.getString("item"), item);
+			response.put(reader.getString("message"), reader.getString("uploadImgSucc")+fileName);
 		}
 		
 		return new ResponseEntity<Map>(response, HttpStatus.CREATED);

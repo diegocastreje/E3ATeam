@@ -1,0 +1,33 @@
+<div class="container table">
+  <div class="row">
+    <div class="col mt-5 column1">
+      <div class="container height text-white mt-5 me-5 ms-5">
+        <h3 class="bold">
+          {{ 'AppName' | translate }}
+        </h3>
+        <br>
+        {{ 'WelcomeMessage1' | translate }}
+        <br><br>
+        {{ 'WelcomeMessage2' | translate }}
+      </div>
+    </div>
+    <div class="col mt-5 column2">
+      <div class="container height text-white mt-5 me-5 ms-5">
+        <div class="form-group text-center">
+          <label class="bold">{{ 'Email' | translate }}</label>
+          <input [(ngModel)]="user.email" type="text" class="form-control input" placeholder="{{ 'EmailPh' | translate }}" autofocus required>
+        </div>
+        <div class="form-group text-center">
+          <label class="bold">{{ 'Password' | translate }}</label>
+          <input [(ngModel)]="user.password" type="password" class="form-control input" placeholder="{{ 'PasswordPh' | translate }}" required>
+        </div><br>
+        <div class="form-group text-center">
+          <button (click)='login()' type="submit" class="btn btnLogin text-white">{{ 'Login' | translate }}</button>
+        </div>
+        <div class="text-center">
+          <span>{{ 'Register?1' | translate }}<a class="text-info">{{ 'Register?2' | translate }}</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
