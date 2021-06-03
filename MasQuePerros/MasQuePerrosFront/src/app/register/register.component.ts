@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public create():void{
-    if(this.user.password==this.comprobarContra){
+    if(this.user.password==this.comprobarContra && this.comprobarRegistro()){
       console.log(this.user)
       this.userService.createUserClient(this.user).subscribe(
         reponse => this.router.navigate(['/login'])
@@ -78,5 +78,23 @@ export class RegisterComponent implements OnInit {
         }
       }
     );
+  }
+  comprobarRegistro():boolean{
+    var reLargo = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+    if(
+      reLargo.test(this.user.email) &&
+      this.user.username.trim().length>=2 &&
+      this.user.first_name.trim().length>=2 &&
+      this.user.middle_name.trim().length>=2 &&
+      this.user.last_name.trim().length>=2 &&
+      this.user.password.trim().length>=2 &&
+      this.user.username==this.user.username.replace(" ","") &&
+      this.user.first_name==this.user.first_name.replace(" ","") &&
+      this.user.middle_name==this.user.middle_name.replace(" ","") &&
+      this.user.last_name==this.user.last_name.replace(" ","")
+      ){
+        return true;
+      }
+    return false;
   }
 }
