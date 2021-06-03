@@ -5,6 +5,7 @@ import { AuthService } from '../users/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../users/user.service';
 import { PaymentMethod } from '../users/payment-method';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -19,15 +20,16 @@ export class RegisterComponent implements OnInit {
 
     private authService: AuthService,
     private router: Router,
-    public userService : UserService,) {
+    public userService : UserService, public translate: TranslateService
+    ) {
     this.user = new User();
   }
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated() && this.authService.user != undefined) {
       swal.fire(
-        'Login',
-        `Hi ${this.authService.user.username} you're already signed in!`,
+        this.translate.instant('SwalAlreadySignedinAdvice'),
+        this.translate.instant('SwalAttention') + this.authService.user.username + this.translate.instant('SwalAlreadySignedinFail'),
         'info'
       );
 
@@ -46,14 +48,14 @@ export class RegisterComponent implements OnInit {
         reponse => this.router.navigate(['/login'])
       )
     }else{
-      swal.fire('Error con las contraseñas: ',
-      'Ambas contraseñas deben coincidir',
+      swal.fire(this.translate.instant('SwalRegisterErrorAdvice'),
+      this.translate.instant('SwalRegisterErrorWrong'),
       'error');
     }
   }
   login(): void {
     if (this.user.username == '' || this.user.password == '') {
-      swal.fire('Error login', 'Empty email or password', 'error');
+      swal.fire(this.translate.instant('SwalLoginErrorAdvice'), this.translate.instant('SwalLoginErrorEmpty'), 'error');
 
       return;
     }
@@ -69,12 +71,12 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/users']);
 
         if (user != null) {
-          swal.fire('Login', `Hi ${user.username}, you've signed in!`, 'success');
+          swal.fire(this.translate.instant('SwalLoginAdvice') + this.translate.instant('SwalSalute') + user.first_name + this.translate.instant('SwalLoginSuccess'), 'success');
         }
       },
       (error) => {
         if (error.status == 400) {
-          swal.fire('Error login', 'Wrong email or password', 'error');
+          swal.fire(this.translate.instant('SwalLoginErrorAdvice'), this.translate.instant('SwalLoginErrorWrong'), 'error');
         }
       }
     );
