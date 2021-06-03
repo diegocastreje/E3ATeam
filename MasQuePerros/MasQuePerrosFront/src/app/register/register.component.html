@@ -17,11 +17,11 @@
       <div class="container height text-white my-5 me-5 ms-5">
         <div class="form-group text-center">
 
-          <label class="bold">{{ 'UserName' | translate }}</label>
+          <label class="bold">{{ 'Username' | translate }}</label>
           <input [(ngModel)]="user.username" type="text" class="form-control input" name="username" placeholder="{{ 'UsernamePh' | translate }}" #username=ngModel autofocus required minlength="2">
           <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
             <div class="" *ngIf="!username.valid ">
-              Username required and must be more than 2 letters
+              {{ 'UsernameRequired' | translate }}
 
             </div>
           </div>

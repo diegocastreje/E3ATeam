@@ -7,6 +7,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-form',
@@ -24,7 +25,8 @@ export class FormComponent implements OnInit {
 
   constructor(public userService : UserService,
   public router:Router,
-  public activatedRoute: ActivatedRoute) { }
+  public activatedRoute: ActivatedRoute,
+  public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.cargarUsuario();
@@ -62,8 +64,8 @@ export class FormComponent implements OnInit {
       )
     }else{
       Swal.fire(
-        "Error",
-        "El formulario no  debe contener espacios en blanco y todos los campos deben tener 2 caracteres como minimo",
+        this.translate.instant('SwalCreateUserErrorAdvice'),
+        this.translate.instant('SwalCreateUserErrorWrong'),
         "error"
       )
     }
@@ -77,7 +79,7 @@ export class FormComponent implements OnInit {
     this.userService.update(this.user).subscribe(user => {
       this.router.navigate(['/users'])
         console.log(user)
-        Swal.fire('Usuario actualizado',`Usuario ${this.user.username} actualizado con exito`, 'success')
+        Swal.fire(this.translate.instant('SwalUpdateUserAdvice'), this.translate.instant('SwalTheUser') + this.user.username +  this.translate.instant('SwalUpdateUserSuccess'), 'success')
     });
   }
 
