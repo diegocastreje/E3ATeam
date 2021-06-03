@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Item } from './item';
 import { ItemService } from './item.service';
-import { ModalService } from './modal.service';
 import swal from 'sweetalert2';
 import { AuthService } from '../users/auth.service';
 
@@ -12,7 +11,6 @@ import { AuthService } from '../users/auth.service';
   styleUrls: ['./items.component.css'],
 })
 export class ItemsComponent implements OnInit {
-  selectedItem!: Item;
 
   items: Item[] = [];
 
@@ -28,7 +26,6 @@ export class ItemsComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    public modalService: ModalService,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -56,18 +53,19 @@ export class ItemsComponent implements OnInit {
   }
 
   applyFilter(event: any) {
-    switch (event.originalTarget.name) {
+    console.log(event)
+    switch (event.srcElement.name) {
       case 'fName':
-        this.fName = event.originalTarget.value;
+        this.fName = event.srcElement.value;
         break;
       case 'fAmount':
-        this.fAmount = event.originalTarget.value;
+        this.fAmount = event.srcElement.value;
         break;
       case 'fDescription':
-        this.fDescription = event.originalTarget.value;
+        this.fDescription = event.srcElement.value;
         break;
       case 'fPicture':
-        this.fPicture = event.originalTarget.value;
+        this.fPicture = event.srcElement.value;
     }
 
     this.filteredItems = this.filter();
@@ -142,7 +140,7 @@ export class ItemsComponent implements OnInit {
     items.sort(sortFunc(column, order === 'desc'));
   }
 
-  delete(item: Item, openedModal: boolean): void {
+  delete(item: Item): void {
     swal
       .fire({
         title: 'Eliminar Item',
@@ -160,21 +158,10 @@ export class ItemsComponent implements OnInit {
             this.filteredItems = this.filteredItems.filter(
               (itm) => itm !== item
             );
-            if (openedModal) {
-              this.closeModal();
-            }
             swal.fire('Eliminado!', 'El item ha sido eliminado.', 'success');
           });
         }
       });
   }
 
-  openModal(item: Item): void {
-    this.selectedItem = item;
-    this.modalService.openModal();
-  }
-
-  closeModal() {
-    this.modalService.closeModal();
-  }
 }

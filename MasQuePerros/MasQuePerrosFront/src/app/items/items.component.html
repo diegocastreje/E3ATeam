@@ -1,4 +1,3 @@
-<!--<app-form *ngIf="selectedItem" [item]="selectedItem"></app-form>-->
 <div class="container-fluid col">
   <div class="row">
     <div class="col">
@@ -170,16 +169,18 @@
                         name="editar"
                         class="btn btn-primary"
                         style="margin-right: 10px"
+                        [routerLink]="['/items/form', item.item_id]"
                       >
                         <!--[routerLink]="['/clientes/formulario', cli.id]"-->
                         <em class="bi bi-pencil"></em>
                       </button>
+                      <!-- Da un 401 por añadir el click pero funciona-->
                       <button
                         *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')"
                         type="button"
                         name="eliminar"
                         class="btn btn-danger"
-                        (click)="delete(item, false)"
+                        (click)="delete(item)"
                       >
                         <!--(click)="delete(item)"-->
                         <em class="bi bi-eraser"></em>

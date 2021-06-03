@@ -1,4 +1,7 @@
-<div class="open-modal animation fadeIn" *ngIf="modalService.modal">
+<div class="card bg-dark text-white mt-3">
+  <div class="card-header">
+    {{title}}
+  </div>
   <div class="divAll">
     <!-- Fotografía y botón seleccionarArchivo -->
     <div class="divLeftSide">
@@ -114,17 +117,18 @@
     <!-- Botones -->
     <div class="btnsDiv">
       <div class="btnDivLeftSide">
-        <button (click)="closeModal()" type="button" class="btn btn-secondary">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          [routerLink]="['/items']"
+        >
+          <!-- [routerLink]="['/clientes/formulario', cli.id]"-->
           Atrás
         </button>
       </div>
       <div class="btnsDivRightSide">
-        <button (click)="delete(item)" type="button" class="btn btn-danger">
-          Eliminar
-        </button>
-        <button (click)="update()" type="submit" class="btn btn-primary">
-          Guardar Cambios
-        </button>
+        <button class="btn btn-primary" role="button" type="submit" (click)= "create()" *ngIf="!item.item_id else elseBlock" [disabled]="!formItem.form.valid">Crear</button>
+        <ng-template #elseBlock>  <button class="btn btn-primary" role="button" type="submit" (click)= "update()" [disabled]="!formItem.form.valid">Actualizar</button></ng-template>
       </div>
     </div>
   </div>
