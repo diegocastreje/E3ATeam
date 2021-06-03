@@ -28,6 +28,14 @@
           {{ "Login" | translate }}
         </a>
       </li>
+      <li *ngIf="!authService.isAuthenticated()" class="dropdown">
+          <select class="btn btn-outline-primary dropdown-toggle" #selectedLang (change)="switchLang(selectedLang.value)">
+            <option *ngFor="let language of translate.getLangs()" [value]="language"
+            [selected]="language === translate.currentLang" class="dropdown-item">
+            {{ language }}
+            </option>
+          </select>
+      </li>
       <li *ngIf="authService.isAuthenticated()" class="dropdown">
         <a *ngIf="authService.user != null" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{authService.user.first_name}} {{authService.user.middle_name}} {{authService.user.last_name}}
@@ -35,6 +43,14 @@
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
           <button (click)="logout()" class="dropdown-item" type="submit">{{ "Logout" | translate }}</button>
         </div>
+      </li>
+      <li *ngIf="authService.isAuthenticated()" class="dropdown">
+          <select class="btn btn-outline-primary dropdown-toggle" #selectedLang (change)="switchLang(selectedLang.value)">
+            <option *ngFor="let language of translate.getLangs()" [value]="language"
+            [selected]="language === translate.currentLang" class="dropdown-item">
+            {{ language }}
+            </option>
+          </select>
       </li>
     </ul>
     <ul class="navbar-nav mx-auto">

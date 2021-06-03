@@ -12,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 
   export class HeaderComponent {
 
-    constructor(public authService:AuthService, private router: Router, private translate: TranslateService) { }
+    constructor(public authService:AuthService, private router: Router, public translate: TranslateService) { }
 
     logout():void {
       let first_name
@@ -29,6 +29,10 @@ import { TranslateService } from '@ngx-translate/core';
 
       this.router.navigate(['/login']);
 
+    }
+
+    switchLang(lang: string) {
+      this.translate.use(lang);
     }
 
   }

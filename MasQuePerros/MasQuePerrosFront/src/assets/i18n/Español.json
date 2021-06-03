@@ -20,6 +20,9 @@
     "Roles": "Roles",
     "Role": "Rol",
     "CreateUser": "Crear Usuario",
+    "Language": "Idioma",
+    "Spanish": "Español",
+    "English": "Inglés",
 
     "WelcomeMessage1": "En esta tienda encontrará todos los productos para su mascota.",
     "WelcomeMessage2": "Especialistas en alimentación para perros.",
@@ -30,6 +33,7 @@
     "RepeatPassword": "Repetir contraseña",
     "RepeatPasswordPH": "Por favor, repita su contraseña",
     "PasswordTip": "Mínimo 8 caracteres. Al menos una letra mayúscula, números y símbolos",
+    "PasswordSame": "Ambas contraseñas no coinciden",
     "PaymentMethod": "Método de Pago",
     "PaymentMethodPH": "Elija su método de pago",
     "Register?1": "¿No tiene una cuenta? ",

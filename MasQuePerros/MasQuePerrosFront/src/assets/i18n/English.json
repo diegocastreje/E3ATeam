@@ -20,6 +20,9 @@
     "Roles": "Roles",
     "Role": "Role",
     "CreateUser": "Create User",
+    "Language": "Languaje",
+    "Spanish": "Spanish",
+    "English": "English",
 
     "WelcomeMessage1": "In this store you will find all the products for your pets.",
     "WelcomeMessage2": "Specialists in dog food.",
@@ -30,6 +33,7 @@
     "RepeatPassword": "Repeat password",
     "RepeatPasswordPH": "Please, repeat your password",
     "PasswordTip": "8 characters minimun. At least one upper case, numbers and symbols",
+    "PasswordSame": "Both passwords doesn't match",
     "PaymentMethod": "Payment Method",
     "PaymentMethodPH": "Choose your payment method",
     "Register?1": "Don't have an account? ",
