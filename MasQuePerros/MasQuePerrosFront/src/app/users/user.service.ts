@@ -61,6 +61,24 @@ export class UserService {
     );
   }
 
+  createUserClient(user: User): Observable<any> {
+    console.log("LLega 2")
+    return this.http.post<any>(this.urlEndPoint+"Client", user).pipe(
+      catchError(e => {
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        if(e.error.message){
+
+          console.error(e.error.message);
+
+        }
+        return throwError(e);
+      })
+    );
+  }
+
   delete(user: User): Observable<any>{
     return this.http.delete<User>(`${this.urlEndPoint}/${user.user_id}`).pipe(
       catchError((e) => {
