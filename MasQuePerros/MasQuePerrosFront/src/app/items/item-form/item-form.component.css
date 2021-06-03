@@ -1,6 +1,13 @@
+/* Diseño inputs */
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
 /* Diseño general */
 .divAll{
-  background-color: white;
   border-radius: 5px;
   width: 97.5%;
   margin: 3% 5% 0 1%;
@@ -11,7 +18,6 @@
 .divLeftSide{
   width: 30%;
   height: 70%;
-  border: solid 2px green;
   float: left;
 }
 .divImgProduct{
@@ -34,7 +40,6 @@
 .divRightSide{
   width: 70%;
   margin-left: 30%;
-  border: solid 2px red;
 }
 .divErrorLog{
   margin-top: 3%;
@@ -64,29 +69,3 @@ textarea{
 .btnsDivRightSide > button {
   margin-left: 5%;
 }
-
-/* Diseño apertura del modal */
-.open-modal{
-  background-color:  rgba(0, 0, 0, 0.7);
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 100;
-}
-
-.animation{
-  animation-duration: 1s;
-  animation-fill-mode: both;
-  -webkit-animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-}
-
-.fadeIn{
-  animation-name: fadeIn;
-  -webkit-animation-name:  fadeIn;
-}
-
-@keyFrames fadeIn{0% {opacity: 0}to{opacity: 1}}
-@-wenkit-keyFrames fadeIn{0% {opacity: 0}to{opacity: 1}}
