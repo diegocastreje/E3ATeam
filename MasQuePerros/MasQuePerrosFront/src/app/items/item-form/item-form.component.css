@@ -8,16 +8,13 @@
 }
 /* Diseño general */
 .divAll{
-  border-radius: 5px;
   width: 97.5%;
-  margin: 3% 5% 0 1%;
   padding: 1%;
 }
 
 /* Diseño fotografía (Lado Izquierdo) */
 .divLeftSide{
   width: 30%;
-  height: 70%;
   float: left;
 }
 .divImgProduct{
@@ -50,22 +47,6 @@ textarea{
   min-height: 180px;
 }
 
-/* Diseño de botones (Parte inferior) */
-.btnsDiv{
-  margin-top: 2%;
-  width: 100%;
-  padding-bottom: 2%;
-}
-.btnDivLeftSide{
-  float: left;
-  width: 30%;
-}
-.btnDivLeftSide > button {
-  margin-left: 15%;
-}
-.btnsDivRightSide{
-  width: 70%;
-}
-.btnsDivRightSide > button {
-  margin-left: 5%;
+.divBtnRight{
+  margin-left: auto;
 }
