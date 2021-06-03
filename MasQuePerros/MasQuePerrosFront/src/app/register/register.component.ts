@@ -91,10 +91,22 @@ export class RegisterComponent implements OnInit {
       this.user.username==this.user.username.replace(" ","") &&
       this.user.first_name==this.user.first_name.replace(" ","") &&
       this.user.middle_name==this.user.middle_name.replace(" ","") &&
-      this.user.last_name==this.user.last_name.replace(" ","")
+      this.user.last_name==this.user.last_name.replace(" ","") &&
+      this.calculateAge()>18
       ){
         return true;
       }
     return false;
+  }
+
+  calculateAge():number{
+    var parts =this.user.birth_date.split('-');
+    // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+    // January - 0, February - 1, etc.
+    var mydate = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+    const timeDiff = Math.abs(Date.now() - mydate.getTime());
+    console.log(Math.floor((timeDiff / (1000 * 3600 * 24))/365))
+    return Math.floor((timeDiff / (1000 * 3600 * 24))/365);
+
   }
 }
