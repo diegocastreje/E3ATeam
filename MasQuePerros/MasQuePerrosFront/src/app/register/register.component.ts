@@ -3,6 +3,8 @@ import swal from 'sweetalert2';
 import { User } from '../users/user';
 import { AuthService } from '../users/auth.service';
 import { Router } from '@angular/router';
+import { UserService } from '../users/user.service';
+import { PaymentMethod } from '../users/payment-method';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +12,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  user: User;
+  public comprobarContra:String="";
+  public user:User ;
+  public paymentMethods :PaymentMethod[]=[];
+  constructor(
 
-  constructor(private authService: AuthService, private router: Router) {
+    private authService: AuthService,
+    private router: Router,
+    public userService : UserService,) {
     this.user = new User();
   }
 
@@ -26,15 +33,31 @@ export class RegisterComponent implements OnInit {
 
       this.router.navigate(['/users']);
     }
+    this.userService.getPayments().subscribe(paymentMethods => {
+      this.paymentMethods = paymentMethods;
+    });
+    console.log(this.paymentMethods);
   }
 
+  public create():void{
+    if(this.user.password==this.comprobarContra){
+      console.log(this.user)
+      this.userService.createUserClient(this.user).subscribe(
+        reponse => this.router.navigate(['/login'])
+      )
+    }else{
+      swal.fire('Error con las contraseñas: ',
+      'Ambas contraseñas deben coincidir',
+      'error');
+    }
+  }
   login(): void {
     if (this.user.username == '' || this.user.password == '') {
       swal.fire('Error login', 'Empty email or password', 'error');
 
       return;
     }
-    
+
     this.authService.login(this.user).subscribe(
       (response) => {
         this.authService.saveUser(response.access_token);

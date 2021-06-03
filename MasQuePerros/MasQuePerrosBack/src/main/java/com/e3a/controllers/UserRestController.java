@@ -11,12 +11,14 @@ import com.e3a.models.services.IRoleService;
 import com.e3a.models.services.IUserService;
 import com.e3a.utilities.Reader;
 
+import org.apache.catalina.valves.rewrite.InternalRewriteMap.UpperCase;
 import org.bouncycastle.asn1.x509.qualified.TypeOfBiometricData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,7 +45,10 @@ import javax.validation.Valid;
 public class UserRestController {
 
 	private Reader reader= new Reader();
-
+	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private IUserService userService;
 
@@ -104,7 +109,44 @@ public class UserRestController {
 			try {	
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
+				user=formatUser(user);
+				userNew = userService.save(user);
+			}catch(DataAccessException e) {
+				response.put(reader.getString("message"),reader.getString("queryError"));
+				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
+			}
+			response.put(reader.getString("message"), reader.getString("userCreated"));
+			response.put(reader.getString("user"), userNew);
+			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+
+		}
+	}
+	
+	@PostMapping("/usersClient")
+	public ResponseEntity<?> createUserClient(@Valid @RequestBody User  user, BindingResult result) {
+
+		User userNew =null;
+		Map<String , Object> response = new HashMap();
+
+		if(result.hasErrors()) {
+
+			List<String> errors = new ArrayList<>();
+			for(FieldError err: result.getFieldErrors()) {
+				System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+			}
+
+			response.put(reader.getString("error"), errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		else {
+
+			try {	
+				user.setRole(obtenerRolPorNombre(user));
+				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
+				user=formatUser(user);
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -119,6 +161,31 @@ public class UserRestController {
 		}
 	}
 
+	private User formatUser(@Valid User user) {
+		user.setFirst_name(upperCaseFirst(user.getFirst_name()).trim());
+		user.setMiddle_name(upperCaseFirst(user.getMiddle_name()).trim());
+		user.setLast_name(upperCaseFirst(user.getLast_name()).trim());
+		user.setPassword(formatearContraseña(user.getPassword()));
+		return user;
+	}
+	
+	
+	
+	private String formatearContraseña(String password) {
+		String passwordBcrypt="";
+		for (int i = 0 ; i < 4; i++){ 
+			passwordBcrypt = passwordEncoder.encode(password);			
+		}
+		return passwordBcrypt;
+	}
+
+
+
+	public static String upperCaseFirst(String val) {
+	      char[] arr = val.toCharArray();
+	      arr[0] = Character.toUpperCase(arr[0]);
+	      return new String(arr);
+	   }
 	private PaymentMethod obtenerPaymentMethodPorDescripcion(@Valid User user) {
     	List<PaymentMethod> payments = paymentMethodService.findByDescription(user.getPayment_method().getDescription());
 		return payments.get(0);
@@ -171,8 +238,8 @@ public class UserRestController {
 
 			userActual.setRole((List<Role>) obtenerRolPorNombre(user));
 			userActual.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
-			System.out.println(userUpdated);
-		userUpdated = userService.save(userActual);
+			userActual=formatUser(userActual);
+			userUpdated = userService.save(userActual);
 
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"),  reader.getString("errorUpdatingUser"));
@@ -195,8 +262,12 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			
+			if(comprobarNumeroAdmims()>=2) {
 			userService.delete(id);
+			}else {
+				response.put(reader.getString("message"), reader.getString("errorDeletingUser")+reader.getString("lastAdmin"));
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 		}catch(DataAccessException e){
 			response.put(reader.getString("message"), reader.getString("errorDeletingUser"));
 			response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -206,13 +277,27 @@ public class UserRestController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
 
-  @Secured("ROLE_ADMIN")
-  @GetMapping("/users/payment_methods")
+
+  private int comprobarNumeroAdmims() {
+		List<User> usuarios = userService.findAll();
+		int numeroAdmins =0;
+		for (User user : usuarios) {
+			if(user.getRole()==roleService.findByName("ROLE_ADMIN")) {
+				numeroAdmins++;
+			}
+		}
+		return numeroAdmins;
+	}
+
+
+
+  	@GetMapping("/users/payment_methods")
 	public List<PaymentMethod> listPaymentMethods(){
 		return paymentMethodService.findAllPaymentMethods();
 	}
-  @Secured("ROLE_ADMIN")
-  @GetMapping("/users/roles")
+  	
+  	@Secured("ROLE_ADMIN")
+  	@GetMapping("/users/roles")
 	public List<Role> listRoles(){
 		return roleService.findAllRoles();
 	}
