@@ -14,6 +14,7 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
+
   public cargado:Boolean=false;
   public selectedCountriesControl = new FormControl();
   public title: string = "Create user";
@@ -53,10 +54,20 @@ export class FormComponent implements OnInit {
   }
 
   public create():void{
-    this.user.role=  [this.user.role];
-    this.userService.create(this.user).subscribe(
-      reponse => this.router.navigate(['/users'])
-    )
+
+    this.user.role = [this.user.role];
+    if(this.comprobarRegistro()){
+      this.userService.create(this.user).subscribe(
+        reponse => this.router.navigate(['/users'])
+      )
+    }else{
+      Swal.fire(
+        "Error",
+        "El formulario no  debe contener espacios en blanco y todos los campos deben tener 2 caracteres como minimo",
+        "error"
+      )
+    }
+
   }
 
   update():void{
@@ -85,6 +96,23 @@ export class FormComponent implements OnInit {
   compareRole(o1:any, o2:any):boolean{
     return o1 === null || o2 === null || o1 === undefined || o2 === undefined? false: o1.role_id==o2[0].role_id;
   }
-
+  comprobarRegistro():boolean{
+    var reLargo = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+    if(
+      reLargo.test(this.user.email) &&
+      this.user.username.trim().length>=2 &&
+      this.user.first_name.trim().length>=2 &&
+      this.user.middle_name.trim().length>=2 &&
+      this.user.last_name.trim().length>=2 &&
+      this.user.password.trim().length>=2 &&
+      this.user.username==this.user.username.replace(" ","") &&
+      this.user.first_name==this.user.first_name.replace(" ","") &&
+      this.user.middle_name==this.user.middle_name.replace(" ","") &&
+      this.user.last_name==this.user.last_name.replace(" ","")
+      ){
+        return true;
+      }
+    return false;
+  }
 
 }

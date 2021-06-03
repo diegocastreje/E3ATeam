@@ -17,10 +17,10 @@
       <div class="container height text-white my-5 me-5 ms-5">
         <div class="form-group text-center">
           <label class="bold">{{ 'UserName' | translate }}</label>
-          <input [(ngModel)]="user.username" type="text" class="form-control input" name="username" placeholder="{{ 'UsernamePh' | translate }}" #username=ngModel autofocus required minlength="4">
+          <input [(ngModel)]="user.username" type="text" class="form-control input" name="username" placeholder="{{ 'UsernamePh' | translate }}" #username=ngModel autofocus required minlength="2">
           <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
             <div class="" *ngIf="!username.valid ">
-              Username required and must be more than 4 letters
+              Username required and must be more than 2 letters
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@
             </div>
         </div><br>
         <div class="form-group text-center">
-          <button (click)='create()' type="submit" class="btn btnLogin text-white"  role="button"  >{{ 'Register' | translate }}</button>
+          <button (click)='create()' type="submit" class="btn btnLogin text-white"  role="button" [disabled]="!userForm.form.valid" >{{ 'Register' | translate }}</button>
         </div>
         <div class="text-center">
           <span>{{ 'Login?1' | translate }}<a class="text-info" routerLink="/login">{{ 'Login?2' | translate }} </a></span>

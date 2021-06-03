@@ -110,6 +110,7 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
+				user.setPassword(formatearContraseña(user.getPassword()));
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -147,6 +148,7 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
+				user.setPassword(formatearContraseña(user.getPassword()));
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -162,10 +164,9 @@ public class UserRestController {
 	}
 
 	private User formatUser(@Valid User user) {
-		user.setFirst_name(upperCaseFirst(user.getFirst_name()).trim());
-		user.setMiddle_name(upperCaseFirst(user.getMiddle_name()).trim());
-		user.setLast_name(upperCaseFirst(user.getLast_name()).trim());
-		user.setPassword(formatearContraseña(user.getPassword()));
+		user.setFirst_name(upperCaseFirst(user.getFirst_name()).trim().replace(" ", ""));
+		user.setMiddle_name(upperCaseFirst(user.getMiddle_name()).trim().replace(" ", ""));
+		user.setLast_name(upperCaseFirst(user.getLast_name()).trim().replace(" ", ""));
 		return user;
 	}
 	
