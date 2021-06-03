@@ -16,11 +16,13 @@
       <form #userForm="ngForm">
       <div class="container height text-white my-5 me-5 ms-5">
         <div class="form-group text-center">
+
           <label class="bold">{{ 'UserName' | translate }}</label>
           <input [(ngModel)]="user.username" type="text" class="form-control input" name="username" placeholder="{{ 'UsernamePh' | translate }}" #username=ngModel autofocus required minlength="2">
           <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
             <div class="" *ngIf="!username.valid ">
               Username required and must be more than 2 letters
+
             </div>
           </div>
         </div>
@@ -29,7 +31,7 @@
           <input [(ngModel)]="user.first_name" type="text" class="form-control input" name="first_name" placeholder="{{ 'FirstNamePH' | translate }}" #first_name=ngModel autofocus required>
           <div class="alert alert-danger" *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
             <div class="" *ngIf="!first_name.valid ">
-              First name required
+              {{ "FirstNameRequired" | translate }}
             </div>
           </div>
         </div>
@@ -38,7 +40,7 @@
           <input [(ngModel)]="user.middle_name" type="text" class="form-control input" name="middle_name" placeholder="{{ 'MiddleNamePH' | translate }}" #middle_name=ngModel autofocus required>
           <div class="alert alert-danger" *ngIf="middle_name.invalid && (middle_name.dirty || middle_name.touched)">
             <div class="" *ngIf="!middle_name.valid ">
-              Middle name required
+              {{ "MiddleNameRequired" | translate }}
             </div>
           </div>
         </div>
@@ -47,7 +49,7 @@
           <input [(ngModel)]="user.last_name" type="text" class="form-control input" name="last_name" placeholder="{{ 'LastNamePH' | translate }}"  #last_name=ngModel  autofocus required>
           <div class="alert alert-danger" *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
             <div class="" *ngIf="!last_name.valid ">
-              Last name required
+              {{ "LastNameRequired" | translate }}
             </div>
           </div>
         </div>
@@ -60,7 +62,7 @@
           <input [(ngModel)]="user.email" type="text" class="form-control input" name="email" placeholder="{{ 'EmailPH' | translate }}" #email=ngModel autofocus required email>
           <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
             <div class="" *ngIf="!email.valid ">
-              Email required and in a valid format
+              {{ "EmailRequired" | translate }}
             </div>
           </div>
         </div><br>
@@ -80,14 +82,14 @@
           <input [(ngModel)]="user.password" name="password" type="password" class="form-control input" #password=ngModel placeholder="{{ 'PasswordPh' | translate }}"  required>
           <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
             <div class="" *ngIf="!password.valid ">
-              Password required
+              {{ "PasswordRequired" | translate }}
             </div>
           </div>
         </div>
         <div class="form-group text-center">
           <input [(ngModel)]="comprobarContra" name="comprobarContra" type="password" class="form-control input"  placeholder="{{ 'RepeatPasswordPH' | translate }}" required>
             <div class="alert alert-danger" *ngIf="comprobarContra!=user.password ">
-              Password must be the same
+              {{ "PasswordSame" | translate }}
             </div>
         </div><br>
         <div class="form-group text-center">
