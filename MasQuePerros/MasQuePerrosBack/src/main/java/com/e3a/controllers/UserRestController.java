@@ -262,7 +262,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			if(comprobarNumeroAdmims()>=2) {
+			if(comprobarNumeroAdmims()>1 || userService.findById(id).getRole().get(0).getRole_id()!=3) {
 			userService.delete(id);
 			}else {
 				response.put(reader.getString("message"), reader.getString("errorDeletingUser")+reader.getString("lastAdmin"));
