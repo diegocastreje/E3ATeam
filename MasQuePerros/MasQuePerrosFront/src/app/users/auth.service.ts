@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Order } from '../orders/models/order';
 import { User } from './user';
 
 @Injectable({
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<any> {
-    const urlEndPoint = 'http://localhost:8081/oauth/token';
+    const urlEndPoint = 'http://localhost:8080/oauth/token';
     const credenciales = btoa('MasQuePerrosFront' + ':' + '12345');
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',
@@ -50,7 +51,6 @@ export class AuthService {
       .set('username', user.username)
       .set('password', user.password)
       .set('grant_type', 'password');
-    console.log(params.toString());
 
     return this.http.post<any>(urlEndPoint, params.toString(), {
       headers: httpHeaders,
@@ -82,11 +82,21 @@ export class AuthService {
     sessionStorage.setItem('token', JSON.stringify(this._token));
   }
 
+  saveShoppingList(user: User): void {
+    var order = new Order();
+    order.user = user;
+    sessionStorage.setItem('shoppingList', JSON.stringify(order));
+  }
+
   getTokenData(access_token: string): any {
     if (access_token != null && access_token != "") {
       return JSON.parse(atob(access_token.split('.')[1]));
     }
     return null;
+  }
+
+  public getUserData(): User {
+    return JSON.parse(sessionStorage.getItem('user')|| "");
   }
 
   isAuthenticated(): boolean {
