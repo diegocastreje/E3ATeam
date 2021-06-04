@@ -29,7 +29,6 @@ export class ItemsComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private orderService: OrderService,
-    public modalService: ModalService,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -185,14 +184,6 @@ export class ItemsComponent implements OnInit {
           });
         }
       });
-  }
-  openModal(item: Item): void {
-    this.selectedItem = item;
-    this.modalService.openModal();
-  }
-
-  closeModal() {
-    this.modalService.closeModal();
   }
 
   addToCart(addItem: Item): void {
