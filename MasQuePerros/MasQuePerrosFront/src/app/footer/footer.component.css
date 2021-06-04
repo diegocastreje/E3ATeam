@@ -9,12 +9,17 @@
 }
 
 .footerContainer{
-  width: 130px;
-  height: 50px;
+  width: 60px;
+  height: 61px;
   margin-left: 20px;
 }
 
 .footerImg{
   width: 100%;
   height: 100%;
+  cursor: pointer;
+}
+
+.row{
+  align-items: center;
 }
