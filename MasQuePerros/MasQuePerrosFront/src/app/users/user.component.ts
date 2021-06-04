@@ -40,19 +40,19 @@ export class UserComponent implements OnInit {
   }
 
   aplicarFiltro(event: any) {
-    console.log(event.originalTarget);
-    switch (event.originalTarget.name) {
+    console.log(event.srcElement);
+    switch (event.srcElement.name) {
       case 'fNombre':
-        this.fNombre = event.originalTarget.value;
+        this.fNombre = event.srcElement.value;
         break;
       case 'fPrimer':
-        this.fPrimer = event.originalTarget.value;
+        this.fPrimer = event.srcElement.value;
         break;
       case 'fSegundo':
-        this.fSegundo = event.originalTarget.value;
+        this.fSegundo = event.srcElement.value;
         break;
       case 'fPerfil':
-        this.fPerfil = event.originalTarget.value;
+        this.fPerfil = event.srcElement.value;
     }
 
     this.usuariosFiltrados = this.filtrar();

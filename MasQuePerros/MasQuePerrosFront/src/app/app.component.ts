@@ -10,7 +10,7 @@ export class AppComponent {
   constructor(
     public translate: TranslateService
   ) {
-    translate.addLangs(['en', 'es']);
-    translate.setDefaultLang('en');
+    translate.addLangs(['Español', 'English']);
+    translate.setDefaultLang('Español');
   }
 }

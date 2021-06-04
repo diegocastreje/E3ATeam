@@ -11,45 +11,95 @@
         {{ 'WelcomeMessage2' | translate }}
       </div>
     </div>
+
     <div class="col mt-5 column2">
+      <form #userForm="ngForm">
       <div class="container height text-white my-5 me-5 ms-5">
         <div class="form-group text-center">
+
+          <label class="bold">{{ 'Username' | translate }}</label>
+          <input [(ngModel)]="user.username" type="text" class="form-control input" name="username" placeholder="{{ 'UsernamePh' | translate }}" #username=ngModel autofocus required minlength="2">
+          <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <div class="" *ngIf="!username.valid ">
+              {{ 'UsernameRequired' | translate }}
+
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center">
           <label class="bold">{{ 'FirstName' | translate }}</label>
-          <input [(ngModel)]="user.first_name" type="text" class="form-control input" placeholder="{{ 'FirstNamePH' | translate }}" autofocus required>
+          <input [(ngModel)]="user.first_name" type="text" class="form-control input" name="first_name" placeholder="{{ 'FirstNamePH' | translate }}" #first_name=ngModel autofocus required>
+          <div class="alert alert-danger" *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
+            <div class="" *ngIf="!first_name.valid ">
+              {{ "FirstNameRequired" | translate }}
+            </div>
+          </div>
         </div>
         <div class="form-group text-center">
           <label class="bold">{{ 'MiddleName' | translate }}</label>
-          <input [(ngModel)]="user.middle_name" type="text" class="form-control input" placeholder="{{ 'MiddleNamePH' | translate }}" autofocus required>
+          <input [(ngModel)]="user.middle_name" type="text" class="form-control input" name="middle_name" placeholder="{{ 'MiddleNamePH' | translate }}" #middle_name=ngModel autofocus required>
+          <div class="alert alert-danger" *ngIf="middle_name.invalid && (middle_name.dirty || middle_name.touched)">
+            <div class="" *ngIf="!middle_name.valid ">
+              {{ "MiddleNameRequired" | translate }}
+            </div>
+          </div>
         </div>
         <div class="form-group text-center">
           <label class="bold">{{ 'LastName' | translate }}</label>
-          <input [(ngModel)]="user.last_name" type="text" class="form-control input" placeholder="{{ 'LastNamePH' | translate }}" autofocus required>
+          <input [(ngModel)]="user.last_name" type="text" class="form-control input" name="last_name" placeholder="{{ 'LastNamePH' | translate }}"  #last_name=ngModel  autofocus required>
+          <div class="alert alert-danger" *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
+            <div class="" *ngIf="!last_name.valid ">
+              {{ "LastNameRequired" | translate }}
+            </div>
+          </div>
         </div>
         <div class="form-group text-center">
           <label class="bold">{{ 'BirthDate' | translate }}</label>
-          <input [(ngModel)]="user.birth_date" type="date" class="form-control input" autofocus required>
+          <input [(ngModel)]="user.birth_date" type="date" class="form-control input" name="birth_date" autofocus required>
         </div>
         <div class="form-group text-center">
           <label class="bold">{{ 'Email' | translate }}</label>
-          <input [(ngModel)]="user.email" type="text" class="form-control input" placeholder="{{ 'EmailPH' | translate }}" autofocus required>
+          <input [(ngModel)]="user.email" type="text" class="form-control input" name="email" placeholder="{{ 'EmailPH' | translate }}" #email=ngModel autofocus required email>
+          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+            <div class="" *ngIf="!email.valid ">
+              {{ "EmailRequired" | translate }}
+            </div>
+          </div>
+        </div><br>
+        <div class="form-group text-center">
+          <label class="bold">{{ 'PaymentMethod' | translate }}</label>
+          <select  type="payment_method" class="form-control input" [(ngModel)]="user.payment_method" name="payment_method" #payment_method=ngModel required >
+            <ng-container *ngFor="let paymentMethod of paymentMethods" >
+              <option [ngValue]="paymentMethod">{{paymentMethod.description}}</option>
+            </ng-container>
+          </select>
         </div><br>
         <div class="form-group text-center">
           <label class="bold">{{ 'Password' | translate }}</label><br>
           <label class="bold">{{ 'PasswordTip' | translate }}</label>
         </div><br>
         <div class="form-group text-center">
-          <input [(ngModel)]="user.password" type="password" class="form-control input" placeholder="{{ 'PasswordPh' | translate }}" required>
+          <input [(ngModel)]="user.password" name="password" type="password" class="form-control input" #password=ngModel placeholder="{{ 'PasswordPh' | translate }}"  required>
+          <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <div class="" *ngIf="!password.valid ">
+              {{ "PasswordRequired" | translate }}
+            </div>
+          </div>
         </div>
         <div class="form-group text-center">
-          <input [(ngModel)]="user.password" type="password" class="form-control input" placeholder="{{ 'RepeatPasswordPH' | translate }}" required>
+          <input [(ngModel)]="comprobarContra" name="comprobarContra" type="password" class="form-control input"  placeholder="{{ 'RepeatPasswordPH' | translate }}" required>
+            <div class="alert alert-danger" *ngIf="comprobarContra!=user.password ">
+              {{ "PasswordSame" | translate }}
+            </div>
         </div><br>
         <div class="form-group text-center">
-          <button (click)='login()' type="submit" class="btn btnLogin text-white">{{ 'Register' | translate }}</button>
+          <button (click)='create()' type="submit" class="btn btnLogin text-white"  role="button" [disabled]="!userForm.form.valid" >{{ 'Register' | translate }}</button>
         </div>
         <div class="text-center">
           <span>{{ 'Login?1' | translate }}<a class="text-info" routerLink="/login">{{ 'Login?2' | translate }} </a></span>
         </div>
       </div>
+    </form>
     </div>
   </div>
 </div>

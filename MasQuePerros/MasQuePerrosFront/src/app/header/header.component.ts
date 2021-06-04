@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../users/auth.service';
 import swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-header',
@@ -11,20 +12,27 @@ import { Router } from '@angular/router';
 
   export class HeaderComponent {
 
-    constructor(public authService:AuthService, private router: Router) { }
+    constructor(public authService:AuthService, private router: Router, public translate: TranslateService) { }
 
     logout():void {
-      let username;
+      let first_name
+
       if (this.authService.user != undefined) {
-         username = this.authService.user.username;
+         first_name = this.authService.user.first_name;
+
+         
       }
 
       this.authService.logout();
 
-      swal.fire('Logout', `Hi ${username}, you've logged out!`, 'success');
+      swal.fire(this.translate.instant('SwalLogoutAdvice'), this.translate.instant('SwalSUS') + first_name +  this.translate.instant('SwalLogoutSuccess'), 'success');
 
       this.router.navigate(['/login']);
 
+    }
+
+    switchLang(lang: string) {
+      this.translate.use(lang);
     }
 
   }

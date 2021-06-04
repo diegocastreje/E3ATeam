@@ -33,7 +33,7 @@ public class User implements Serializable{
 	private long user_id;
 
 	@NotEmpty(message = "This field can not be empty")
-	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
+	@Size(min=2, max=20, message="This field should have beetween 2 and 20 characters")
 	@Column(unique = true)
 	private String username;
 

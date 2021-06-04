@@ -11,10 +11,11 @@ import { AuthService } from '../auth.service';
 import swal from 'sweetalert2';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private translate: TranslateService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -33,8 +34,8 @@ export class AuthInterceptor implements HttpInterceptor {
         if (e.status == 403) {
           if (this.authService.user != undefined) {
             swal.fire(
-              'Access denied',
-              `Hi, ${this.authService.user.username}. You don't have access to this resource`,
+              this.translate.instant('AccesDenied'),
+              this.translate.instant('SwalSalute') + this.authService.user.username + this.translate.instant('Swal403') ,
               'warning'
             );
           }
