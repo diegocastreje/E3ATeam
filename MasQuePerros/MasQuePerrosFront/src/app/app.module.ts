@@ -20,9 +20,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RegisterComponent } from './register/register.component';
 import { ItemFormComponent } from './items/item-form/item-form.component';
 
-
-
-
 const routes: Routes = [
   {path: '', redirectTo: '/items', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},

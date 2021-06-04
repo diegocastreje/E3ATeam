@@ -1,12 +1,10 @@
 <div class="card bg-dark text-white mt-3">
-  <div class="card-header" *ngIf="!item.item_id else elseBlock">
+  <div class="card-header" *ngIf="!item.item_id">
     {{title}}
   </div>
-    <ng-template #elseBlock>
-      <div class="card-header" *ngIf="!item.item_id else elseBlock">
-        {{titleUpdate}}
-      </div>
-    </ng-template>
+  <div class="card-header" *ngIf="item.item_id">
+    {{titleUpdate}}
+  </div>
   <div class="card-body">
     <div class="divAll">
 
