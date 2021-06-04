@@ -44,6 +44,23 @@ export class ItemService {
     return this.http.request(req);
   }
 
+  create(item: Item): Observable<any> {
+    return this.http.post<any>(this.urlEndPoint, item).pipe(
+      catchError(e => {
+
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        if(e.error.message){
+
+          console.error(e.error.message);
+
+        }
+        return throwError(e);
+      })
+    );
+  }
+
   delete(id: number): Observable<Item>{
     return this.http.delete<Item>(`${this.urlEndPoint}/${id}`, {headers: this.httpHeaders}).pipe(
       catchError(e => {

@@ -3,6 +3,7 @@ package com.e3a.controllers;
 import java.io.Console;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +89,41 @@ public class ItemRestController {
 	@ResponseStatus(code = HttpStatus.OK)
 	public List<Item> index() {
 		return itemService.findAll();
+	}
+
+	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
+	@PostMapping("/items")
+	public ResponseEntity<?> create(@Valid @RequestBody Item  item, BindingResult result) {
+
+		Item itemNew =null;
+		Map<String , Object> response = new HashMap();
+
+		if(result.hasErrors()) {
+
+			List<String> errors = new ArrayList<>();
+			for(FieldError err: result.getFieldErrors()) {
+				System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+			}
+
+			response.put(reader.getString("error"), errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		else {
+
+			try {
+				itemNew = itemService.save(item);
+			}catch(DataAccessException e) {
+				response.put(reader.getString("message"),reader.getString("queryError"));
+				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+
+			}
+			response.put(reader.getString("message"), reader.getString("itemCreated"));
+			response.put(reader.getString("item"), itemNew);
+			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+
+		}
 	}
 
 	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
@@ -179,9 +216,7 @@ public class ItemRestController {
 		
 		return new ResponseEntity<Item>(item, HttpStatus.OK);
 	}
-	
-	
-	//Este metodo corresponde al de subir imagen que iria en el ItemRestController (no esta testeado porq noestaba la clase creada caudn se creo este metodo, avisar a niqui si algo falla)
+
 	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
 	@PostMapping("/items/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile archivo, @RequestParam("id") long id){
