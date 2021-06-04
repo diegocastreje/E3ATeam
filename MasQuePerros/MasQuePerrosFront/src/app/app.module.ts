@@ -11,7 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './users/user.component';
 import { FormComponent } from './users/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { ItemsComponent } from './items/items.component';
 import { ItemService } from './items/item.service';
 import { LoginComponent } from './login/login.component';
@@ -24,6 +24,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RegisterComponent } from './register/register.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderEndComponent } from './orders/order-end/order-end.component';
+import { ItemFormComponent } from './items/item-form/item-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/items', pathMatch: 'full' },
@@ -56,6 +57,8 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_CLIENT' },
   },
+  {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
+  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
 ];
 
 @NgModule({
@@ -70,11 +73,13 @@ const routes: Routes = [
     RegisterComponent,
     OrdersComponent,
     OrderEndComponent,
+    ItemFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes),
     TranslateModule.forRoot({
       loader: {

@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,12 +34,15 @@ public class User implements Serializable{
 	private long user_id;
 
 	@NotEmpty(message = "This field can not be empty")
-	@Size(min=4, max=20, message="This field should have beetween 4 and 20 characters")
+	@Size(min=2, max=20, message="This field should have beetween 2 and 20 characters")
 	@Column(unique = true)
 	private String username;
 
 	@NotEmpty(message = "This field can not be empty")
 	@Column(length = 60)
+//	@ColumnTransformer(
+//			write=" MD5 (?) "
+//			)
 	private String password;
 
 	@NotEmpty(message = "This field can not be empty")

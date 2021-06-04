@@ -110,6 +110,9 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
+				
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -147,6 +150,10 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
+				System.out.println(user.getPassword());
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				System.out.println(user.getPassword());
+				user.setEnabled(true);
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -162,25 +169,13 @@ public class UserRestController {
 	}
 
 	private User formatUser(@Valid User user) {
-		user.setFirst_name(upperCaseFirst(user.getFirst_name()).trim());
-		user.setMiddle_name(upperCaseFirst(user.getMiddle_name()).trim());
-		user.setLast_name(upperCaseFirst(user.getLast_name()).trim());
-		user.setPassword(formatearContraseña(user.getPassword()));
+		user.setFirst_name(upperCaseFirst(user.getFirst_name()).trim().replace(" ", ""));
+		user.setMiddle_name(upperCaseFirst(user.getMiddle_name()).trim().replace(" ", ""));
+		user.setLast_name(upperCaseFirst(user.getLast_name()).trim().replace(" ", ""));
 		return user;
 	}
 	
 	
-	
-	private String formatearContraseña(String password) {
-		String passwordBcrypt="";
-		for (int i = 0 ; i < 4; i++){ 
-			passwordBcrypt = passwordEncoder.encode(password);			
-		}
-		return passwordBcrypt;
-	}
-
-
-
 	public static String upperCaseFirst(String val) {
 	      char[] arr = val.toCharArray();
 	      arr[0] = Character.toUpperCase(arr[0]);
@@ -262,7 +257,7 @@ public class UserRestController {
 		Map<String, Object> response = new HashMap<>();
 
 		try {
-			if(comprobarNumeroAdmims()>=2) {
+			if(comprobarNumeroAdmims()>1 || userService.findById(id).getRole().get(0).getRole_id()!=3) {
 			userService.delete(id);
 			}else {
 				response.put(reader.getString("message"), reader.getString("errorDeletingUser")+reader.getString("lastAdmin"));

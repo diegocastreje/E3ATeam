@@ -1,7 +1,21 @@
 <footer class="footer">
   <div class="footerDiv py-2">
-    <div class="footerContainer my-2">
-      <img class="footerImg" src=".\assets\img\letrasAzules_fondoBlancoRecortado2.png" alt="LogoAtos">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-1">
+          <div class="footerContainer">
+            <img
+              class="footerImg"
+              src=".\assets\img\huella.png"
+              alt="LogoMasQuePerros"
+              (click)="goToIndex()" 
+            />
+          </div>
+        </div>
+        <div class="col-10 text-center" >
+        &copy; {{ "AppName" | translate}} {{ "AllRightsReservedAdvice" | translate}}
+        </div>
+      </div>
     </div>
   </div>
 </footer>

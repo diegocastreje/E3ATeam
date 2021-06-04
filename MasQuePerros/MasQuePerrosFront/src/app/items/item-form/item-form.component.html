@@ -1,0 +1,147 @@
+<div class="card bg-dark text-white mt-3">
+  <div class="card-header" *ngIf="!item.item_id">
+    {{ 'CreateItemTitle' | translate}}
+  </div>
+  <div class="card-header" *ngIf="item.item_id">
+    {{ 'UpdateItemTitle' | translate}}
+  </div>
+  <div class="card-header" *ngIf="item.item_id">
+    {{titleUpdate}}
+  </div>
+  <div class="card-body">
+    <div class="divAll">
+
+      <!-- Fotografía y botón seleccionarArchivo -->
+      <div class="divLeftSide">
+        <button
+          type="button"
+          class="btn btn-info mb-3"
+          [routerLink]="['/items']"
+        >
+          {{ "Back" | translate }}
+        </button>
+        <div class="divImgProduct">
+          <img
+            id="imgProductDetail"
+            *ngIf="item?.picture"
+            src="http://localhost:8081/api/uploads/img/{{ item.picture }}/"
+            alt="{{ item.picture }}"
+          />
+          <input
+            #file
+            type="file"
+            name="picture"
+            (change)="selectImage(file.files)"
+            class="form-control"
+            id="formFileLg"
+          />
+        </div>
+        <br />
+        <div *ngIf="progress > 0" class="progress">
+          <div
+            class="progress-bar"
+            role="progressbar"
+            [ngStyle]="{ width: progress + '%' }"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            {{ progress }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Información principal de Producto -->
+      <div class="divRightSide">
+
+          <form #formItem="ngForm" class="row g-3">
+            <div class="col-12">
+              <label for="inputName" class="form-label">{{ 'Name' | translate }}</label>
+              <input
+                #name="ngModel"
+                [(ngModel)]="item.name"
+                type="text"
+                class="form-control"
+                id="inputName"
+                name="name"
+                placeholder= "{{ 'ProductNamePH' | translate }}"
+                value="{{ item.name }}"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputAmount" class="form-label">{{ 'Quantity' | translate }}</label>
+              <input
+                #amount="ngModel"
+                [(ngModel)]="item.amount"
+                type="number"
+                class="form-control"
+                name="amount"
+                id="inputAmount"
+                placeholder="Cantidad"
+                value="{{ item.amount }}"
+                required
+              />
+              <label for="inputPrice" class="form-label">{{ 'Price' | translate }}</label>
+              <input
+                #price="ngModel"
+                [(ngModel)]="item.price"
+                type="number"
+                class="form-control"
+                name="price"
+                id="inputPrice"
+                placeholder="Precio por unidad"
+                value="{{ item.price }}"
+                required
+              />
+              <label for="inputCategory" class="form-label">{{ 'Category' | translate }}</label>
+              <input
+                #category="ngModel"
+                [(ngModel)]="item.category"
+                type="text"
+                class="form-control"
+                name="category"
+                id="inputCategory"
+                placeholder= "{{ 'CategoryPH' | translate }}"
+                value="{{ item.category }}"
+                required
+              />
+            </div>
+            <div class="col-md-6">
+              <label for="inputDescription" class="form-label">{{ 'Description' | translate }}</label>
+              <textarea
+                #description="ngModel"
+                [(ngModel)]="item.description"
+                type="text"
+                class="form-control"
+                id="inputDescription"
+                name="description"
+                placeholder= "{{ 'ProductDescriptionPH' | translate }}"
+                value="{{ item.description }}"
+                required
+              ></textarea>
+            </div>
+
+            <!-- Log de Errores -->
+            <div class="divErrorLog">
+              <label for="inputLog" class="form-label">{{ 'Log' | translate }}</label>
+              <textarea
+                disabled
+                type="text"
+                class="form-control"
+                id="inputLog"
+              ></textarea>
+            </div>
+
+            <!-- Botones -->
+            <div class="divBtnRight mt-3">
+              <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "create()" *ngIf="!item.item_id else elseBlock" [disabled]="!formItem.form.valid">{{ "Create" | translate }}</button>
+              <ng-template #elseBlock>  <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "update()" [disabled]="!formItem.form.valid">{{ "Update" | translate }}</button></ng-template>
+            </div>
+          </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
