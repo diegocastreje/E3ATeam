@@ -48,6 +48,9 @@ export class RegisterComponent implements OnInit {
       this.userService.createUserClient(this.user).subscribe(
         reponse => this.router.navigate(['/login'])
       )
+      swal.fire(this.translate.instant('SwalRegisterAdvice'),
+      this.translate.instant('SwalRegisterCongrats') + this.user.first_name + this.translate.instant('SwalRegisterSuccess'),
+    'success');
     }else{
       swal.fire(this.translate.instant('SwalRegisterErrorAdvice'),
       this.translate.instant('SwalRegisterErrorWrong'),
