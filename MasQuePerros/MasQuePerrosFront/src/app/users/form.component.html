@@ -3,6 +3,13 @@
     {{ "CreateUser" | translate }}
   </div>
   <div class="card-body">
+    <button
+      type="button"
+      class="btn btn-info mb-3"
+      [routerLink]="['/users']"
+    >
+      Atrás
+    </button>
     <form #userForm="ngForm">
       <div class="form-group row">
         <label for="username" class="col-form-label col-sm-2">{{ "Username" | translate }}</label>
