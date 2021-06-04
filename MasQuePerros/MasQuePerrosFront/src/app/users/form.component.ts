@@ -5,7 +5,7 @@ import { PaymentMethod } from './payment-method';
 import { UserService } from './user.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
-import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
