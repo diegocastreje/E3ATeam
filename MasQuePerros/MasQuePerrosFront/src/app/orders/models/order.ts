@@ -1,9 +1,10 @@
 import { User } from '../../users/user'
+import { OrderItem } from './order-item';
 
 export class Order {
 
-  id: number = 0;
-  name: string = "";
+  order_id: number = 0;
+  items: OrderItem[] = [];
   user: User = new User();
-  total: number = 0;
+  price: number = 0;
 }

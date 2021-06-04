@@ -1,10 +1,8 @@
-import { Item } from '../../items/item'
-import { Order } from './order';
+import { Item } from 'src/app/items/item';
 
 export class OrderItem {
 
-  id: number = 0;
-  amount: number = 0;
   item: Item = new Item();
-  order: Order = new Order();
+  amount: number = 1;
+  price: number = 0;
 }
