@@ -45,7 +45,7 @@
         </a>
       </li>
       <li *ngIf="authService.hasRole('ROLE_CLIENT')" class="nav-item right">
-        <a class="nav-link text-white">
+        <a class="nav-link text-white" routerLink="/orders">
           {{ "Cart" | translate }}
         </a>
     </ul>
