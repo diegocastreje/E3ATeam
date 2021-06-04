@@ -5,6 +5,8 @@ import { ItemService } from './item.service';
 import { ModalService } from './modal.service';
 import swal from 'sweetalert2';
 import { AuthService } from '../users/auth.service';
+import { OrderService } from '../orders/order.service';
+import { Order } from '../orders/models/order';
 
 @Component({
   selector: 'app-items',
@@ -28,6 +30,7 @@ export class ItemsComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
+    private orderService: OrderService,
     public modalService: ModalService,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute
@@ -38,7 +41,27 @@ export class ItemsComponent implements OnInit {
       this.itemService.getItems().subscribe((response) => {
         this.items = response;
         this.filteredItems = response;
+
+        var shoppingList = this.orderService.getOrder();
+
+        this.items = this.items.filter(item => this.filterEmptyItems(shoppingList, item));
+        this.filteredItems = this.filteredItems.filter(item => this.filterEmptyItems(shoppingList, item));
+        //comprobar en la lista las cantidades
       });
+    });
+  }
+
+  private filterEmptyItems(shoppingList: Order, item: Item){
+    this.compareQuantities(shoppingList, item);
+
+    return item.amount > 0;
+  }
+
+  private compareQuantities(shoppingList: Order, item: Item) {
+    shoppingList.items.forEach(itemList => {
+      if (item.item_id == itemList.item.item_id){
+        item.amount -= itemList.item.amount;
+      }
     });
   }
 
@@ -50,9 +73,11 @@ export class ItemsComponent implements OnInit {
   }
 
   loadImageItem(item: Item) {
-    this.items = this.items.map(i =>  this.changeImage(item, i));
+    this.items = this.items.map((i) => this.changeImage(item, i));
 
-    this.filteredItems = this.filteredItems.map(i => this.changeImage(item, i));
+    this.filteredItems = this.filteredItems.map((i) =>
+      this.changeImage(item, i)
+    );
   }
 
   applyFilter(event: any) {
@@ -122,9 +147,7 @@ export class ItemsComponent implements OnInit {
 
   private order(items: Array<any>, column: string, order: string) {
     var sortFunc = function (field: string, desc: boolean) {
-      // Return the required a,b function
       return function (a: any, b: any) {
-        // Reset a, b to the field
         var ca = a[column];
         var cb = b[column];
         var res = 0;
@@ -176,5 +199,10 @@ export class ItemsComponent implements OnInit {
 
   closeModal() {
     this.modalService.closeModal();
+  }
+
+  addToCart(addItem: Item): void {
+    this.orderService.addToCart(addItem);
+    addItem.amount--; //pendiente de cambiar en la lista de items
   }
 }
