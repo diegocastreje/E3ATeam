@@ -11,5 +11,8 @@ public interface IOrderDao extends CrudRepository<Order, Long> {
 
 	@Query("from Order o where o.user.user_id = ?1 ")
 	public List<Order> findByUser(long id);
+
+	@Query("SELECT COUNT(o) FROM Order o")
+	public long countOrder();
   
 }

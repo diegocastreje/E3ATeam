@@ -38,7 +38,9 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">{{ "Quantity" | translate }}</div>
+                        <div class="col-12 px-0">
+                          {{ "Quantity" | translate }}
+                        </div>
                         <div class="col-12 px-0">
                           <input
                             type="number"
@@ -53,7 +55,9 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">{{ "Description" | translate }}</div>
+                        <div class="col-12 px-0">
+                          {{ "Description" | translate }}
+                        </div>
                         <div class="col-12 px-0">
                           <input
                             type="text"
@@ -68,7 +72,9 @@
                   <div class="col-3">
                     <div class="container-fluid px-0">
                       <div class="row">
-                        <div class="col-12 px-0">{{ "Picture" | translate }}</div>
+                        <div class="col-12 px-0">
+                          {{ "Picture" | translate }}
+                        </div>
                         <div class="col-12 px-0">
                           <input
                             type="text"
@@ -96,10 +102,14 @@
           <div class="card-header">
             <div class="my-3 text-left">
               <button
-                *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')"
+                *ngIf="
+                  authService.hasRole('ROLE_ADMIN') ||
+                  authService.hasRole('ROLE_CLERK')
+                "
                 class="btn btn-rounded btn-success"
-                routerLink="/items/form">
-              {{ "Create" | translate }}
+                routerLink="/items/form"
+              >
+                {{ "Create" | translate }}
               </button>
             </div>
           </div>
@@ -115,7 +125,7 @@
                       sorting_desc: orderDesc('picture')
                     }"
                   >
-                  {{ "Picture" | translate }}
+                    {{ "Picture" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -125,7 +135,7 @@
                       sorting_desc: orderDesc('name')
                     }"
                   >
-                  {{ "Name" | translate }}
+                    {{ "Name" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -135,7 +145,7 @@
                       sorting_desc: orderDesc('amount')
                     }"
                   >
-                  {{ "Price" | translate }}
+                    {{ "Price" | translate }}
                   </th>
                   <th
                     scope="col"
@@ -145,9 +155,18 @@
                       sorting_desc: orderDesc('description')
                     }"
                   >
-                  {{ "Description" | translate }}
+                    {{ "Description" | translate }}
                   </th>
-                  <th *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')" scope="col">{{ "Item" | translate }}</th>
+                  <th
+                    *ngIf="
+                      authService.hasRole('ROLE_ADMIN') ||
+                      authService.hasRole('ROLE_CLERK') ||
+                      authService.hasRole('ROLE_CLIENT')
+                    "
+                    scope="col"
+                  >
+                    {{ "Item" | translate }}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -161,11 +180,25 @@
                       />
                     </td>
                     <td>{{ item.name }}</td>
-                    <td>{{ item.price }} </td>
+                    <td>{{ item.price }}</td>
                     <td>{{ item.description }}</td>
                     <td>
                       <button
-                        *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')"
+                        *ngIf="authService.hasRole('ROLE_CLIENT')"
+                        type="button"
+                        name="editar"
+                        class="btn btn-primary"
+                        style="margin-right: 10px"
+                        (click)="addToCart(item)"
+                      >
+                        <!--[routerLink]="['/clientes/formulario', cli.id]"-->
+                        <em class="bi bi-cart-plus"></em>
+                      </button>
+                      <button
+                        *ngIf="
+                          authService.hasRole('ROLE_ADMIN') ||
+                          authService.hasRole('ROLE_CLERK')
+                        "
                         type="button"
                         name="editar"
                         class="btn btn-primary"
@@ -175,6 +208,14 @@
                         <!--[routerLink]="['/clientes/formulario', cli.id]"-->
                         <em class="bi bi-pencil"></em>
                       </button>
+                      <button
+                        *ngIf="
+                          authService.hasRole('ROLE_ADMIN') ||
+                          authService.hasRole('ROLE_CLERK')
+                        "
+                        type="button"
+                        name="eliminar"
+                        class="btn btn-danger"
                       <!-- Da un 401 por añadir el click pero funciona-->
                       <button
                         *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')"

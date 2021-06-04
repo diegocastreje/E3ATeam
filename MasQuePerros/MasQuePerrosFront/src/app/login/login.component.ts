@@ -48,8 +48,10 @@ export class LoginComponent implements OnInit {
         this.authService.saveUser(response.access_token);
 
         this.authService.saveToken(response.access_token);
+        
+        var user = this.authService.user;
 
-        let user = this.authService.user;
+        this.authService.saveShoppingList(user || new User());
 
         this.router.navigate(['/items']);
 

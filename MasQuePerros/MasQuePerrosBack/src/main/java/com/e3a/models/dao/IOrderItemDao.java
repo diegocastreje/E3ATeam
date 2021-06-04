@@ -8,8 +8,11 @@ import org.springframework.data.repository.CrudRepository;
 import com.e3a.models.entity.OrderItem;
 
 public interface IOrderItemDao extends CrudRepository<OrderItem, Long>{
-	
-	
+		
 	@Query("FROM OrderItem o WHERE o.item.item_id LIKE ?1")
 	public List<OrderItem> findByItemId(long term);
+	
+	
+	@Query("SELECT COUNT(oi) FROM OrderItem oi")
+    public long countOrderItem();
 }

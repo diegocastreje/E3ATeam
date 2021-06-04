@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './users/user.component';
@@ -18,18 +22,43 @@ import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { RegisterComponent } from './register/register.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrderEndComponent } from './orders/order-end/order-end.component';
 import { ItemFormComponent } from './items/item-form/item-form.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/items', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'items', component: ItemsComponent},
-  {path: 'items/form', component: ItemFormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN' || 'ROLE_CLERK'}},
-  {path: 'items/form/:id', component: ItemFormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN' || 'ROLE_CLERK'}},
-  {path: 'users', component: UserComponent},
+  { path: '', redirectTo: '/items', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'items', component: ItemsComponent },
+  { path: 'items/:id', component: FormComponent },
+  { path: 'users', component: UserComponent },
+  {
+    path: 'users/form',
+    component: FormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
+  },
+  {
+    path: 'users/form/:id',
+    component: FormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_ADMIN' },
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_CLIENT' },
+  },
+  {
+    path: 'orders/thankyou',
+    component: OrderEndComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { role: 'ROLE_CLIENT' },
+  },
   {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}}
+  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
 ];
 
 @NgModule({
@@ -42,6 +71,8 @@ const routes: Routes = [
     FormComponent,
     LoginComponent,
     RegisterComponent,
+    OrdersComponent,
+    OrderEndComponent,
     ItemFormComponent
   ],
   imports: [
@@ -54,14 +85,16 @@ const routes: Routes = [
       loader: {
         provide: TranslateLoader,
         useFactory: httpTranslateLoader,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
   ],
-  providers: [ItemService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
-  bootstrap: [AppComponent]
+  providers: [
+    ItemService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 

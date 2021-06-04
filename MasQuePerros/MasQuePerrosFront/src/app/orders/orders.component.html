@@ -1,0 +1,99 @@
+<div class="container mt-3">
+  <div class="container">
+    <button
+      class="btn btn-primary"
+      type="button"
+      name="button"
+      routerLink="/items"
+    >
+      Seguir comprando
+    </button>
+    <div class="row mt-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4>Productos en el carrito</h4>
+          </div>
+          <div class="card-body">
+            <table class="table" aria-labelledby="tableProducts">
+              <tr>
+                <th scope="col">Foto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col"></th>
+              </tr>
+              <tr *ngFor="let item of items.items">
+                <td>
+                  <img
+                    class="imageSize"
+                    src="http://localhost:8080/api/uploads/img/{{
+                      item.item.picture
+                    }}"
+                    alt="Bone"
+                  />
+                </td>
+                <td>{{ item.item.name }}</td>
+                <td>{{ item.amount }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                  <button
+                    type="button"
+                    (click)="delete(item)"
+                    class="btn btn-danger"
+                  >
+                    <em class="bi bi-x-lg"></em>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h4>Datos Compra</h4>
+          </div>
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-5">
+                  <h5>Nombre Usuario</h5>
+                </div>
+                <div class="col-7">
+                  {{ user.username }}
+                </div>
+                <div class="col-5">
+                  <h5>Tipo de Pago</h5>
+                </div>
+                <div class="col-7">
+                  {{ user.payment_method.description }}
+                </div>
+                <div class="col-5">
+                  <h5>Precio Total</h5>
+                </div>
+                <div class="col-7">
+                  {{ getPrecioTotal() }}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button
+                    class="btn btn-success"
+                    type="button"
+                    name="button"
+                    [attr.disabled]="items.items.length == 0 ? '' : null"
+                    (click)="pay()"
+                  >
+                    Pagar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
