@@ -42,6 +42,7 @@ export class RegisterComponent implements OnInit {
   }
 
   public create():void{
+    if(this.calculateAge()>18){
     if(this.user.password==this.comprobarContra && this.comprobarRegistro()){
       console.log(this.user)
       this.userService.createUserClient(this.user).subscribe(
@@ -52,6 +53,11 @@ export class RegisterComponent implements OnInit {
       this.translate.instant('SwalRegisterErrorWrong'),
       'error');
     }
+  }else{
+    swal.fire('Error con las edad: ',
+    'Debe de ser mayor de edad para poder comprar',
+    'error');
+  }
   }
   login(): void {
     if (this.user.username == '' || this.user.password == '') {
@@ -93,8 +99,7 @@ export class RegisterComponent implements OnInit {
       this.user.username==this.user.username.replace(" ","") &&
       this.user.first_name==this.user.first_name.replace(" ","") &&
       this.user.middle_name==this.user.middle_name.replace(" ","") &&
-      this.user.last_name==this.user.last_name.replace(" ","") &&
-      this.calculateAge()>18
+      this.user.last_name==this.user.last_name.replace(" ","")
       ){
         return true;
       }
