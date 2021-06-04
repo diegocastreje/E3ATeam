@@ -1,6 +1,9 @@
 <div class="card bg-dark text-white mt-3">
   <div class="card-header" *ngIf="!item.item_id">
-    {{title}}
+    {{ 'CreateItemTitle' | translate}}
+  </div>
+  <div class="card-header" *ngIf="item.item_id">
+    {{ 'UpdateItemTitle' | translate}}
   </div>
   <div class="card-header" *ngIf="item.item_id">
     {{titleUpdate}}
@@ -15,7 +18,7 @@
           class="btn btn-info mb-3"
           [routerLink]="['/items']"
         >
-          Atrás
+          {{ "Back" | translate }}
         </button>
         <div class="divImgProduct">
           <img
@@ -53,7 +56,7 @@
 
           <form #formItem="ngForm" class="row g-3">
             <div class="col-12">
-              <label for="inputName" class="form-label">Nombre</label>
+              <label for="inputName" class="form-label">{{ 'Name' | translate }}</label>
               <input
                 #name="ngModel"
                 [(ngModel)]="item.name"
@@ -61,13 +64,13 @@
                 class="form-control"
                 id="inputName"
                 name="name"
-                placeholder="Nombre de producto"
+                placeholder= "{{ 'ProductNamePH' | translate }}"
                 value="{{ item.name }}"
                 required
               />
             </div>
             <div class="col-md-6">
-              <label for="inputAmount" class="form-label">Cantidad</label>
+              <label for="inputAmount" class="form-label">{{ 'Quantity' | translate }}</label>
               <input
                 #amount="ngModel"
                 [(ngModel)]="item.amount"
@@ -79,7 +82,7 @@
                 value="{{ item.amount }}"
                 required
               />
-              <label for="inputPrice" class="form-label">Precio</label>
+              <label for="inputPrice" class="form-label">{{ 'Price' | translate }}</label>
               <input
                 #price="ngModel"
                 [(ngModel)]="item.price"
@@ -91,7 +94,7 @@
                 value="{{ item.price }}"
                 required
               />
-              <label for="inputCategory" class="form-label">Categoría</label>
+              <label for="inputCategory" class="form-label">{{ 'Category' | translate }}</label>
               <input
                 #category="ngModel"
                 [(ngModel)]="item.category"
@@ -99,13 +102,13 @@
                 class="form-control"
                 name="category"
                 id="inputCategory"
-                placeholder="Categoría"
+                placeholder= "{{ 'CategoryPH' | translate }}"
                 value="{{ item.category }}"
                 required
               />
             </div>
             <div class="col-md-6">
-              <label for="inputDescription" class="form-label">Descripción</label>
+              <label for="inputDescription" class="form-label">{{ 'Description' | translate }}</label>
               <textarea
                 #description="ngModel"
                 [(ngModel)]="item.description"
@@ -113,7 +116,7 @@
                 class="form-control"
                 id="inputDescription"
                 name="description"
-                placeholder="Descripción del producto"
+                placeholder= "{{ 'ProductDescriptionPH' | translate }}"
                 value="{{ item.description }}"
                 required
               ></textarea>
@@ -121,7 +124,7 @@
 
             <!-- Log de Errores -->
             <div class="divErrorLog">
-              <label for="inputLog" class="form-label">Log</label>
+              <label for="inputLog" class="form-label">{{ 'Log' | translate }}</label>
               <textarea
                 disabled
                 type="text"
@@ -132,8 +135,8 @@
 
             <!-- Botones -->
             <div class="divBtnRight mt-3">
-              <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "create()" *ngIf="!item.item_id else elseBlock" [disabled]="!formItem.form.valid">Crear</button>
-              <ng-template #elseBlock>  <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "update()" [disabled]="!formItem.form.valid">Actualizar</button></ng-template>
+              <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "create()" *ngIf="!item.item_id else elseBlock" [disabled]="!formItem.form.valid">{{ "Create" | translate }}</button>
+              <ng-template #elseBlock>  <button class="btn btn-primary btn-lg" role="button" type="submit" (click)= "update()" [disabled]="!formItem.form.valid">{{ "Update" | translate }}</button></ng-template>
             </div>
           </form>
 
