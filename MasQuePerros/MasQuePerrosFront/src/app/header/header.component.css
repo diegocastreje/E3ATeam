@@ -20,16 +20,20 @@
   border-radius: 5px;
 }
 
-.right {
-  margin-left: auto;
-}
-
 .active {
   color: #00adb5;
 }
 
 .navbar {
   position: relative;
+}
+
+.nav-link{
+  color: #FFFFFF;
+}
+
+.nav-item.active .nav-link, .nav-item:hover .nav-link{
+  color: #00adb5;
 }
 
 /* @media (max-width: 767.98px) {
