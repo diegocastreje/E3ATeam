@@ -110,7 +110,9 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
-				user.setPassword(formatearContraseña(user.getPassword()));
+				
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -148,7 +150,10 @@ public class UserRestController {
 				user.setRole(obtenerRolPorNombre(user));
 				user.setPayment_method(obtenerPaymentMethodPorDescripcion(user));
 				user=formatUser(user);
-				user.setPassword(formatearContraseña(user.getPassword()));
+				System.out.println(user.getPassword());
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+				System.out.println(user.getPassword());
+				user.setEnabled(true);
 				userNew = userService.save(user);
 			}catch(DataAccessException e) {
 				response.put(reader.getString("message"),reader.getString("queryError"));
@@ -171,17 +176,6 @@ public class UserRestController {
 	}
 	
 	
-	
-	private String formatearContraseña(String password) {
-		String passwordBcrypt="";
-		for (int i = 0 ; i < 4; i++){ 
-			passwordBcrypt = passwordEncoder.encode(password);			
-		}
-		return passwordBcrypt;
-	}
-
-
-
 	public static String upperCaseFirst(String val) {
 	      char[] arr = val.toCharArray();
 	      arr[0] = Character.toUpperCase(arr[0]);
