@@ -57,8 +57,8 @@ export class RegisterComponent implements OnInit {
       'error');
     }
   }else{
-    swal.fire('Error con las edad: ',
-    'Debe de ser mayor de edad para poder comprar',
+    swal.fire(this.translate.instant('SwalRegisterBirthDateErrorAdvice'),
+    this.translate.instant('SwalRegisterBirthDateErrorWrong'),
     'error');
   }
   }

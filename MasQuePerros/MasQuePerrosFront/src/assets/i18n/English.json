@@ -99,6 +99,8 @@
     "SwalCreateUserErrorWrong": "One or more fields aren't valid",
     "SwalUpdateUserAdvice": "Updated User",
     "SwalUpdateUserSuccess": " has been updated successfully",
+    "SwalRegisterBirthDateErrorAdvice": "Invalid birth date",
+    "SwalRegisterBirthDateErrorWrong": "You must be 18 years or older to be registered ",
     "SwalTheUser": "The user ",
     "SwalAlreadySignedinAdvice" : "Already signed in",
     "SwalAlreadySignedinFail" : "! You're already signed in!",
