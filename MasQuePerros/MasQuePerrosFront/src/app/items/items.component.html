@@ -222,6 +222,7 @@
                         name="editar"
                         class="btn btn-primary"
                         style="margin-right: 10px"
+                        [routerLink]="['/items/form', item.item_id]"
                       >
                         <!--[routerLink]="['/clientes/formulario', cli.id]"-->
                         <em class="bi bi-pencil"></em>
@@ -234,6 +235,7 @@
                         type="button"
                         name="eliminar"
                         class="btn btn-danger"
+                        (click)="delete(item)"
                       >
                         <em class="bi bi-eraser"></em>
                       </button>
