@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'items', component: ItemsComponent },
+
   {
     path: 'items/form',
      component: ItemFormComponent,
@@ -43,6 +44,7 @@ const routes: Routes = [
       canActivate: [AuthGuard, RoleGuard],
        data: { role: ['ROLE_ADMIN', 'ROLE_CLERK']}
      },
+
   { path: 'users', component: UserComponent },
   {
     path: 'users/form',
