@@ -170,30 +170,49 @@
                 </tr>
               </thead>
               <tbody>
-                <ng-container *ngFor="let item of filteredItems">
-                  <tr *ngIf="item.item_id > 1">
+                <tr *ngFor="let item of filteredItems">
+                  <ng-container *ngIf="item.amount > 0 && item.item_id != 1">
                     <td>
                       <img
                         class="imageSize"
-                        src="http://localhost:8080/api/uploads/img/{{ item.picture }}"
+                        src="http://localhost:8080/api/uploads/img/{{
+                          item.picture
+                        }}"
                         alt="Bone"
                       />
                     </td>
                     <td>{{ item.name }}</td>
                     <td>{{ item.price }}</td>
                     <td>{{ item.description }}</td>
-                    <td>
-                      <button
+                    <td class="col-3">
+                      <div
+                        class="btn-group"
+                        role="group"
                         *ngIf="authService.hasRole('ROLE_CLIENT')"
-                        type="button"
-                        name="editar"
-                        class="btn btn-primary"
-                        style="margin-right: 10px"
-                        (click)="addToCart(item)"
                       >
-                        <!--[routerLink]="['/clientes/formulario', cli.id]"-->
-                        <em class="bi bi-cart-plus"></em>
-                      </button>
+                        <button type="button" class="btn btn-secondary col-2" (click)="substract(item)">
+                          <em class="bi bi-dash"></em>
+                        </button>
+                        <input
+                          type="text"
+                          class="form-control input col-2 p-0 text-center"
+                          disabled=""
+                          value="1"
+                          id="{{ item.item_id }}"
+                        />
+                        <button type="button" class="btn btn-secondary col-2" (click)="add(item)">
+                          <em class="bi bi-plus"></em>
+                        </button>
+                        <button
+                          type="button"
+                          name="editar"
+                          class="btn btn-primary col-2"
+                          style="margin-right: 10px"
+                          (click)="addToCart(item)"
+                        >
+                          <em class="bi bi-cart-plus"></em>
+                        </button>
+                      </div>
                       <button
                         *ngIf="
                           authService.hasRole('ROLE_ADMIN') ||
@@ -203,24 +222,24 @@
                         name="editar"
                         class="btn btn-primary"
                         style="margin-right: 10px"
-                        [routerLink]="['/items/form', item.item_id]"
                       >
                         <!--[routerLink]="['/clientes/formulario', cli.id]"-->
                         <em class="bi bi-pencil"></em>
                       </button>
                       <button
-                        *ngIf="authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_CLERK')"
+                        *ngIf="
+                          authService.hasRole('ROLE_ADMIN') ||
+                          authService.hasRole('ROLE_CLERK')
+                        "
                         type="button"
                         name="eliminar"
                         class="btn btn-danger"
-                        (click)="delete(item)"
                       >
-                        <!--(click)="delete(item)"-->
                         <em class="bi bi-eraser"></em>
                       </button>
                     </td>
-                  </tr>
-                </ng-container>
+                  </ng-container>
+                </tr>
               </tbody>
             </table>
           </div>

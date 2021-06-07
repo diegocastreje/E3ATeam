@@ -37,7 +37,7 @@ export class OrderService {
     return JSON.parse(sessionStorage.getItem('user') || '{}');
   }
 
-  addToCart(addItem: Item) {
+  addToCart(addItem: Item, quantity: number) {
     var shoppingList: Order = this.getOrder();
 
     var orderItem = shoppingList.items.find(
@@ -48,11 +48,13 @@ export class OrderService {
       orderItem = new OrderItem();
 
       orderItem.item = addItem;
-      orderItem.price = addItem.price;
+      orderItem.amount = quantity;
+      orderItem.price = addItem.price * quantity;
 
       shoppingList.items.push(orderItem);
     } else {
-      orderItem.price = ++orderItem.amount * orderItem.item.price;
+      orderItem.amount += quantity;
+      orderItem.price = orderItem.amount * addItem.price;
     }
 
     this.setOrderPrice(shoppingList);
