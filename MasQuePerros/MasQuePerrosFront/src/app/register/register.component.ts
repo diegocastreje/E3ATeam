@@ -70,20 +70,11 @@ export class RegisterComponent implements OnInit {
           'error'
         );
       }
-    } else {
-      swal.fire(
-        'Error con las edad: ',
-        'Debe de ser mayor de edad para poder comprar',
-        'error'
-      );
+    }else{
+      swal.fire(this.translate.instant('SwalRegisterBirthDateErrorAdvice'),
+      this.translate.instant('SwalRegisterBirthDateErrorWrong'),
+      'error');
     }
-
-  }else{
-    swal.fire(this.translate.instant('SwalRegisterBirthDateErrorAdvice'),
-    this.translate.instant('SwalRegisterBirthDateErrorWrong'),
-    'error');
-  }
-
   }
   login(): void {
     if (this.user.username == '' || this.user.password == '') {
