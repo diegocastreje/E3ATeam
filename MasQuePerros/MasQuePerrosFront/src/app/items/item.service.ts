@@ -6,6 +6,7 @@ import { map, catchError, tap } from 'rxjs/operators';
 import { Item } from './item';
 import swal from 'sweetalert2';
 import config from '../../assets/config/config.json';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ItemService {
   public httpHeaders = new HttpHeaders({'Content-Type': 'application/json'});
   private urlEndPoint: string = config.url + 'items';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private translate: TranslateService) { }
 
   getItems(): Observable<Item[]> {
     return this.http.get<Item[]>(this.urlEndPoint);
@@ -25,7 +26,7 @@ export class ItemService {
       catchError(e => {
         this.router.navigate(['/items/' +id ]);
         console.error(e.error.mensaje);
-        swal.fire('Error al recuperar el cliente', e.error.mensaje, 'error');
+        swal.fire(this.translate.instant('SwalErrorRecoverUser'), e.error.mensaje, 'error');
         return throwError(e);
       })
     );

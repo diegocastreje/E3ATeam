@@ -59,8 +59,8 @@ export class ItemFormComponent implements OnInit {
       this.selectedImg.type.indexOf('image') < 0
     ) {
       swal.fire(
-        'Error seleccionar imagen: ',
-        'El archivo debe ser del tipo imagen',
+        this.translate.instant('SwalSelectPictureError'),
+        this.translate.instant('SwalSelectPictureErrorAdvice'),
         'error'
       );
       this.selectedImg = null;
@@ -80,7 +80,7 @@ export class ItemFormComponent implements OnInit {
 
             this.item = response.item as Item;
             swal.fire(
-              'La foto se ha subido completamente',
+              this.translate.instant('SwalCreateItemAdvice'),
               response.mensaje.split('_')[1] /*`${this.item.picture}`*/,
               'success'
             );
@@ -98,8 +98,8 @@ export class ItemFormComponent implements OnInit {
     this.itemService.create(this.item).subscribe(
       (item) => {
         swal.fire(
-          'Producto creado',
-          `Producto ${this.item.name} creado con éxito`,
+          this.translate.instant('SwalCreateItemAdvice'),
+          this.translate.instant('SwalTheItem') + this.item.name + this.translate.instant('SwalCreateItemSuccess'),
           'success'
         );
       },
@@ -116,8 +116,8 @@ export class ItemFormComponent implements OnInit {
     this.itemService.update(this.item).subscribe(
       (item) => {
         swal.fire(
-          'Item actualizado',
-          `Item ${item.name} actualizado con éxito`,
+          this.translate.instant('SwalUpdateItemAdvice'),
+          this.translate.instant('SwalTheItem') + item.name +  this.translate.instant('SwalUpdateItemSuccess'),
           'success'
         );
       },

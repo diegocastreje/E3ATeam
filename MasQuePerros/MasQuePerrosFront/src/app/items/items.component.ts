@@ -165,13 +165,13 @@ export class ItemsComponent implements OnInit {
   delete(item: Item): void {
     swal
       .fire({
-        title: 'Eliminar Item',
-        text: `¿Seguro que quieres eliminar el item ${item.name}?`,
+        title: this.translate.instant('SwalDeleteItemOptionAdvice'),
+        text: this.translate.instant('SwalDeleteItemOptionQuestion') + item.name,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Si, eliminar!',
+        confirmButtonText: this.translate.instant('SwalDeleteItemOptionAnswer'),
       })
       .then((result) => {
         if (result.isConfirmed) {
@@ -180,7 +180,7 @@ export class ItemsComponent implements OnInit {
             this.filteredItems = this.filteredItems.filter(
               (itm) => itm !== item
             );
-            swal.fire('Eliminado!', 'El item ha sido eliminado.', 'success');
+            swal.fire(this.translate.instant('SwalDeleteItemAdvice'), this.translate.instant('SwalTheItem') + item.name + this.translate.instant('SwalDeleteItemSuccess'), 'success');
           });
         }
       });

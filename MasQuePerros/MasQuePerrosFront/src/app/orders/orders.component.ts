@@ -5,6 +5,7 @@ import { Order } from './models/order';
 import { OrderItem } from './models/order-item';
 import { OrderService } from './order.service';
 import swal from 'sweetalert2';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orders',
@@ -16,7 +17,7 @@ export class OrdersComponent implements OnInit {
 
   public user: User = new User();
 
-  constructor(private orderService: OrderService, public router: Router) {
+  constructor(private orderService: OrderService, public router: Router, private translate: TranslateService) {
     this.items = orderService.getOrder();
   }
 
@@ -42,7 +43,7 @@ export class OrdersComponent implements OnInit {
       this.orderService.cleanCart();
       this.items = this.orderService.getOrder();
     } else {
-      swal.fire('Error', 'No tienes productos en el carrito', 'error');
+      swal.fire(this.translate.instant('SwalError'), this.translate.instant('SwalNoItemShoppingCart'), 'error');
     }
   }
 
