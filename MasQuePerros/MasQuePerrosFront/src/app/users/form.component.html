@@ -3,20 +3,29 @@
     {{ "CreateUser" | translate }}
   </div>
   <div class="card-body">
-    <button
-      type="button"
-      class="btn btn-info mb-3"
-      [routerLink]="['/users']"
-    >
+    <button type="button" class="btn btn-info mb-3" [routerLink]="['/users']">
       Atrás
     </button>
     <form #userForm="ngForm">
       <div class="form-group row">
-        <label for="username" class="col-form-label col-sm-2">{{ "Username" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.username" name="username"  #username=ngModel required minlength="4" >
-          <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
-            <div class="" *ngIf="!username.valid ">
+        <label for="username" class="col-form-label col-sm-2">
+          {{ "Username" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="user.username"
+            name="username"
+            #username="ngModel"
+            required
+            minlength="4"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="username.invalid && (username.dirty || username.touched)"
+          >
+            <div class="" *ngIf="!username.valid">
               {{ "UsernameRequired" | translate }}
             </div>
           </div>
@@ -24,11 +33,30 @@
       </div>
 
       <div class="form-group row" *ngIf="!cargado">
-        <label for="password" class="col-form-label col-sm-2">{{ "Password" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.password" name="password"  #password=ngModel required >
-          <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-            <div class="" *ngIf="!password.valid ">
+        <label for="password" class="col-form-label col-sm-2">
+          {{ "Password" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="user.password"
+              name="password"
+              #password="ngModel"
+              required
+            />
+            <div class="input-group-append">
+              <button class="btn btn-secondary" (click)="togglePassword()">
+                <em class="bi-eye-slash" id="eye-1"></em>
+              </button>
+            </div>
+          </div>
+          <div
+            class="alert alert-danger"
+            *ngIf="password.invalid && (password.dirty || password.touched)"
+          >
+            <div class="" *ngIf="!password.valid">
               {{ "PasswordRequired" | translate }}
             </div>
           </div>
@@ -36,11 +64,25 @@
       </div>
 
       <div class="form-group row">
-        <label for="first_name" class="col-form-label col-sm-2">{{ "FirstName" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.first_name" name="first_name"  #first_name=ngModel required >
-          <div class="alert alert-danger" *ngIf="first_name.invalid && (first_name.dirty || first_name.touched)">
-            <div class="" *ngIf="!first_name.valid ">
+        <label for="first_name" class="col-form-label col-sm-2">
+          {{ "FirstName" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="user.first_name"
+            name="first_name"
+            #first_name="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              first_name.invalid && (first_name.dirty || first_name.touched)
+            "
+          >
+            <div class="" *ngIf="!first_name.valid">
               {{ "FirstNameRequired" | translate }}
             </div>
           </div>
@@ -48,11 +90,25 @@
       </div>
 
       <div class="form-group row">
-        <label for="middle_name" class="col-form-label col-sm-2">{{ "MiddleName" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.middle_name" name="middle_name" #middle_name=ngModel required>
-          <div class="alert alert-danger" *ngIf="middle_name.invalid && (middle_name.dirty || middle_name.touched)">
-            <div class="" *ngIf="!middle_name.valid ">
+        <label for="middle_name" class="col-form-label col-sm-2">
+          {{ "MiddleName" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="user.middle_name"
+            name="middle_name"
+            #middle_name="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              middle_name.invalid && (middle_name.dirty || middle_name.touched)
+            "
+          >
+            <div class="" *ngIf="!middle_name.valid">
               {{ "MiddleNameRequired" | translate }}
             </div>
           </div>
@@ -60,11 +116,23 @@
       </div>
 
       <div class="form-group row">
-        <label for="last_name" class="col-form-label col-sm-2">{{ "LastName" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.last_name" name="last_name" #last_name=ngModel required>
-          <div class="alert alert-danger" *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)">
-            <div class="" *ngIf="!last_name.valid ">
+        <label for="last_name" class="col-form-label col-sm-2">
+          {{ "LastName" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="user.last_name"
+            name="last_name"
+            #last_name="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="last_name.invalid && (last_name.dirty || last_name.touched)"
+          >
+            <div class="" *ngIf="!last_name.valid">
               {{ "LastNameRequired" | translate }}
             </div>
           </div>
@@ -72,11 +140,25 @@
       </div>
 
       <div class="form-group row">
-        <label for="birth_date" class="col-form-label col-sm-2">{{ "BirthDate" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="date" class="form-control" [(ngModel)]="user.birth_date" name="birth_date" #birth_date=ngModel required>
-          <div class="alert alert-danger" *ngIf="birth_date.invalid && (birth_date.dirty || birth_date.touched)">
-            <div class="" *ngIf="!birth_date.valid ">
+        <label for="birth_date" class="col-form-label col-sm-2">
+          {{ "BirthDate" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="user.birth_date"
+            name="birth_date"
+            #birth_date="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              birth_date.invalid && (birth_date.dirty || birth_date.touched)
+            "
+          >
+            <div class="" *ngIf="!birth_date.valid">
               {{ "BirthDateRequired" | translate }}
             </div>
           </div>
@@ -84,11 +166,24 @@
       </div>
 
       <div class="form-group row">
-        <label for="email" class="col-form-label col-sm-2">{{ "Email" | translate }}</label>
-        <div class=" col-sm-6">
-          <input type="text" class="form-control" [(ngModel)]="user.email" name="email" #email=ngModel required email>
-          <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
-            <div class="" *ngIf="!email.valid ">
+        <label for="email" class="col-form-label col-sm-2">
+          {{ "Email" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="user.email"
+            name="email"
+            #email="ngModel"
+            required
+            email
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="email.invalid && (email.dirty || email.touched)"
+          >
+            <div class="" *ngIf="!email.valid">
               {{ "EmailRequired" | translate }}
             </div>
           </div>
@@ -96,28 +191,71 @@
       </div>
 
       <div class="form-group row">
-        <label for="payment_method" class="col-form-label col-sm-2">{{ "PaymentMethod" | translate }}</label>
-        <div class=" col-sm-6">
-          <select [compareWith]="comparePayment"  type="payment_method" class="form-control" [(ngModel)]="user.payment_method" name="payment_method" #payment_method=ngModel required >
-            <ng-container *ngFor="let paymentMethod of paymentMethods" >
-              <option [ngValue]="paymentMethod">{{paymentMethod.description}}</option>
+        <label for="payment_method" class="col-form-label col-sm-2">
+          {{ "PaymentMethod" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <select
+            [compareWith]="comparePayment"
+            type="payment_method"
+            class="form-control"
+            [(ngModel)]="user.payment_method"
+            name="payment_method"
+            #payment_method="ngModel"
+            required
+          >
+            <ng-container *ngFor="let paymentMethod of paymentMethods">
+              <option [ngValue]="paymentMethod">
+                {{ paymentMethod.description }}
+              </option>
             </ng-container>
           </select>
         </div>
       </div>
       <div class="form-group row">
-        <label for="role" class="col-form-label col-sm-2">{{ "Role" | translate }}</label>
-        <div class=" col-sm-6">
-          <select  [compareWith]="compareRole" type="role" class="form-control" [(ngModel)]="user.role" name="role" #role=ngModel required >
-            <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
+        <label for="role" class="col-form-label col-sm-2">
+          {{ "Role" | translate }}
+        </label>
+        <div class="col-sm-6">
+          <select
+            [compareWith]="compareRole"
+            type="role"
+            class="form-control"
+            [(ngModel)]="user.role"
+            name="role"
+            #role="ngModel"
+            required
+          >
+            <option *ngFor="let role of roles" [ngValue]="role">
+              {{ role.name }}
+            </option>
           </select>
         </div>
       </div>
 
       <div class="form-group row">
         <div class="col-sm-6">
-          <button class="btn btn-primary" role="button" type="submit" (click)= "create()" *ngIf="!user.user_id else elseBlock" [disabled]="!userForm.form.valid">{{ "Create" | translate }}</button>
-          <ng-template #elseBlock>  <button class="btn btn-primary" role="button" type="submit" (click)= "update()" [disabled]="!userForm.form.valid">{{ "Update" | translate }}</button></ng-template>
+          <button
+            class="btn btn-primary"
+            role="button"
+            type="submit"
+            (click)="create()"
+            *ngIf="!user.user_id; else elseBlock"
+            [disabled]="!userForm.form.valid"
+          >
+            {{ "Create" | translate }}
+          </button>
+          <ng-template #elseBlock>
+            <button
+              class="btn btn-primary"
+              role="button"
+              type="submit"
+              (click)="update()"
+              [disabled]="!userForm.form.valid"
+            >
+              {{ "Update" | translate }}
+            </button></ng-template
+          >
         </div>
       </div>
     </form>
