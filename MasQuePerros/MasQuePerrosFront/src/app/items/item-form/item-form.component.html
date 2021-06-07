@@ -68,6 +68,11 @@
                 value="{{ item.name }}"
                 required
               />
+              <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div class="" *ngIf="!name.valid ">
+                  {{ "UsernameRequired" | translate }}
+                </div>
+              </div>
             </div>
             <div class="col-md-6">
               <label for="inputAmount" class="form-label">{{ 'Quantity' | translate }}</label>
@@ -82,6 +87,11 @@
                 value="{{ item.amount }}"
                 required
               />
+              <div class="alert alert-danger" *ngIf="amount.invalid && (amount.dirty || amount.touched)">
+                <div class="" *ngIf="!amount.valid ">
+                  {{ "UsernameRequired" | translate }}
+                </div>
+              </div>
               <label for="inputPrice" class="form-label">{{ 'Price' | translate }}</label>
               <input
                 #price="ngModel"
@@ -94,6 +104,11 @@
                 value="{{ item.price }}"
                 required
               />
+              <div class="alert alert-danger" *ngIf="price.invalid && (price.dirty || price.touched)">
+                <div class="" *ngIf="!price.valid ">
+                  {{ "UsernameRequired" | translate }}
+                </div>
+              </div>
               <label for="inputCategory" class="form-label">{{ 'Category' | translate }}</label>
               <input
                 #category="ngModel"
@@ -106,6 +121,11 @@
                 value="{{ item.category }}"
                 required
               />
+              <div class="alert alert-danger" *ngIf="category.invalid && (category.dirty || category.touched)">
+                <div class="" *ngIf="!category.valid ">
+                  {{ "UsernameRequired" | translate }}
+                </div>
+              </div>
             </div>
             <div class="col-md-6">
               <label for="inputDescription" class="form-label">{{ 'Description' | translate }}</label>
@@ -119,7 +139,13 @@
                 placeholder= "{{ 'ProductDescriptionPH' | translate }}"
                 value="{{ item.description }}"
                 required
-              ></textarea>
+              >
+              <div class="alert alert-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+                <div class="" *ngIf="!description.valid ">
+                  {{ "UsernameRequired" | translate }}
+                </div>
+              </div>
+            </textarea>
             </div>
 
             <!-- Log de Errores -->
