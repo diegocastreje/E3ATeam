@@ -107,6 +107,8 @@
     "ThankYouPageMessage": "Gracias por comprar en ",
     "ThankYouPageOrderNumber": "Pedido Nº ",
     "ThankYouPageButtonContinueShopping": "Continuar comprando",
+    "SwalRegisterBirthDateErrorAdvice": "Fecha de nacimiento no válida",
+    "SwalRegisterBirthDateErrorWrong": "Debes tener 18 años o más para registrarte",
     "SwalTheUser": "El usuario ",
     "SwalAlreadySignedinAdvice" : "Sesión ya iniciada",
     "SwalAlreadySignedinFail" : "! La sesión ya estaba iniciada!",

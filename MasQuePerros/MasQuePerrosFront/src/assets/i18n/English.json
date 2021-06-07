@@ -107,6 +107,8 @@
     "ThankYouPageMessage": "Thank you for shopping at ",
     "ThankYouPageOrderNumber": "Order Nº ",
     "ThankYouPageButtonContinueShopping": "Continue shopping",
+    "SwalRegisterBirthDateErrorAdvice": "Invalid birth date",
+    "SwalRegisterBirthDateErrorWrong": "You must be 18 years or older to be registered ",
     "SwalTheUser": "The user ",
     "SwalAlreadySignedinAdvice" : "Already signed in",
     "SwalAlreadySignedinFail" : "! You're already signed in!",

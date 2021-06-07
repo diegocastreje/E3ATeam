@@ -31,7 +31,18 @@ export class RoleGuard implements CanActivate {
       return false;
     }
 
-    let role = next.data['role'] as string;
+    let role = next.data['role'];
+
+    if(Array.isArray(role)){
+      role = next.data['role'];
+      for (var i:number = 0; i < role.length; i++){
+        if (this.authService.hasRole(role[i])) {
+          return true;
+        }
+      }
+    }
+
+    console.log(next.data);
 
     console.log(role);
 
@@ -46,7 +57,7 @@ export class RoleGuard implements CanActivate {
       );
     }
 
-    this.router.navigate(['/users']);
+    this.router.navigate(['/items']);
 
     return false;
   }
