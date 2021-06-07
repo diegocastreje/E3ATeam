@@ -1,20 +1,20 @@
 <div class="card bg-dark text-white mt-3">
-  <div class="card-header">Tu compra se ha realizado con éxito!</div>
+  <div class="card-header">{{ 'ThankYouPageAdvice' | translate }}</div>
   <div class="card-body">
     <div class="container-fluid">
       <div class="row">
-        <div class="col">Nº de factura: {{ orderId }}</div>
+        <div class="col">{{ 'ThankYouPageOrderNumber' | translate }} {{ orderId }}</div>
       </div>
       <div class="row my-5">
           <div class="col text-center">
               <h2>
-                  ¡Gracias por confiar en más que perros!
+                  {{ 'ThankYouPageMessage' | translate }} {{ 'AppName' | translate}}
               </h2>
           </div>
       </div>
       <div class="row mb-5">
           <div class="col text-center">
-              <button class="btn btn-primary" (click)= "continue()">Continuar comprando</button>
+              <button class="btn btn-primary" (click)= "continue()">{{ 'ThankYouPageButtonContinueShopping' | translate }}</button>
           </div>
       </div>
     </div>
