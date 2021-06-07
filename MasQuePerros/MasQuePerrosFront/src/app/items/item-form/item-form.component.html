@@ -17,7 +17,7 @@
         >
           {{ "Back" | translate }}
         </button>
-        <div class="divImgProduct">
+        <div *ngIf="item.item_id" class="divImgProduct">
           <img
             id="imgProductDetail"
             *ngIf="item?.picture"

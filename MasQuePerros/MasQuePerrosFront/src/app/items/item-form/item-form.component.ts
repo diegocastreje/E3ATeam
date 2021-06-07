@@ -99,7 +99,7 @@ export class ItemFormComponent implements OnInit {
       (item) => {
         swal.fire(
           'Producto creado',
-          `Producto ${item.name} creado con éxito`,
+          `Producto ${this.item.name} creado con éxito`,
           'success'
         );
       },

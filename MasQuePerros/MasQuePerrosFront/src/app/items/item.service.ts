@@ -46,6 +46,7 @@ export class ItemService {
 
   create(item: Item): Observable<any> {
     return this.http.post<any>(this.urlEndPoint, item).pipe(
+      map( (response: any) => response.item as Item),
       catchError(e => {
 
         if (e.status == 400) {

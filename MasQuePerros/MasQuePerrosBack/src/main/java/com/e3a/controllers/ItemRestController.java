@@ -175,6 +175,7 @@ public class ItemRestController {
 			}
 			response.put(reader.getString("message"), reader.getString("itemCreated"));
 			response.put(reader.getString("item"), itemNew);
+			System.out.println(itemNew);
 			return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 		}
