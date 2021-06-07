@@ -66,4 +66,22 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  togglePassword() {
+    var element: HTMLInputElement;
+    var button;
+
+    element = document.getElementById('password') as HTMLInputElement;
+    button = document.getElementById('eye-1');
+
+    console.log(element);
+
+    if (element.type === 'password') {
+      element.type = 'text';
+      button?.setAttribute('class', 'bi-eye');
+    } else {
+      element.type = 'password';
+      button?.setAttribute('class', 'bi-eye-slash');
+    }
+  }
 }
