@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,11 +36,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.e3a.models.dao.IOrderItemDao;
 import com.e3a.models.entity.Item;
 import com.e3a.models.entity.Order;
 import com.e3a.models.entity.OrderItem;
-import com.e3a.models.entity.User;
 import com.e3a.models.services.IItemService;
 import com.e3a.models.services.IOrderItemService;
 import com.e3a.models.services.IOrderService;
@@ -91,9 +88,9 @@ public class ItemRestController {
 	@PostMapping("/orders")
 	@Transactional
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<Map> crear(@RequestBody String factura) {
-		Map<String , Object> response = new HashMap();
-		
+	public ResponseEntity<?> crear(@RequestBody String factura) {
+		Map<String, Object> response = new HashMap<String, Object>();
+
 		Order order;
 		try {
 			order = new Order();
@@ -113,7 +110,7 @@ public class ItemRestController {
 
 			for (int i = 0; i < items.length(); i++) {
 				item = itemService.findById(items.getJSONObject(i).getJSONObject("item").getInt("item_id"));
-							
+
 				oi = new OrderItem();
 
 				oi.setOrder_item_id(++orderItemId);
@@ -122,23 +119,24 @@ public class ItemRestController {
 				oi.setPrice(items.getJSONObject(i).getInt("price"));
 
 				item.setAmount(item.getAmount() - oi.getAmount());
-				
+
 				oiList.add(oi);
 				itemService.save(item);
 			}
 
 			order.setItems(oiList);
-			
+
 			orderService.save(order);
 		} catch (NumberFormatException | JSONException e) {
-			response.put(reader.getString("message"),reader.getString("error"));
-			response.put(reader.getString("errorCreatingOrder"), e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-			return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put(reader.getString("message"), reader.getString("error"));
+			response.put(reader.getString("errorCreatingOrder"),
+					e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		response.put(reader.getString("message"), reader.getString("orderCreated"));
 		response.put(reader.getString("order"), order);
-		return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/items")
@@ -147,42 +145,42 @@ public class ItemRestController {
 		return itemService.findAll();
 	}
 
-	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
+	@Secured({ "ROLE_ADMIN", "ROLE_CLERK" })
 	@PostMapping("/items")
-	public ResponseEntity<?> create(@Valid @RequestBody Item  item, BindingResult result) {
+	public ResponseEntity<?> create(@Valid @RequestBody Item item, BindingResult result) {
 
-		Item itemNew =null;
-		Map<String , Object> response = new HashMap();
+		Item itemNew = null;
+		Map<String, Object> response = new HashMap<String, Object>();
 
-		if(result.hasErrors()) {
+		if (result.hasErrors()) {
 
 			List<String> errors = new ArrayList<>();
-			for(FieldError err: result.getFieldErrors()) {
-				System.out.println(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
-				errors.add(reader.getString("field")+" '" + err.getField() + "' " + err.getDefaultMessage());
+			for (FieldError err : result.getFieldErrors()) {
+				System.out.println(reader.getString("field") + " '" + err.getField() + "' " + err.getDefaultMessage());
+				errors.add(reader.getString("field") + " '" + err.getField() + "' " + err.getDefaultMessage());
 			}
 
 			response.put(reader.getString("error"), errors);
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
-		}
-		else {
+		} else {
 
 			try {
 				itemNew = itemService.save(item);
-			}catch(DataAccessException e) {
-				response.put(reader.getString("message"),reader.getString("queryError"));
-				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			} catch (DataAccessException e) {
+				response.put(reader.getString("message"), reader.getString("queryError"));
+				response.put(reader.getString("error"),
+						e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
 			}
 			response.put(reader.getString("message"), reader.getString("itemCreated"));
 			response.put(reader.getString("item"), itemNew);
-			return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 
 		}
 	}
 
-	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
+	@Secured({ "ROLE_ADMIN", "ROLE_CLERK" })
 	@PutMapping("/items/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Item item, BindingResult result, @PathVariable long id) {
 
@@ -275,7 +273,7 @@ public class ItemRestController {
 		return new ResponseEntity<Item>(item, HttpStatus.OK);
 	}
 
-	@Secured({"ROLE_ADMIN", "ROLE_CLERK"})
+	@Secured({ "ROLE_ADMIN", "ROLE_CLERK" })
 	@PostMapping("/items/upload")
 	public ResponseEntity<?> upload(@RequestParam("file") MultipartFile archivo, @RequestParam("id") long id) {
 		Map<String, Object> response = new HashMap<String, Object>();
@@ -289,7 +287,7 @@ public class ItemRestController {
 			} catch (IOException e) {
 				response.put(reader.getString("message"), reader.getString("message"));
 				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getCause().getMessage()));
-				return new ResponseEntity<Map>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
 			String previousFileName = item.getPicture();
@@ -302,7 +300,7 @@ public class ItemRestController {
 			response.put(reader.getString("message"), reader.getString("uploadImgSucc") + fileName);
 		}
 
-		return new ResponseEntity<Map>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 
 	@GetMapping({ "/uploads/img/{pictureName:.+}", "/uploads/img/" })

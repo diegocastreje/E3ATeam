@@ -13,7 +13,6 @@ import { Order } from '../orders/models/order';
   styleUrls: ['./items.component.css'],
 })
 export class ItemsComponent implements OnInit {
-
   items: Item[] = [];
 
   column: string = '';
@@ -22,7 +21,6 @@ export class ItemsComponent implements OnInit {
   fName: string = '';
   fAmount: number = 0;
   fDescription: string = '';
-  //fPicture: string = '';
   fPicture: string = '';
   filteredItems: Item[] = [];
 
@@ -41,23 +39,23 @@ export class ItemsComponent implements OnInit {
 
         var shoppingList = this.orderService.getOrder();
 
-        this.items = this.items.filter(item => this.filterEmptyItems(shoppingList, item));
-        this.filteredItems = this.filteredItems.filter(item => this.filterEmptyItems(shoppingList, item));
-        //comprobar en la lista las cantidades
+        this.items = this.items.filter((item) =>
+          this.filterEmptyItems(shoppingList, item)
+        );
       });
     });
   }
 
-  private filterEmptyItems(shoppingList: Order, item: Item){
+  private filterEmptyItems(shoppingList: Order, item: Item) {
     this.compareQuantities(shoppingList, item);
 
     return item.amount > 0;
   }
 
   private compareQuantities(shoppingList: Order, item: Item) {
-    shoppingList.items.forEach(itemList => {
-      if (item.item_id == itemList.item.item_id){
-        item.amount -= itemList.item.amount;
+    shoppingList.items.forEach((itemList) => {
+      if (item.item_id == itemList.item.item_id) {
+        item.amount -= itemList.amount;
       }
     });
   }
@@ -186,8 +184,59 @@ export class ItemsComponent implements OnInit {
       });
   }
 
-  addToCart(addItem: Item): void {
-    this.orderService.addToCart(addItem);
-    addItem.amount--; //pendiente de cambiar en la lista de items
+  addToCart(item: Item): void {
+    var amount = +(<HTMLInputElement>document.getElementById(item.item_id + ''))
+      .value;
+
+    if (isNaN(amount) || amount <= 0) {
+      return;
+    }
+
+    if (amount > item.amount) {
+      amount = item.amount;
+    }
+
+    this.orderService.addToCart(item, amount);
+    item.amount -= amount;
+    (<HTMLInputElement>document.getElementById(item.item_id + '')).value = '1';
+
+    swal.fire(
+      'Agregado a la cesta de la compra',
+      'Agregados ' + amount + ' productos de ' + item.name + ' a la lista',
+      'success'
+    );
+  }
+
+  substract(id: Item): void {
+    var value = +(<HTMLInputElement>document.getElementById(id.item_id + ''))
+      .value;
+    if (value > 1 && value <= id.amount) {
+      value--;
+      (<HTMLInputElement>document.getElementById(id.item_id + '')).value =
+        value + '';
+    } else {
+      this.maxMin(id, value);
+    }
+  }
+
+  add(id: Item): void {
+    var value = +(<HTMLInputElement>document.getElementById(id.item_id + ''))
+      .value;
+    if (value < id.amount && value >= 1) {
+      value++;
+      (<HTMLInputElement>document.getElementById(id.item_id + '')).value =
+        value + '';
+    } else {
+      this.maxMin(id, value);
+    }
+  }
+
+  maxMin(id: Item, value: number) {
+    if (value < 1) {
+      (<HTMLInputElement>document.getElementById(id.item_id + '')).value = '1';
+    } else if (id.amount < value) {
+      (<HTMLInputElement>document.getElementById(id.item_id + '')).value =
+        id.amount + '';
+    }
   }
 }

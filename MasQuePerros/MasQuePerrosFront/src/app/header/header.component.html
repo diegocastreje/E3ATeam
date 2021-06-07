@@ -1,4 +1,4 @@
-<nav class="header">
+<nav class="header" aria-label="header">
   <div class="headerContainer">
     <a class="navbar-brand text-white display-1" href="#">{{ "AppName" | translate }}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,7 +6,7 @@
     </button>
   </div>
 </nav>
-<nav class="navbar navbar-expand-md navBar mx-1 bg-dark">
+<nav class="navbar navbar-expand-md navBar mx-1 bg-dark" aria-label="navbar">
   <button
     class="navbar-toggler navbar-toggler-right ml-aut"
     type="button"
@@ -24,7 +24,7 @@
         </a>
       </li>
       <li *ngIf="authService.hasRole('ROLE_CLIENT')" class="nav-item right">
-        <a class="nav-link text-white">
+        <a class="nav-link text-white" routerLink="/orders">
           {{ "Cart" | translate }}
         </a>
       </li>
@@ -54,10 +54,10 @@
           </select>
       </li>
       <li *ngIf="authService.isAuthenticated()" class="dropdown">
-        <a *ngIf="authService.user != null" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a *ngIf="authService.user != null" class="btn btn-outline-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-target="#navbarDropdown">
           {{authService.user.first_name}} {{authService.user.middle_name}} {{authService.user.last_name}}
         </a>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="navbarDropdown">
           <button (click)="logout()" class="dropdown-item" type="submit">{{ "Logout" | translate }}</button>
         </div>
       </li>
