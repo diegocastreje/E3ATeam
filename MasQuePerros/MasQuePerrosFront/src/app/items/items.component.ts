@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import { AuthService } from '../users/auth.service';
 import { OrderService } from '../orders/order.service';
 import { Order } from '../orders/models/order';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-items',
@@ -28,7 +29,8 @@ export class ItemsComponent implements OnInit {
     private itemService: ItemService,
     private orderService: OrderService,
     public authService: AuthService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -201,8 +203,10 @@ export class ItemsComponent implements OnInit {
     (<HTMLInputElement>document.getElementById(item.item_id + '')).value = '1';
 
     swal.fire(
-      'Agregado a la cesta de la compra',
-      'Agregados ' + amount + ' productos de ' + item.name + ' a la lista',
+      this.translate.instant('SwalItemAddedShoppingCartAdvice'),
+      this.translate.instant('SwalItemAddedShoppingCartFirst') + amount + 
+      this.translate.instant('SwalItemAddedShoppingCartMiddle') + item.name + 
+      this.translate.instant('SwalItemAddedShoppingCartLast'),
       'success'
     );
   }

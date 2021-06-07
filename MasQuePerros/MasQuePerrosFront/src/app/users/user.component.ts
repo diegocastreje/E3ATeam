@@ -166,6 +166,7 @@ export class UserComponent implements OnInit {
               this.translate.instant('DeletedTitle'),
               this.translate.instant('DeletedMessg1') +
                 user.first_name +
+                ' '+
                 user.middle_name +
                 this.translate.instant('DeletedMessg2'),
               'success'
