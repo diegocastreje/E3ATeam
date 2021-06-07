@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/items', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'items', component: ItemsComponent },
+  { path: 'items', component: ItemsComponent, canActivate: [RoleGuard], data: { expectedRol: ['ROLE_JEFE', 'ROLE_CLERK']} },
   { path: 'items/:id', component: FormComponent },
   { path: 'users', component: UserComponent },
   {
