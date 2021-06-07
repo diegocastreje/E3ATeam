@@ -185,7 +185,7 @@ export class ItemsComponent implements OnInit {
         }
       });
   }
-  
+
   addToCart(addItem: Item): void {
     this.orderService.addToCart(addItem);
     addItem.amount--; //pendiente de cambiar en la lista de items

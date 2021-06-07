@@ -30,8 +30,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/items', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'items', component: ItemsComponent, canActivate: [RoleGuard], data: { expectedRol: ['ROLE_JEFE', 'ROLE_CLERK']} },
-  { path: 'items/:id', component: FormComponent },
+  { path: 'items', component: ItemsComponent },
+  {path: 'items/form', component: ItemFormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN' || 'ROLE_CLERK'}},
+  {path: 'items/form/:id', component: ItemFormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN' || 'ROLE_CLERK'}},
   { path: 'users', component: UserComponent },
   {
     path: 'users/form',
@@ -57,8 +58,6 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { role: 'ROLE_CLIENT' },
   },
-  {path: 'users/form', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
-  {path: 'users/form/:id', component:FormComponent, canActivate: [AuthGuard, RoleGuard], data: {role: 'ROLE_ADMIN'}},
 ];
 
 @NgModule({
