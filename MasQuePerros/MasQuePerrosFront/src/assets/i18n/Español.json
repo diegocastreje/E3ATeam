@@ -99,6 +99,8 @@
     "SwalCreateUserErrorWrong": "Uno o más campos no son válidos",
     "SwalUpdateUserAdvice": "Usuario Actualizado",
     "SwalUpdateUserSuccess": " ha sido actualizado correctamente",
+    "SwalRegisterBirthDateErrorAdvice": "Fecha de nacimiento no válida",
+    "SwalRegisterBirthDateErrorWrong": "Debes tener 18 años o más para registrarte",
     "SwalTheUser": "El usuario ",
     "SwalAlreadySignedinAdvice" : "Sesión ya iniciada",
     "SwalAlreadySignedinFail" : "! La sesión ya estaba iniciada!",
