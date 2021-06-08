@@ -150,10 +150,9 @@ public class ItemRestController {
 	public ResponseEntity<?> create(@Valid @RequestBody Item item, BindingResult result) {
 
 		Item itemNew = null;
-		Map<String, Object> response = new HashMap<String, Object>();
+		Map<String, Object> response = new HashMap<>();
 
 		if (result.hasErrors()) {
-
 			List<String> errors = new ArrayList<>();
 			for (FieldError err : result.getFieldErrors()) {
 				System.out.println(reader.getString("field") + " '" + err.getField() + "' " + err.getDefaultMessage());
@@ -170,13 +169,12 @@ public class ItemRestController {
 				response.put(reader.getString("message"), reader.getString("queryError"));
 				response.put(reader.getString("error"),
 						e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 
 			}
 			response.put(reader.getString("message"), reader.getString("itemCreated"));
 			response.put(reader.getString("item"), itemNew);
-			System.out.println(itemNew);
-			return new ResponseEntity<>(response, HttpStatus.CREATED);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 
 		}
 	}

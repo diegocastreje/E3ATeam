@@ -41,9 +41,11 @@ export class ItemsComponent implements OnInit {
 
         var shoppingList = this.orderService.getOrder();
 
-        this.items = this.items.filter((item) =>
-          this.filterEmptyItems(shoppingList, item)
-        );
+        if (shoppingList.items != undefined && shoppingList.items != null) {
+          this.items = this.items.filter((item) =>
+            this.filterEmptyItems(shoppingList, item)
+          );
+        }
       });
     });
   }
@@ -163,7 +165,8 @@ export class ItemsComponent implements OnInit {
     swal
       .fire({
         title: this.translate.instant('SwalDeleteItemOptionAdvice'),
-        text: this.translate.instant('SwalDeleteItemOptionQuestion') + item.name,
+        text:
+          this.translate.instant('SwalDeleteItemOptionQuestion') + item.name,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -177,7 +180,13 @@ export class ItemsComponent implements OnInit {
             this.filteredItems = this.filteredItems.filter(
               (itm) => itm !== item
             );
-            swal.fire(this.translate.instant('SwalDeleteItemAdvice'), this.translate.instant('SwalTheItem') + item.name + this.translate.instant('SwalDeleteItemSuccess'), 'success');
+            swal.fire(
+              this.translate.instant('SwalDeleteItemAdvice'),
+              this.translate.instant('SwalTheItem') +
+                item.name +
+                this.translate.instant('SwalDeleteItemSuccess'),
+              'success'
+            );
           });
         }
       });
@@ -201,9 +210,11 @@ export class ItemsComponent implements OnInit {
 
     swal.fire(
       this.translate.instant('SwalItemAddedShoppingCartAdvice'),
-      this.translate.instant('SwalItemAddedShoppingCartFirst') + amount + 
-      this.translate.instant('SwalItemAddedShoppingCartMiddle') + item.name + 
-      this.translate.instant('SwalItemAddedShoppingCartLast'),
+      this.translate.instant('SwalItemAddedShoppingCartFirst') +
+        amount +
+        this.translate.instant('SwalItemAddedShoppingCartMiddle') +
+        item.name +
+        this.translate.instant('SwalItemAddedShoppingCartLast'),
       'success'
     );
   }

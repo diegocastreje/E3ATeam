@@ -73,11 +73,17 @@ export class ItemFormComponent implements OnInit {
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
 
-            if (response.Item !== undefined && response.Item !== null && this.selectedImg != null) {
+            if (
+              response.Item !== undefined &&
+              response.Item !== null &&
+              this.selectedImg != null
+            ) {
               this.item = response.Item as Item;
               swal.fire(
                 this.translate.instant('SwalCreateItemAdvice'),
-                this.translate.instant('SwalThePicture') + this.selectedImg.name + this.translate.instant('SwalCreateItemPictureUploaded'),
+                this.translate.instant('SwalThePicture') +
+                  this.selectedImg.name +
+                  this.translate.instant('SwalCreateItemPictureUploaded'),
                 'success'
               );
             }
@@ -101,12 +107,15 @@ export class ItemFormComponent implements OnInit {
         this.buttonError(err);
       }
     );
-    this.router.navigate(['/items']);
+    
+    setTimeout(() => {
+      this.router.navigate(['/items']);
+    }, 300);
   }
   buttonError(err: any) {
     this.errores = err.error.errors as string[];
-        console.error('Código del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
+    console.error('Código del error desde el backend: ' + err.status);
+    console.error(err.error.errors);
   }
 
   public update(): void {
