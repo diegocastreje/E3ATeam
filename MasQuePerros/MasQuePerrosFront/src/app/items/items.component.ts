@@ -89,7 +89,7 @@ export class ItemsComponent implements OnInit {
         this.fDescription = event.srcElement.value;
         break;
       case 'fPicture':
-        this.fPicture = event.srcElement.value;
+        this.fPicture = event.srcElement.checked;
     }
 
     this.filteredItems = this.filter();
@@ -113,10 +113,7 @@ export class ItemsComponent implements OnInit {
       }
 
       if (this.fPicture && filter) {
-        filter =
-          item.picture
-            .toLocaleLowerCase()
-            .indexOf(this.fPicture.toLocaleLowerCase()) !== -1;
+        filter = item.picture != null;
       }
       return filter;
     });

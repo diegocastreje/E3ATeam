@@ -77,11 +77,12 @@
                         </div>
                         <div class="col-12 px-0">
                           <input
-                            type="text"
+                            type="checkbox"
                             name="fPicture"
-                            [value]="fPicture"
+                            id="fPicture"
                             (input)="applyFilter($event)"
                           />
+                          <label for="fPicture" class="form-label ml-1">{{ 'HasPicture' | translate }}</label>
                         </div>
                       </div>
                     </div>

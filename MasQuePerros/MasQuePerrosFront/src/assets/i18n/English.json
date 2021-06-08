@@ -16,6 +16,7 @@
     "Category": "Category",
     "Log": "Error Log",
     "Picture": "Picture",
+    "HasPicture":"Has Picture",
     "Create": "Create",
     "CreateItemTitle": "Create Item",
     "Update": "Update",
