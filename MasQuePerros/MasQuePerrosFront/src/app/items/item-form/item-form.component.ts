@@ -81,7 +81,7 @@ export class ItemFormComponent implements OnInit {
             this.item = response.item as Item;
             swal.fire(
               this.translate.instant('SwalCreateItemAdvice'),
-              response.mensaje.split('_')[1] /*`${this.item.picture}`*/,
+              this.translate.instant('SwalThePicture') + this.item.picture + this.translate.instant('SwalCreateItemPictureUploaded'),
               'success'
             );
             this.itemService
