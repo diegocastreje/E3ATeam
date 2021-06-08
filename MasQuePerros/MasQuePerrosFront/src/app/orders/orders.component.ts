@@ -6,6 +6,7 @@ import { OrderItem } from './models/order-item';
 import { OrderService } from './order.service';
 import swal from 'sweetalert2';
 import { TranslateService } from '@ngx-translate/core';
+import config from '../../assets/config/config.json';
 
 @Component({
   selector: 'app-orders',
@@ -14,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class OrdersComponent implements OnInit {
   items: Order = new Order();
+  public rutaImg:string = config.img;
 
   public user: User = new User();
 

@@ -7,6 +7,7 @@ import { AuthService } from '../users/auth.service';
 import { OrderService } from '../orders/order.service';
 import { Order } from '../orders/models/order';
 import { TranslateService } from '@ngx-translate/core';
+import config from '../../assets/config/config.json';
 
 @Component({
   selector: 'app-items',
@@ -15,7 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ItemsComponent implements OnInit {
   items: Item[] = [];
-
+  rutaImg:string = config.img;
   column: string = '';
   orderType: string = '';
 
@@ -201,8 +202,8 @@ export class ItemsComponent implements OnInit {
 
     swal.fire(
       this.translate.instant('SwalItemAddedShoppingCartAdvice'),
-      this.translate.instant('SwalItemAddedShoppingCartFirst') + amount + 
-      this.translate.instant('SwalItemAddedShoppingCartMiddle') + item.name + 
+      this.translate.instant('SwalItemAddedShoppingCartFirst') + amount +
+      this.translate.instant('SwalItemAddedShoppingCartMiddle') + item.name +
       this.translate.instant('SwalItemAddedShoppingCartLast'),
       'success'
     );

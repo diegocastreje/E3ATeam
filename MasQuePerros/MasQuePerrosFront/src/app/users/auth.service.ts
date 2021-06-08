@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Order } from '../orders/models/order';
 import { User } from './user';
+import config from '../../assets/config/config.json';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<any> {
-    const urlEndPoint = 'http://localhost:8080/oauth/token';
+    const urlEndPoint = config.oauth;
     const credenciales = btoa('MasQuePerrosFront' + ':' + '12345');
     const httpHeaders = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded',

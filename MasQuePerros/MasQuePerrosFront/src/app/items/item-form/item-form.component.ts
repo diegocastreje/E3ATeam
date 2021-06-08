@@ -5,6 +5,7 @@ import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import config from '../../../assets/config/config.json';
 
 @Component({
   selector: 'app-item-form',
@@ -12,6 +13,9 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./item-form.component.css'],
 })
 export class ItemFormComponent implements OnInit {
+
+  rutaImg:string = config.img;
+  
   public title: string = this.translate.instant('CreateItemTitle');
 
   public titleUpdate: string = this.translate.instant('UpdateItemTitle');

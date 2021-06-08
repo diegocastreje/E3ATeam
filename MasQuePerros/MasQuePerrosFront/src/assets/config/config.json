@@ -1,3 +1,5 @@
 {
-  "url":"http://localhost:8080/api/"
+  "url":"http://localhost:8081/api/",
+  "oauth":"http://localhost:8081/oauth/token",
+  "img":"http://localhost:8081/api/uploads/img/"
 }
