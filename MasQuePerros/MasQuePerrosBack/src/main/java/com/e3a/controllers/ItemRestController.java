@@ -287,7 +287,7 @@ public class ItemRestController {
 				fileName = uploadFService.copi(archivo);
 			} catch (IOException e) {
 				response.put(reader.getString("message"), reader.getString("message"));
-				response.put(reader.getString("error"), e.getMessage().concat(": ").concat(e.getCause().getMessage()));
+				response.put(reader.getString("error"), reader.getString("image"));
 				return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
