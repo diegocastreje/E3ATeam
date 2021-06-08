@@ -1,25 +1,24 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-item-form',
   templateUrl: './item-form.component.html',
-  styleUrls: ['./item-form.component.css']
+  styleUrls: ['./item-form.component.css'],
 })
 export class ItemFormComponent implements OnInit {
-
   public title: string = this.translate.instant('CreateItemTitle');
 
   public titleUpdate: string = this.translate.instant('UpdateItemTitle');
 
-  public cargado:Boolean=false;
+  public cargado: boolean = false;
 
-  public item:Item =new Item();
+  public item: Item = new Item();
 
   selectedImg: File | null = null;
 
@@ -28,7 +27,7 @@ export class ItemFormComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    public router:Router,
+    public router: Router,
     public activatedRoute: ActivatedRoute,
     private translate: TranslateService
   ) {}
@@ -37,17 +36,16 @@ export class ItemFormComponent implements OnInit {
     this.cargarItem();
   }
 
-  cargarItem():void{
-    this.activatedRoute.params.subscribe(params =>{
-      let item_id = params['id']
-      if(item_id){
-        this.cargado=true;
-        this.itemService.getItem(item_id)
-        .subscribe((item) => this.item = item)
-
+  cargarItem(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      let item_id = params['id'];
+      if (item_id) {
+        this.cargado = true;
+        this.itemService
+          .getItem(item_id)
+          .subscribe((item) => (this.item = item));
       }
-    })
-
+    });
   }
 
   selectImage(files: any): void {
@@ -67,9 +65,6 @@ export class ItemFormComponent implements OnInit {
     }
 
     if (this.selectedImg != null) {
-      document
-        .getElementById('imgProductDetail')
-        ?.setAttribute('src', this.selectedImg.name);
       this.itemService
         .uploadImg(this.selectedImg, this.item.item_id)
         .subscribe((event) => {
@@ -78,17 +73,14 @@ export class ItemFormComponent implements OnInit {
           } else if (event.type === HttpEventType.Response) {
             let response: any = event.body;
 
-            this.item = response.item as Item;
-            swal.fire(
-              this.translate.instant('SwalCreateItemAdvice'),
-              this.translate.instant('SwalThePicture') + this.item.picture + this.translate.instant('SwalCreateItemPictureUploaded'),
-              'success'
-            );
-            this.itemService
-              .getItem(this.item.item_id)
-              .subscribe((data: Item) => {
-                //this.itemService.loadImageItem(data);
-              });
+            if (response.Item !== undefined && response.Item !== null && this.selectedImg != null) {
+              this.item = response.Item as Item;
+              swal.fire(
+                this.translate.instant('SwalCreateItemAdvice'),
+                this.translate.instant('SwalThePicture') + this.selectedImg.name + this.translate.instant('SwalCreateItemPictureUploaded'),
+                'success'
+              );
+            }
           }
         });
     }
@@ -99,17 +91,22 @@ export class ItemFormComponent implements OnInit {
       (item) => {
         swal.fire(
           this.translate.instant('SwalCreateItemAdvice'),
-          this.translate.instant('SwalTheItem') + this.item.name + this.translate.instant('SwalCreateItemSuccess'),
+          this.translate.instant('SwalTheItem') +
+            this.item.name +
+            this.translate.instant('SwalCreateItemSuccess'),
           'success'
         );
       },
       (err) => {
-        this.errores = err.error.errors as string[];
-        console.error('Código del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
+        this.buttonError(err);
       }
     );
     this.router.navigate(['/items']);
+  }
+  buttonError(err: any) {
+    this.errores = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
   }
 
   public update(): void {
@@ -117,17 +114,16 @@ export class ItemFormComponent implements OnInit {
       (item) => {
         swal.fire(
           this.translate.instant('SwalUpdateItemAdvice'),
-          this.translate.instant('SwalTheItem') + item.name +  this.translate.instant('SwalUpdateItemSuccess'),
+          this.translate.instant('SwalTheItem') +
+            item.name +
+            this.translate.instant('SwalUpdateItemSuccess'),
           'success'
         );
       },
       (err) => {
-        this.errores = err.error.errors as string[];
-        console.error('Código del error desde el backend: ' + err.status);
-        console.error(err.error.errors);
+        this.buttonError(err);
       }
     );
     this.router.navigate(['/items']);
   }
-
 }

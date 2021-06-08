@@ -298,7 +298,7 @@ public class ItemRestController {
 			item.setPicture(fileName);
 			itemService.save(item);
 			response.put(reader.getString("item"), item);
-			response.put(reader.getString("message"), reader.getString("uploadImgSucc") + fileName);
+			response.put(reader.getString("message"), reader.getString("uploadImgSucc"));
 		}
 
 		return new ResponseEntity<>(response, HttpStatus.CREATED);

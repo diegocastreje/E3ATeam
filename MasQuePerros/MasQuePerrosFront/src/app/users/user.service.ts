@@ -62,7 +62,6 @@ export class UserService {
   }
 
   createUserClient(user: User): Observable<any> {
-    console.log("LLega 2")
     return this.http.post<any>(this.urlEndPoint+"Client", user).pipe(
       catchError(e => {
 

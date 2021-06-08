@@ -13,7 +13,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  public comprobarContra: String = '';
+  public comprobarContra: string = '';
   public user: User;
   public paymentMethods: PaymentMethod[] = [];
   constructor(
@@ -43,7 +43,6 @@ export class RegisterComponent implements OnInit {
     this.userService.getPayments().subscribe((paymentMethods) => {
       this.paymentMethods = paymentMethods;
     });
-    console.log(this.paymentMethods);
   }
 
   public create(): void {
@@ -52,7 +51,6 @@ export class RegisterComponent implements OnInit {
         this.user.password == this.comprobarContra &&
         this.comprobarRegistro()
       ) {
-        console.log(this.user);
         this.userService
           .createUserClient(this.user)
           .subscribe((reponse) => this.router.navigate(['/login']));
@@ -142,7 +140,6 @@ export class RegisterComponent implements OnInit {
     var parts = this.user.birth_date.split('-');
     var mydate = new Date(+parts[0], +parts[1] - 1, +parts[2]);
     const timeDiff = Math.abs(Date.now() - mydate.getTime());
-    console.log(Math.floor(timeDiff / (1000 * 3600 * 24) / 365));
     return Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
   }
 

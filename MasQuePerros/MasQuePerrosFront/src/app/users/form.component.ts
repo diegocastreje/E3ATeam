@@ -78,7 +78,6 @@ export class FormComponent implements OnInit {
     }
     this.userService.update(this.user).subscribe((user) => {
       this.router.navigate(['/users']);
-      console.log(user);
       Swal.fire(
         this.translate.instant('SwalUpdateUserAdvice'),
         this.translate.instant('SwalTheUser') +
