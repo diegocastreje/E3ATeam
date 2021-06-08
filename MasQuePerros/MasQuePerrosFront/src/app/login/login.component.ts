@@ -71,8 +71,6 @@ export class LoginComponent implements OnInit {
     element = document.getElementById('password') as HTMLInputElement;
     button = document.getElementById('eye-1');
 
-    console.log(element);
-
     if (element.type === 'password') {
       element.type = 'text';
       button?.setAttribute('class', 'bi-eye');

@@ -40,7 +40,6 @@ export class UserComponent implements OnInit {
   }
 
   aplicarFiltro(event: any) {
-    console.log(event.srcElement);
     switch (event.srcElement.name) {
       case 'fNombre':
         this.fNombre = event.srcElement.value;
