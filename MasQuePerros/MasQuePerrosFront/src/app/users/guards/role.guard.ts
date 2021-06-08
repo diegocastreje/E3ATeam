@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class RoleGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router, private translate: TranslateService) {}
+  constructor(public authService: AuthService, private router: Router, private translate: TranslateService) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,

@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
   public user: User;
   public paymentMethods: PaymentMethod[] = [];
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     public userService: UserService,
     public translate: TranslateService

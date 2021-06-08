@@ -15,7 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router, private translate: TranslateService) {}
+  constructor(public authService: AuthService, private router: Router, private translate: TranslateService) {}
 
   intercept(
     req: HttpRequest<any>,

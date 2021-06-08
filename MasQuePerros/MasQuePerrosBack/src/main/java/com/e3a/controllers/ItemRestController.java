@@ -48,7 +48,7 @@ import com.e3a.utilities.Reader;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "http://localhost:4200", "*" })
+@CrossOrigin(origins = { "http://localhost:4200", "*"})
 public class ItemRestController {
 
 	private Reader reader = new Reader();
