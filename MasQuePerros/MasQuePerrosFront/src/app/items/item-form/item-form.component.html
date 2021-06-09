@@ -75,7 +75,7 @@
               *ngIf="name.invalid && (name.dirty || name.touched)"
             >
               <div class="" *ngIf="!name.valid">
-                {{ "UsernameRequired" | translate }}
+                {{ "ItemNameRequired" | translate }}
               </div>
             </div>
           </div>
@@ -97,9 +97,10 @@
             <div
               class="alert alert-danger"
               *ngIf="amount.invalid && (amount.dirty || amount.touched)"
+              min=0
             >
               <div class="" *ngIf="!amount.valid">
-                {{ "UsernameRequired" | translate }}
+                {{ "ItemQuantityRequired" | translate }}
               </div>
             </div>
             <label for="inputPrice" class="form-label">{{
@@ -119,9 +120,10 @@
             <div
               class="alert alert-danger"
               *ngIf="price.invalid && (price.dirty || price.touched)"
+              min=0
             >
               <div class="" *ngIf="!price.valid">
-                {{ "UsernameRequired" | translate }}
+                {{ "ItemPriceRequired" | translate }}
               </div>
             </div>
             <label for="inputCategory" class="form-label">{{
@@ -143,7 +145,7 @@
               *ngIf="category.invalid && (category.dirty || category.touched)"
             >
               <div class="" *ngIf="!category.valid">
-                {{ "UsernameRequired" | translate }}
+                {{ "ItemCategoryRequired" | translate }}
               </div>
             </div>
           </div>
@@ -162,12 +164,12 @@
               value="{{ item.description }}"
               required
             >
-              <div class="alert alert-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
+            </textarea>
+            <div class="alert alert-danger" *ngIf="description.invalid && (description.dirty || description.touched)">
                 <div class="" *ngIf="!description.valid ">
-                  {{ "UsernameRequired" | translate }}
+                  {{ "ItemDescriptionRequired" | translate }}
                 </div>
               </div>
-            </textarea>
           </div>
 
           <!-- Log de Errores -->

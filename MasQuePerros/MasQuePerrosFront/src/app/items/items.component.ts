@@ -25,15 +25,23 @@ export class ItemsComponent implements OnInit {
   fPicture: string = '';
   filteredItems: Item[] = [];
 
+  public isClient: boolean = true;
+
   constructor(
     private itemService: ItemService,
     private orderService: OrderService,
     public authService: AuthService,
     private activatedRoute: ActivatedRoute,
     private translate: TranslateService
+
   ) {}
 
   ngOnInit(): void {
+    
+    if(this.authService.user?.role[0] == "ROLE_ADMIN" || this.authService.user?.role[0] == "ROLE_CLERK") {
+      this.isClient = false; 
+    }
+
     this.activatedRoute.paramMap.subscribe((params) => {
       this.itemService.getItems().subscribe((response) => {
         this.items = response;

@@ -5,6 +5,7 @@ import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/users/auth.service';
 
 @Component({
   selector: 'app-item-form',
@@ -15,6 +16,8 @@ export class ItemFormComponent implements OnInit {
   public title: string = this.translate.instant('CreateItemTitle');
 
   public titleUpdate: string = this.translate.instant('UpdateItemTitle');
+
+  public isClient: boolean = false;
 
   public cargado: boolean = false;
 
@@ -29,7 +32,7 @@ export class ItemFormComponent implements OnInit {
     private itemService: ItemService,
     public router: Router,
     public activatedRoute: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
   ) {}
 
   ngOnInit(): void {

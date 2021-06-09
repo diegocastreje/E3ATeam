@@ -172,7 +172,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let item of filteredItems">
-                  <ng-container *ngIf="item.amount > 0 && item.item_id != 1">
+                  <ng-container *ngIf="(item.amount > 0 || !isClient) && item.item_id != 1">
                     <td>
                       <img
                         class="imageSize"
