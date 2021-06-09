@@ -119,8 +119,19 @@
               class="form-control input"
               name="birth_date"
               autofocus
+              #birth_date="ngModel"
               required
             />
+          <div
+            class="alert alert-danger"
+            *ngIf="
+              birth_date.invalid && (birth_date.dirty || birth_date.touched)
+            "
+          >
+            <div class="" *ngIf="!birth_date.valid">
+              {{ "BirthDateRequired" | translate }}
+            </div>
+          </div>
           </div>
 
           <div class="form-group text-center mx-auto w-75">
