@@ -22,11 +22,11 @@ INSERT INTO users_roles (user_id, role_id) VALUES (6, 2);
 
 INSERT INTO items(name, description, amount, price, category) VALUES ('','', 0, 0, '');
 
-INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso 12kg','Pienso Marca Blanca 12kg', 20, 25, 'Comida');
-INSERT INTO items(name, description, amount, price, category) VALUES ('Pienso Premium 12kg','Pienso Marca Premium 12kg', 10, 50, 'Comida');
-INSERT INTO items(name, description, amount, price, category) VALUES ('Pelota','Pelota pequeña roja', 15, 10, 'Juguete');
-INSERT INTO items(name, description, amount, price, category) VALUES ('Collar','Collar azul grande', 10, 15, 'Accesorios');
-INSERT INTO items(name, description, amount, price, category) VALUES ('Correa','Correa negra 2m', 10, 15, 'Accesorios');
+INSERT INTO items(picture, name, description, amount, price, category) VALUES ('11ead636-5521-40ff-85e3-8d5f5d738573_piensobarato.jpg', 'Pienso 12kg','Pienso Marca Blanca 12kg', 20, 25, 'Comida');
+INSERT INTO items(picture, name, description, amount, price, category) VALUES ('96c179ec-4ca6-4399-b9f9-00bfc75cd18d_piensopremium.png', 'Pienso Premium 12kg','Pienso Marca Premium 12kg', 10, 50, 'Comida');
+INSERT INTO items(picture, name, description, amount, price, category) VALUES ('598dc8eb-3d56-4fab-97e3-0390c69104a8_pelotaroja.jpg', 'Pelota','Pelota pequeña roja', 15, 10, 'Juguete');
+INSERT INTO items(picture, name, description, amount, price, category) VALUES ('9b5ad216-cb53-4812-a371-a744e1944051_collarazul.jpg', 'Collar','Collar azul grande', 10, 15, 'Accesorios');
+INSERT INTO items(picture, name, description, amount, price, category) VALUES ('d19a4ba0-fc0a-4c40-b22d-144757c7abd7_correanegra.jpg', 'Correa','Correa negra 2m', 10, 15, 'Accesorios');
 
 INSERT INTO orders (user_id, price) VALUES (2, 60);
 INSERT INTO orders (user_id, price) VALUES (4, 250);
