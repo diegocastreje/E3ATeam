@@ -5,11 +5,9 @@ import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-<<<<<<< HEAD
 import config from '../../../assets/config/config.json';
-=======
 import { AuthService } from 'src/app/users/auth.service';
->>>>>>> 283d56e16e2d12297fd57184286983a841a5c81e
+
 
 @Component({
   selector: 'app-item-form',
@@ -19,7 +17,7 @@ import { AuthService } from 'src/app/users/auth.service';
 export class ItemFormComponent implements OnInit {
 
   rutaImg:string = config.img;
-  
+
   public title: string = this.translate.instant('CreateItemTitle');
 
   public titleUpdate: string = this.translate.instant('UpdateItemTitle');
@@ -117,7 +115,7 @@ export class ItemFormComponent implements OnInit {
         this.buttonError(err);
       }
     );
-    
+
     setTimeout(() => {
       this.router.navigate(['/items']);
     }, 300);

@@ -22,6 +22,7 @@ export class ItemsComponent implements OnInit {
 
   fName: string = '';
   fAmount: number = 0;
+  fPrice: number = 0;
   fDescription: string = '';
   fPicture: string = '';
   filteredItems: Item[] = [];
@@ -38,9 +39,9 @@ export class ItemsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    
+
     if(this.authService.user?.role[0] == "ROLE_ADMIN" || this.authService.user?.role[0] == "ROLE_CLERK") {
-      this.isClient = false; 
+      this.isClient = false;
     }
 
     this.activatedRoute.paramMap.subscribe((params) => {
@@ -96,6 +97,9 @@ export class ItemsComponent implements OnInit {
       case 'fAmount':
         this.fAmount = event.srcElement.value;
         break;
+      case 'fPrice':
+        this.fPrice = event.srcElement.value;
+        break;
       case 'fDescription':
         this.fDescription = event.srcElement.value;
         break;
@@ -121,6 +125,15 @@ export class ItemsComponent implements OnInit {
           item.description
             .toLocaleLowerCase()
             .indexOf(this.fDescription.toLocaleLowerCase()) !== -1;
+      }
+
+      if (this.fAmount && filter) {
+        filter =
+          item.amount>=this.fAmount;
+      }
+      if (this.fPrice && filter) {
+        filter =
+          item.price>=this.fPrice;
       }
 
       if (this.fPicture && filter) {
@@ -219,17 +232,9 @@ export class ItemsComponent implements OnInit {
 
     swal.fire(
       this.translate.instant('SwalItemAddedShoppingCartAdvice'),
-<<<<<<< HEAD
       this.translate.instant('SwalItemAddedShoppingCartFirst') + amount +
       this.translate.instant('SwalItemAddedShoppingCartMiddle') + item.name +
       this.translate.instant('SwalItemAddedShoppingCartLast'),
-=======
-      this.translate.instant('SwalItemAddedShoppingCartFirst') +
-        amount +
-        this.translate.instant('SwalItemAddedShoppingCartMiddle') +
-        item.name +
-        this.translate.instant('SwalItemAddedShoppingCartLast'),
->>>>>>> 283d56e16e2d12297fd57184286983a841a5c81e
       'success'
     );
   }
